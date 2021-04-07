@@ -1,13 +1,11 @@
 # Summary
 
-**Commit Number:** 7
+**Commit Number:** 8
 
 **Date:** 2021-04-07
 
-**Title:** Sonoff Models
+**Title:** 'Controller Models' complete
 
 **Description:**
 
-* Wrote emulation for Sonoff models.
-* File is tested successfully.
-* All model definitions written and tested successfully.
+'Part F - Controller Models' is now complete.
