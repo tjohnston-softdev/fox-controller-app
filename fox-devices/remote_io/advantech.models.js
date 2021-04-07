@@ -1,44 +1,33 @@
 const settings = require("./remote_io.settings");
+const modelTemplate = require("./model-template");
+const modelsArray = [];
 
-const modelsArray =
-[
-	{
-		modelType: "ADVANTECH-1",
-		commsType: "modbus",
-		ioConfigs:
-		[
-			{ioType: settings.ioTypes.status, ioPrefix: settings.ioPrefixes.DI, length: 4},
-			{ioType: settings.ioTypes.control, ioPrefix: settings.ioPrefixes.RO, length: 4},
-		],
-		totalPolls: 3,
-		pollingInterval: 180,
-		readAndWriteDeviceData: placeholder,
-		infoUrl: '/info',
-		parseDeviceInfo: placeholder,
-		maker: "Advantech"
-	},
-	{
-		modelType: "ADVANTECH-2",
-		commsType: "modbus",
-		ioConfigs:
-		[
-			{ioType: settings.ioTypes.status, ioPrefix: settings.ioPrefixes.AI, length: 4},
-			{ioType: settings.ioTypes.status, ioPrefix: settings.ioPrefixes.DI, length: 4},
-			{ioType: settings.ioTypes.control, ioPrefix: settings.ioPrefixes.DO, length: 2},
-		],
-		totalPolls: 4,
-		pollingInterval: 100,
-		readAndWriteDeviceData: placeholder,
-		infoUrl: '/info',
-		parseDeviceInfo: placeholder,
-		maker: "Advantech"
-	}
-];
+defineFirstObject();
+defineSecondObject();
+modelTemplate.addManufacturer("Advantech", modelsArray);
 
 
-function placeholder()
+
+function defineFirstObject()
 {
-	return true;
+	var modelObject = modelTemplate.createModel("ADV-1", "modbus", 3, 100);
+	
+	modelTemplate.addConfig(settings.ioTypes.status, settings.ioPrefixes.DI, 4, modelObject.ioConfigs);
+	modelTemplate.addConfig(settings.ioTypes.control, settings.ioPrefixes.RO, 4, modelObject.ioConfigs);
+	
+	modelsArray.push(modelObject);
+}
+
+
+function defineSecondObject()
+{
+	var modelObject = modelTemplate.createModel("ADV-2", "modbus", 4, 100);
+	
+	modelTemplate.addConfig(settings.ioTypes.status, settings.ioPrefixes.AI, 4, modelObject.ioConfigs);
+	modelTemplate.addConfig(settings.ioTypes.status, settings.ioPrefixes.DI, 4, modelObject.ioConfigs);
+	modelTemplate.addConfig(settings.ioTypes.control, settings.ioPrefixes.DO, 2, modelObject.ioConfigs);
+	
+	modelsArray.push(modelObject);
 }
 
 

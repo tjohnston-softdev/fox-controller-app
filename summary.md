@@ -1,13 +1,12 @@
 # Summary
 
-**Commit Number:** 4
+**Commit Number:** 5
 
 **Date:** 2021-04-07
 
-**Title:** Advantech Models
+**Title:** Model Definition Template
 
 **Description:**
 
-* Wrote emulation for Advantech Models
-* File is tested successfully.
-* Remote IO settings integration is successful.
+Restructured model object definition code to eliminate
+future redundancy.
