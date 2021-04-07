@@ -1,12 +1,12 @@
 # Summary
 
-**Commit Number:** 5
+**Commit Number:** 6
 
 **Date:** 2021-04-07
 
-**Title:** Model Definition Template
+**Title:** Moxa Models
 
 **Description:**
 
-Restructured model object definition code to eliminate
-future redundancy.
+* Wrote emulation for Moxa models.
+* File is tested successfully.
