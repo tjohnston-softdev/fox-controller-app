@@ -2,10 +2,10 @@
 
 **Test Status**
 *  F - Controller Models
-	* Moxa model testing is successful.
-	* Sonoff model definitions have not been written yet.
+	* Sonoff model testing is successful.
+	* All model definitions written and tested successfully.
 
 ---
 
-**./fox-devices/remote_io/moxa.models.js**
+**./fox-devices/remote_io/sonoff.models.js**
 * Wrote emulation for script file.
