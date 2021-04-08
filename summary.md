@@ -1,11 +1,12 @@
 # Summary
 
-**Commit Number:** 9
+**Commit Number:** 10
 
-**Date:** 2021-04-07
+**Date:** 2021-04-08
 
-**Title:** Device Settings
+**Title:** Model Name Change
 
 **Description:**
 
-Wrote emulation for device settings
+* Device objects now use real names instead of generic placeholders.
+* This is because the test script uses a real name.

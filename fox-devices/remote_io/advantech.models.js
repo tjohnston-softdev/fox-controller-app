@@ -10,7 +10,7 @@ modelTemplate.addManufacturer("Advantech", modelsArray);
 
 function defineFirstObject()
 {
-	var modelObject = modelTemplate.createModel("ADV-1", "modbus", 3, 100);
+	var modelObject = modelTemplate.createModel("WISE-4060", "modbus", 3, 100);
 	
 	modelTemplate.addConfig(settings.ioTypes.status, settings.ioPrefixes.DI, 4, modelObject.ioConfigs);
 	modelTemplate.addConfig(settings.ioTypes.control, settings.ioPrefixes.RO, 4, modelObject.ioConfigs);
@@ -21,7 +21,7 @@ function defineFirstObject()
 
 function defineSecondObject()
 {
-	var modelObject = modelTemplate.createModel("ADV-2", "modbus", 4, 100);
+	var modelObject = modelTemplate.createModel("WISE-4012", "modbus", 4, 100);
 	
 	modelTemplate.addConfig(settings.ioTypes.status, settings.ioPrefixes.AI, 4, modelObject.ioConfigs);
 	modelTemplate.addConfig(settings.ioTypes.status, settings.ioPrefixes.DI, 4, modelObject.ioConfigs);

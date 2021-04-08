@@ -9,7 +9,7 @@ modelTemplate.addManufacturer("Sonoff", modelsArray);
 
 function defineFirstObject()
 {
-	var modelObject = modelTemplate.createModel("SONOFF-1", "http", 3, 200);
+	var modelObject = modelTemplate.createModel("Sonoff TH16", "http", 3, 200);
 	
 	modelTemplate.addConfig(settings.ioTypes.status, settings.ioPrefixes.AI, 2, modelObject.ioConfigs);
 	modelTemplate.addConfig(settings.ioTypes.control, settings.ioPrefixes.RO, 1, modelObject.ioConfigs);
@@ -20,7 +20,7 @@ function defineFirstObject()
 
 function defineSecondObject()
 {
-	var modelObject = modelTemplate.createModel("SONOFF-2", "http", 1, 200);
+	var modelObject = modelTemplate.createModel("Sonoff Basic", "http", 1, 200);
 	modelTemplate.addConfig(settings.ioTypes.control, settings.ioPrefixes.RO, 1, modelObject.ioConfigs);
 	modelsArray.push(modelObject);
 }
