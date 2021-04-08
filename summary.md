@@ -1,11 +1,11 @@
 # Summary
 
-**Commit Number:** 8
+**Commit Number:** 9
 
 **Date:** 2021-04-07
 
-**Title:** 'Controller Models' complete
+**Title:** Device Settings
 
 **Description:**
 
-'Part F - Controller Models' is now complete.
+Wrote emulation for device settings
