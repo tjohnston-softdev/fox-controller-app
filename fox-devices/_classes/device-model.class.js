@@ -28,6 +28,15 @@ class StoredDevice
 }
 
 
+/*
+	set id(value)
+	{
+		if (typeof value !== "string")
+		{
+			throw new Error("Meow");
+		}
+	}
+*/
 
 
 module.exports =
