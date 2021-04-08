@@ -1,11 +1,11 @@
 # Summary
 
-**Commit Number:** 11
+**Commit Number:** 12
 
 **Date:** 2021-04-08
 
-**Title:** Model Name Change
+**Title:** StoredDevice validation.
 
 **Description:**
 
-Wrote constructor for 'Device Model - StoredDevice' class.
+Wrote most validation code for 'StoredDevice' class.
