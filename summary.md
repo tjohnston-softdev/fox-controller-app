@@ -1,11 +1,11 @@
 # Summary
 
-**Commit Number:** 12
+**Commit Number:** 13
 
 **Date:** 2021-04-08
 
-**Title:** StoredDevice validation.
+**Title:** Installed 'Validator'
 
 **Description:**
 
-Wrote most validation code for 'StoredDevice' class.
+Installed 'validator' package.
