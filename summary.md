@@ -1,11 +1,11 @@
 # Summary
 
-**Commit Number:** 13
+**Commit Number:** 14
 
 **Date:** 2021-04-08
 
-**Title:** Installed 'Validator'
+**Title:** StoredDevice class complete.
 
 **Description:**
 
-Installed 'validator' package.
+Emulation for 'StoredDevice' class is now complete.

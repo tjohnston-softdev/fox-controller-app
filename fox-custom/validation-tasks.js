@@ -1,3 +1,5 @@
+const validator = require("validator");
+
 function checkBaseObjectType(inputObj, inputDesc)
 {
 	var givenType = typeof inputObj;
@@ -133,6 +135,35 @@ function readReferenceStringValueProperty(inputObj, propName, stringArr)
 }
 
 
+
+function readIpAddressValueProperty(inputObj, propName)
+{
+	var propValue = inputObj[propName];
+	var givenType = typeof propValue;
+	var correctFormat = false;
+	
+	var flaggedMessage = "";
+	var readRes = "";
+	
+	if (givenType === "string")
+	{
+		correctFormat = validator.isIP(propValue);
+	}
+	
+	if (correctFormat === true)
+	{
+		readRes = propValue;
+	}
+	else
+	{
+		flaggedMessage = propName + " must be an IP address!";
+		throw new Error(flaggedMessage);
+	}
+	
+	return readRes;
+}
+
+
 function writePropertyTypeError(vProp, vType, vEntry, vClass)
 {
 	var writeRes = "";
@@ -181,5 +212,6 @@ module.exports =
 	readBooleanProperty: readBooleanValueProperty,
 	readNumberProperty: readNumberValueProperty,
 	readDeviceTypeProperty: readDeviceTypeValueProperty,
-	readReferenceStringProperty: readReferenceStringValueProperty
+	readReferenceStringProperty: readReferenceStringValueProperty,
+	readIpAddressProperty: readIpAddressValueProperty
 };
