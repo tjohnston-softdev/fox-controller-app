@@ -1,27 +1,45 @@
 # Changelog
 
-**Test Status**
-* G - Controller Files
-	* Device classes are recognized okay.
-	* Object base type validation passes.
-	* Since property validation is disabled for now, the tests fail.
-
----
-
 **./fox-devices/_classes/device-model.class.js**
-* Commented out property validation from 'deviceType' onwards.
-	* Only 'id' remains for now.
+* Removed setter comment.
+* Removed property input validation.
+	* Only the base type is checked.
+	* 'id' property is given a placeholder value.
 
 ---
 
 **./fox-devices/_classes/device.class.js**
-* Commented out call to 'handlePropertyValidation'
-* Removed `this.storedDevice` assignment.
-* 'ConnectedDevice' class only returns a placeholder.
-* Commented out call to `validationTasks.readStringProperty`
+* Removed 'handlePropertyValidation' function.
 
 ---
 
-**./fox-custom/validation-tasks.js readStringValueProperty**
-* Removed 'inputObj' parameter.
-* 'propValue' is now a parameter.
+**./fox-custom/validation-tasks.js - Renamed Functions**
+* 'readStringValueProperty' to 'checkStringProperty'
+* 'readBooleanValueProperty' to 'checkBooleanProperty'
+* 'readNumberValueProperty' to 'checkNumberProperty'
+* 'readDeviceTypeValueProperty' to 'checkDeviceTypeProperty'
+* 'readReferenceStringValueProperty' to 'checkReferenceStringProperty'
+* 'readIpAddressValueProperty' to 'checkIpAddressProperty'
+
+---
+
+**./fox-custom/validation-tasks.js - Function Changes**
+* writePropertyTypeError
+	* Added new parameter 'vAction'
+	* Format: `...in %vClass% during %vAction%`
+* checkStringProperty
+	* Added new parameter 'actionDesc'.
+* checkBooleanProperty, checkNumberProperty
+	* Removed 'inputObj' parameter.
+	* 'propValue' is now a parameter.
+	* Added new parameter 'actionDesc'
+* checkDeviceTypeProperty
+	* Removed 'inputObj' parameter.
+	* 'targetValue' is now a parameter.
+* checkReferenceStringProperty
+	* Removed 'propValue' parameter.
+	* 'targetValue' is now a parameter.
+* checkIpAddressProperty
+	* Removed 'inputObj' parameter.
+	* 'propValue' is now a parameter.
+

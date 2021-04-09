@@ -19,7 +19,7 @@ function checkBaseObjectType(inputObj, inputDesc)
 
 
 
-function readStringValueProperty(propName, propValue, defaultValue, className)
+function checkStringProperty(propName, propValue, defaultValue, className, actionDesc)
 {
 	var defaultType = typeof defaultValue;
 	var givenType = typeof propValue;
@@ -36,7 +36,7 @@ function readStringValueProperty(propName, propValue, defaultValue, className)
 	}
 	else
 	{
-		flaggedMessage = writePropertyTypeError(propName, "string", propValue, className);
+		flaggedMessage = writePropertyTypeError(propName, "string", propValue, className, actionDesc);
 		throw new Error(flaggedMessage);
 	}
 	
@@ -44,9 +44,8 @@ function readStringValueProperty(propName, propValue, defaultValue, className)
 }
 
 
-function readBooleanValueProperty(inputObj, propName, defaultValue, className)
+function checkBooleanProperty(propName, propValue, defaultValue, className, actionDesc)
 {
-	var propValue = inputObj[propName];
 	var flaggedMessage = "";
 	var readRes = null;
 	
@@ -60,7 +59,7 @@ function readBooleanValueProperty(inputObj, propName, defaultValue, className)
 	}
 	else
 	{
-		flaggedMessage = writePropertyTypeError(propName, "boolean", propValue, className);
+		flaggedMessage = writePropertyTypeError(propName, "boolean", propValue, className, actionDesc);
 		throw new Error(flaggedMessage);
 	}
 	
@@ -68,10 +67,9 @@ function readBooleanValueProperty(inputObj, propName, defaultValue, className)
 }
 
 
-function readNumberValueProperty(inputObj, propName, defaultValue, className)
+function checkNumberProperty(propName, propValue, defaultValue, className, actionDesc)
 {
 	var defaultNumberGiven = Number.isFinite(defaultValue);
-	var propValue = inputObj[propName];
 	var correctType = Number.isFinite(propValue);
 	var readRes = NaN;
 	
@@ -85,7 +83,7 @@ function readNumberValueProperty(inputObj, propName, defaultValue, className)
 	}
 	else
 	{
-		flaggedMessage = writePropertyTypeError(propName, "number", propValue, className);
+		flaggedMessage = writePropertyTypeError(propName, "number", propValue, className, actionDesc);
 		throw new Error(flaggedMessage);
 	}
 	
@@ -93,9 +91,8 @@ function readNumberValueProperty(inputObj, propName, defaultValue, className)
 }
 
 
-function readDeviceTypeValueProperty(inputObj, propName, remoteIoValue)
+function checkDeviceTypeProperty(propName, targetValue, remoteIoValue)
 {
-	var targetValue = inputObj[propName];
 	var flaggedMessage = "";
 	var readRes = "";
 	
@@ -113,9 +110,8 @@ function readDeviceTypeValueProperty(inputObj, propName, remoteIoValue)
 }
 
 
-function readReferenceStringValueProperty(inputObj, propName, stringArr)
+function checkReferenceStringProperty(propName, targetValue, stringArr)
 {
-	var targetValue = inputObj[propName];
 	var manufacturerExists = stringArr.includes(targetValue);
 	var flaggedMessage = "";
 	var readRes = "";
@@ -135,9 +131,8 @@ function readReferenceStringValueProperty(inputObj, propName, stringArr)
 
 
 
-function readIpAddressValueProperty(inputObj, propName)
+function checkIpAddressProperty(propName, propValue)
 {
-	var propValue = inputObj[propName];
 	var givenType = typeof propValue;
 	var correctFormat = false;
 	
@@ -163,7 +158,7 @@ function readIpAddressValueProperty(inputObj, propName)
 }
 
 
-function writePropertyTypeError(vProp, vType, vEntry, vClass)
+function writePropertyTypeError(vProp, vType, vEntry, vClass, vAction)
 {
 	var writeRes = "";
 	
@@ -175,7 +170,8 @@ function writePropertyTypeError(vProp, vType, vEntry, vClass)
 	writeRes += vEntry;
 	writeRes += " in ";
 	writeRes += vClass;
-	writeRes += " during construction";
+	writeRes += " during ";
+	writeRes += vAction;
 	
 	return writeRes;
 }
@@ -207,10 +203,10 @@ function quoteText(txt)
 module.exports =
 {
 	checkBaseObject: checkBaseObjectType,
-	readStringProperty: readStringValueProperty,
-	readBooleanProperty: readBooleanValueProperty,
-	readNumberProperty: readNumberValueProperty,
-	readDeviceTypeProperty: readDeviceTypeValueProperty,
-	readReferenceStringProperty: readReferenceStringValueProperty,
-	readIpAddressProperty: readIpAddressValueProperty
+	checkStringProp: checkStringProperty,
+	checkBooleanProp: checkBooleanProperty,
+	checkNumberProp: checkNumberProperty,
+	checkDeviceTypeProp: checkDeviceTypeProperty,
+	checkReferenceStringProp: checkReferenceStringProperty,
+	checkIpAddressProp: checkIpAddressProperty
 };

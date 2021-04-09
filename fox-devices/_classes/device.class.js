@@ -13,7 +13,6 @@ function defineConnectedDevice(storedDeviceObject)
 			
 			if (_storedDevice instanceof modelClasses.StoredDevice)
 			{
-				//handlePropertyValidation(_storedDevice, this.constructor.name);	
 				this.sample = "X";
 			}
 			else
@@ -26,13 +25,6 @@ function defineConnectedDevice(storedDeviceObject)
 	};
 	
 	return new ConnectedDevice(storedDeviceObject);
-}
-
-
-
-function handlePropertyValidation(sDevice, constructName)
-{
-	//validationTasks.readStringProperty(sDevice, "id", null, constructName);
 }
 
 
