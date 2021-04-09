@@ -2,20 +2,26 @@
 
 **Test Status**
 * G - Controller Files
-	* Started writing emulation for 'Connected Device Class' tests.
-	* So far, only object type validation is successful.
-	* Property type validation fails.
+	* Device classes are recognized okay.
+	* Object base type validation passes.
+	* Since property validation is disabled for now, the tests fail.
 
 ---
 
 **./fox-devices/_classes/device-model.class.js**
-* Added notes referring to class SET methods.
+* Commented out property validation from 'deviceType' onwards.
+	* Only 'id' remains for now.
 
 ---
 
 **./fox-devices/_classes/device.class.js**
-* Added requirement for '../../fox-custom/validation-tasks'
-* If the input object is not a 'StoredDevice', an error will be displayed.
-* Declared new function 'handlePropertyValidation'
-	* This will handle property validation.
-	* So far, only 'id' is checked.
+* Commented out call to 'handlePropertyValidation'
+* Removed `this.storedDevice` assignment.
+* 'ConnectedDevice' class only returns a placeholder.
+* Commented out call to `validationTasks.readStringProperty`
+
+---
+
+**./fox-custom/validation-tasks.js readStringValueProperty**
+* Removed 'inputObj' parameter.
+* 'propValue' is now a parameter.

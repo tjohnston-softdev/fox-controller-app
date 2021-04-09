@@ -9,7 +9,9 @@ class StoredDevice
 	{
 		validationTasks.checkBaseObject(inputDeviceObj, "device");
 		
-		this.id = validationTasks.readStringProperty(inputDeviceObj, "id", null, this.constructor.name);
+		this.id = validationTasks.readStringProperty("id", inputDeviceObj.id, null, this.constructor.name);
+		
+		/*
 		this.deviceType = validationTasks.readDeviceTypeProperty(inputDeviceObj, "deviceType", deviceSettings.deviceType.remoteIo);
 		this.maker = validationTasks.readReferenceStringProperty(inputDeviceObj, "maker", deviceSettings.listRioMakers);
 		this.model = validationTasks.readReferenceStringProperty(inputDeviceObj, "model", deviceSettings.listRioModelTypes);
@@ -22,6 +24,7 @@ class StoredDevice
 		this.macAddress = validationTasks.readStringProperty(inputDeviceObj, "macAddress", null, this.constructor.name);
 		this.isDeleted = validationTasks.readBooleanProperty(inputDeviceObj, "isDeleted", false, this.constructor.name);
 		this['__modified'] = validationTasks.readNumberProperty(inputDeviceObj, "__modified", 0, this.constructor.name);
+		*/
 		
 		return this;
 	}

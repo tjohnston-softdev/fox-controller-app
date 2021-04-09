@@ -19,10 +19,9 @@ function checkBaseObjectType(inputObj, inputDesc)
 
 
 
-function readStringValueProperty(inputObj, propName, defaultValue, className)
+function readStringValueProperty(propName, propValue, defaultValue, className)
 {
 	var defaultType = typeof defaultValue;
-	var propValue = inputObj[propName];
 	var givenType = typeof propValue;
 	var flaggedMessage = "";
 	var readRes = "";
