@@ -1,5 +1,5 @@
 const settings = require("./remote_io.settings");
-const modelTemplate = require("./model-template");
+const modelTemplate = require("../../fox-custom/model-template");
 const modelsArray = [];
 
 defineFirstObject();
