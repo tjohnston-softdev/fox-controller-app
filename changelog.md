@@ -1,20 +1,21 @@
 # Changelog
 
 **Test Status**
-* Parts E and F still pass successfully.
+* Parts E and F pass successfully.
+* G - Controller Files
+	* Device settings pass.
+	* Device classes pass.
+	* Remote IO factories pass.
+	* Remote IO index is on hold.
 
 ---
 
-**Moved Model Template File**
-* Before:
-	* ./fox-devices/remote_io/model-template.js
-* After:
-	* ./fox-custom/model-template.js
+**./fox-devices/_classes/device-model.class.js**
+* Merged 'getUpdateObject' into the 'StoredDevice' constructor.
+* handlePropertyUpdate
+	* Renamed 'parentObject' parameter to 'pObject'
 
 ---
 
-**Updated Requirement Paths**
-* ./fox-devices/remote_io/
-	* advantech.models.js
-	* moxa.models.js
-	* sonoff.models.js
+**./fox-devices/remote_io/remote-io.factories.js**
+* Renamed 'remoteIoPlaceholder' to 'factoryPlaceholder'.

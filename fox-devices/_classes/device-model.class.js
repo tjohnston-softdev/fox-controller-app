@@ -9,6 +9,7 @@ class StoredDevice
 	{
 		var conName = this.constructor.name;
 		var validContext = "construction";
+		var resultObject = null;
 		
 		validationTasks.checkBaseObject(inputDeviceObj, "device");
 		this.id = validationTasks.checkStringProp("id", inputDeviceObj.id, null, conName, validContext);
@@ -25,44 +26,38 @@ class StoredDevice
 		this.isDeleted = validationTasks.checkBooleanProp("isDeleted", inputDeviceObj.isDeleted, false, conName, validContext);
 		this.__modified = validationTasks.checkNumberProp("__modified", inputDeviceObj.__modified, 0, conName, validContext);
 		
-		return getUpdateObject(this);
+		resultObject = new Proxy(this,
+		{
+			set: handlePropertyUpdate
+		});
+		
+		return resultObject;
 	}
 }
 
 
-function getUpdateObject(cObject)
-{
-	var updateRes = new Proxy(cObject,
-	{
-		set: handlePropertyUpdate
-	});
-	
-	return updateRes;
-}
 
-
-
-function handlePropertyUpdate(parentObject, updKey, updValue)
+function handlePropertyUpdate(pObject, updKey, updValue)
 {
 	if (updKey === "id" || updKey === "deviceType" || updKey === "name" || updKey === "ipAddress" || updKey === "macAddress")
 	{
-		parentObject[updKey] = validationTasks.checkStringProp(updKey, updValue, null, "StoredDevice", "setting");
+		pObject[updKey] = validationTasks.checkStringProp(updKey, updValue, null, "StoredDevice", "setting");
 	}
 	else if (updKey === "maker" || updKey === "model")
 	{
-		parentObject[updKey] = validationTasks.checkStringProp(updKey, updValue, null, "StoredDevice", "setting");
+		pObject[updKey] = validationTasks.checkStringProp(updKey, updValue, null, "StoredDevice", "setting");
 	}
 	else if (updKey === "isEnabled" || updKey === "isDeleted")
 	{
-		parentObject[updKey] = validationTasks.checkBooleanProp(updKey, updValue, null, "StoredDevice", "setting");
+		pObject[updKey] = validationTasks.checkBooleanProp(updKey, updValue, null, "StoredDevice", "setting");
 	}
 	else if (updKey === "__modified")
 	{
-		parentObject[updKey] = validationTasks.checkNumberProp(updKey, updValue, 0, "StoredDevice", "setting");
+		pObject[updKey] = validationTasks.checkNumberProp(updKey, updValue, 0, "StoredDevice", "setting");
 	}
 	else
 	{
-		parentObject[updKey] = validationTasks.checkStringProp(updKey, updValue, "", "StoredDevice", "setting");
+		pObject[updKey] = validationTasks.checkStringProp(updKey, updValue, "", "StoredDevice", "setting");
 	}
 	
 	return true;

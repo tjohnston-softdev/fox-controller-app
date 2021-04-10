@@ -10,17 +10,17 @@ function createRemoteIoModule(inputObject)
 	
 	prepRes.maker = storedDeviceObject.maker;
 	prepRes.ipAddress = storedDeviceObject.ipAddress;
-	prepRes.disableRio = remoteIoPlaceholder;
-	prepRes.getRioDeviceProperties = remoteIoPlaceholder;
-	prepRes.registerNodeCallback = remoteIoPlaceholder;
-	prepRes.setOutputFromNode = remoteIoPlaceholder;
-	prepRes.getCommsErrors = remoteIoPlaceholder;
+	prepRes.disableRio = factoryPlaceholder;
+	prepRes.getRioDeviceProperties = factoryPlaceholder;
+	prepRes.registerNodeCallback = factoryPlaceholder;
+	prepRes.setOutputFromNode = factoryPlaceholder;
+	prepRes.getCommsErrors = factoryPlaceholder;
 	
 	return prepRes;
 }
 
 
-function remoteIoPlaceholder()
+function factoryPlaceholder()
 {
 	return true;
 }
