@@ -2,9 +2,7 @@
 
 **Test Status**
 * G - Controller Files
-	* Remote IO Factories tests all pass.
-
----
-
-**./fox-devices/remote_io/remote-io.factories.js**
-* Wrote emulation for script file.
+	* Started preparing for Remote IO Index emulation.
+	* Some tests pass due to existing file integration.
+	* Most RIO Index tests fail.
+	* 26 / 123 passed.
