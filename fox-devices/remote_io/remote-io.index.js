@@ -14,11 +14,6 @@ function initializeRemoteIoFactory()
 {
 	remoteIoDatabase.listDevices(function (listErr, listDevices)
 	{
-		if (listErr !== null)
-		{
-			console.log(listErr.message);
-		}
-		
 		runInitializationLoop(listDevices);
 		initializationComplete = true;
 		runCallbackLoop();
@@ -56,6 +51,30 @@ function crudListRemoteIoDevices(crudCallback)
 }
 
 
+function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
+{
+	remoteIoDatabase.readDeviceEntity(deviceTargetID, function (getDeviceErr, getDeviceRes)
+	{
+		if (getDeviceErr !== null)
+		{
+			return crudCallback(getDeviceErr, null);
+		}
+		else
+		{
+			return crudCallback(null, getDeviceRes);
+		}
+	});
+}
+
+
+function crudAddRemoteIoDevice(newDeviceObject, crudCallback)
+{
+	handleRioInputType(newDeviceObject, crudCallback);
+	newDeviceObject.id = "Example";
+	return crudCallback(null, true);
+}
+
+
 function runInitializationLoop(deviceArray)
 {
 	var deviceIndex = 0;
@@ -88,11 +107,40 @@ function runCallbackLoop()
 }
 
 
+function handleRioInputType(inpValue, errorCallback)
+{
+	var givenType = typeof inpValue;
+	var correctType = false;
+	var flaggedMessage = "";
+	
+	if (inpValue !== undefined && inpValue !== null && givenType === "object")
+	{
+		correctType = true;
+	}
+	else
+	{
+		flaggedMessage = "Must be an object: " + inpValue;
+		return errorCallback(new Error(flaggedMessage), null);
+	}
+}
+
+
+function handleRioMissingID(inpObject, errorCallback)
+{
+	if (typeof inpObject.id !== "string")
+	{
+		return errorCallback(new Error("ID property missing!"), null);
+	}
+}
+
+
 
 
 module.exports =
 {
 	initRemoteIoFactory: initializeRemoteIoFactory,
 	whenInitCompleted: whenInitializationComplete,
-	listRemoteIoDevices: crudListRemoteIoDevices
+	listRemoteIoDevices: crudListRemoteIoDevices,
+	addRemoteIoDevice: crudAddRemoteIoDevice,
+	getRemoteIoDevice: crudGetRemoteIoDevice
 };

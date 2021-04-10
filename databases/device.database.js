@@ -40,12 +40,64 @@ function loadDatabase(dbName)
 	}
 	
 	
+	function callCreateDevice(addInputObject, addCallback)
+	{
+		callUpdateDevice(null, addInputObject, addCallback);
+	}
+	
+	
+	function callReadDevice(targetID, readCallback)
+	{
+		var retrievedObject = null;
+		
+		loadedDatabaseObject.get(targetID, function (readErr, readRes)
+		{
+			if (readErr !== null)
+			{
+				return readCallback(readErr, null);
+			}
+			else
+			{
+				retrievedObject = JSON.parse(readRes);
+				return readCallback(null, retrievedObject);
+			}
+		});
+	}
+	
+	
+	function callUpdateDevice(targetID, updateInputObject, updateCallback)
+	{
+		var objectDefinition = "";
+		
+		if (updateInputObject === undefined)
+		{
+			return updateCallback(new Error("Missing entity"), undefined);
+		}
+		
+		updateInputObject["__modified"] = Date.now();
+		updateInputObject["id"] = targetID;
+		objectDefinition = JSON.stringify(updateInputObject);
+		
+		loadedDatabaseObject.put(targetID, objectDefinition, function (updateErr, updateRes)
+		{
+			if (updateErr !== null)
+			{
+				return updateCallback(updateErr, null);
+			}
+			else
+			{
+				return updateCallback(null, updateInputObject.id);
+			}
+		});
+	}
+	
+	
 	
 	loadRes["listDevices"] = callListDevices;
 	loadRes["listAllDevices"] = callListAllDevices;
-	loadRes["createDeviceEntity"] = placeholder;
-	loadRes["readDeviceEntity"] = placeholder;
-	loadRes["updateDeviceEntity"] = placeholder;
+	loadRes["createDeviceEntity"] = callCreateDevice;
+	loadRes["readDeviceEntity"] = callReadDevice;
+	loadRes["updateDeviceEntity"] = callUpdateDevice;
 	loadRes["deleteDeviceEntity"] = placeholder;
 	
 	return loadRes;
@@ -80,7 +132,7 @@ function addRetrievedEntry(dataObj, delStat, entryArr)
 	}
 	catch(e)
 	{
-		console.log(e.message);
+		parsedEntry = null;
 	}
 }
 
