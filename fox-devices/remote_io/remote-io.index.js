@@ -134,6 +134,12 @@ function handleRioMissingID(inpObject, errorCallback)
 }
 
 
+function rioIndexPlaceholder(cb)
+{
+	return cb(null, true);
+}
+
+
 
 
 module.exports =
@@ -142,5 +148,13 @@ module.exports =
 	whenInitCompleted: whenInitializationComplete,
 	listRemoteIoDevices: crudListRemoteIoDevices,
 	addRemoteIoDevice: crudAddRemoteIoDevice,
-	getRemoteIoDevice: crudGetRemoteIoDevice
+	getRemoteIoDevice: crudGetRemoteIoDevice,
+	modRemoteIoDevice: rioIndexPlaceholder,
+	delRemoteIoDevice: rioIndexPlaceholder,
+	getRioDeviceStatus: rioIndexPlaceholder,
+	listRiosForNode: rioIndexPlaceholder,
+	isNodeExists: rioIndexPlaceholder,
+	registerNode: rioIndexPlaceholder,
+	setDeviceOutput: rioIndexPlaceholder,
+	getIoProperties: rioIndexPlaceholder
 };

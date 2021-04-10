@@ -2,30 +2,20 @@
 
 **Test Status**
 * G - Controller Files
-	* Emulated select existing Remote IO device.
-	* Started writing emulation for adding Remote IO devices.
-	* Tests passed: 49 / 123.
-
----
-
-**./databases/device.database.js**
-* addRetrievedEntry
-	* Removed `console.log`
-	* When an error is caught, 'parsedEntry' is set to null.
-* Wrote CRUD functions:
-	* callCreateDevice
-	* callReadDevice
-	* callUpdateDevice
-* 'deleteDeviceEntity' has not been implemented yet.
+	* Added missing function placeholders for Remote IO Index.
+	* Tests passed: 59 / 123.
 
 ---
 
 **./fox-devices/remote_io/remote-io.index**
-* Removed `if (listErr !== null)` from 'initializeRemoteIoFactory'
-	* No messages will be displayed.
-* Wrote new main functions:
-	* 'crudGetRemoteIoDevice' - Retrieves existing device from database.
-	* 'crudAddRemoteIoDevice' - This stub will add a new device to the database.
-* Wrote new sub functions:
-	* 'handleRioInputType' - Validates object input type when adding or modifying devices.
-	* 'handleRioMissingID' - Validates ID string when modifying devices.
+* Wrote new function 'rioIndexPlaceholder'
+	* This is unique in that it uses a callback.
+* Added public function definitions for:
+	* modRemoteIoDevice
+	* delRemoteIoDevice
+	* getRioDeviceStatus
+	* listRiosForNode
+	* isNodeExists
+	* registerNode
+	* setDeviceOutput
+	* getIoProperties
