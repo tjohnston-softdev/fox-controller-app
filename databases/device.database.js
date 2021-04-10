@@ -46,11 +46,11 @@ function loadDatabase(dbName)
 	}
 	
 	
-	function callReadDevice(targetID, readCallback)
+	function callReadDevice(readTargetID, readCallback)
 	{
 		var retrievedObject = null;
 		
-		loadedDatabaseObject.get(targetID, function (readErr, readRes)
+		loadedDatabaseObject.get(readTargetID, function (readErr, readRes)
 		{
 			if (readErr !== null)
 			{
@@ -65,20 +65,17 @@ function loadDatabase(dbName)
 	}
 	
 	
-	function callUpdateDevice(targetID, updateInputObject, updateCallback)
+	function callUpdateDevice(updateTargetID, updateInputObject, updateCallback)
 	{
 		var objectDefinition = "";
 		
-		if (updateInputObject === undefined)
-		{
-			return updateCallback(new Error("Missing entity"), undefined);
-		}
+		handleUpdateInputError(updateInputObject, updateCallback);
 		
 		updateInputObject["__modified"] = Date.now();
-		updateInputObject["id"] = targetID;
+		updateInputObject["id"] = updateTargetID;
 		objectDefinition = JSON.stringify(updateInputObject);
 		
-		loadedDatabaseObject.put(targetID, objectDefinition, function (updateErr, updateRes)
+		loadedDatabaseObject.put(updateTargetID, objectDefinition, function (updateErr, updateRes)
 		{
 			if (updateErr !== null)
 			{
@@ -92,13 +89,57 @@ function loadDatabase(dbName)
 	}
 	
 	
+	function callDeleteDevice(delTargetID, delPerm, deleteCallback)
+	{
+		if (delPerm === true)
+		{
+			loadedDatabaseObject.del(delTargetID, deleteCallback);
+		}
+		else
+		{
+			getDeviceForDeletion(delTargetID, deleteCallback);
+		}
+	}
+	
+	
+	function getDeviceForDeletion(delTgtID, getDeleteCallback)
+	{
+		callReadDevice(delTgtID, function (getDeleteErr, getDeleteRes)
+		{
+			if (getDeleteErr !== null)
+			{
+				return getDeleteCallback(getDeleteErr, null);
+			}
+			else
+			{
+				getDeleteRes.isDeleted = true;
+				updateDeleteStatus(delTgtID, getDeleteRes, getDeleteCallback);
+			}
+		});
+	}
+	
+	
+	function updateDeleteStatus(delTgt, delProps, deleteStatusCallback)
+	{
+		callUpdateDevice(delTgt, delProps, function (statUpdateErr, statUpdateRes)
+		{
+			if (statUpdateErr !== null)
+			{
+				return deleteStatusCallback(statUpdateErr, null);
+			}
+			else
+			{
+				return deleteStatusCallback(null, true);
+			}
+		});
+	}
 	
 	loadRes["listDevices"] = callListDevices;
 	loadRes["listAllDevices"] = callListAllDevices;
 	loadRes["createDeviceEntity"] = callCreateDevice;
 	loadRes["readDeviceEntity"] = callReadDevice;
 	loadRes["updateDeviceEntity"] = callUpdateDevice;
-	loadRes["deleteDeviceEntity"] = placeholder;
+	loadRes["deleteDeviceEntity"] = callDeleteDevice;
 	
 	return loadRes;
 }
@@ -137,9 +178,12 @@ function addRetrievedEntry(dataObj, delStat, entryArr)
 }
 
 
-function placeholder()
+function handleUpdateInputError(inpObj, errorCallback)
 {
-	return true;
+	if (inpObj === undefined)
+	{
+		return errorCallback(new Error("Missing entity"), null);
+	}
 }
 
 

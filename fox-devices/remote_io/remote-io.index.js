@@ -2,6 +2,8 @@ const deviceModelClass = require("../_classes/device-model.class");
 const deviceSettings = require("../device.settings");
 const rioFactories = require('./remote-io.factories');
 const databaseLibrary = require("../../databases/device.database");
+const rioIntl = require("../../fox-custom/rio-intl");
+const rioModify = require("../../fox-custom/rio-modify");
 const remoteIoDatabase = databaseLibrary("remote-io.db");
 
 var initializationCallbacks = [];
@@ -14,9 +16,9 @@ function initializeRemoteIoFactory()
 {
 	remoteIoDatabase.listDevices(function (listErr, listDevices)
 	{
-		runInitializationLoop(listDevices);
+		rioIntl.runInitializationLoop(listDevices, runningIoDevices);
 		initializationComplete = true;
-		runCallbackLoop();
+		rioIntl.runCallbackLoop(initializationCallbacks);
 	});
 }
 
@@ -70,8 +72,11 @@ function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
 function crudAddRemoteIoDevice(newDeviceObject, crudCallback)
 {
 	// Todo
-	handleRioInputType(newDeviceObject, crudCallback);
+	var newStoredDeviceObject = null;
+	
+	rioModify.checkInputType(newDeviceObject, crudCallback);
 	newDeviceObject.id = "Example";
+	rioModify.setMaker(newDeviceObject);
 	return crudCallback(null, true);
 }
 
@@ -129,66 +134,6 @@ function programGetIoProperties(deviceTargetID)
 {
 	// Todo
 	return {};
-}
-
-
-
-function runInitializationLoop(deviceArray)
-{
-	var deviceIndex = 0;
-	var currentDevice = {};
-	var currentModule = null;
-	
-	for (deviceIndex = 0; deviceIndex < deviceArray.length; deviceIndex = deviceIndex + 1)
-	{
-		currentDevice = deviceArray[deviceIndex];
-		currentModule = new deviceModelClass.StoredDevice(currentDevice);
-		
-		if (currentDevice.isEnabled === true && currentModule !== undefined)
-		{
-			runningIoDevices[currentDevice.id] = currentModule;
-		}
-	}
-}
-
-
-function runCallbackLoop()
-{
-	var callbackIndex = 0;
-	var currentCallback = null;
-	
-	for (callbackIndex = 0; callbackIndex < initializationCallbacks.length; callbackIndex = callbackIndex + 1)
-	{
-		currentCallback = initializationCallbacks[callbackIndex];
-		currentCallback();
-	}
-}
-
-
-function handleRioInputType(inpValue, errorCallback)
-{
-	var givenType = typeof inpValue;
-	var correctType = false;
-	var flaggedMessage = "";
-	
-	if (inpValue !== undefined && inpValue !== null && givenType === "object")
-	{
-		correctType = true;
-	}
-	else
-	{
-		flaggedMessage = "Must be an object: " + inpValue;
-		return errorCallback(new Error(flaggedMessage), null);
-	}
-}
-
-
-function handleRioMissingID(inpObject, errorCallback)
-{
-	if (typeof inpObject.id !== "string")
-	{
-		return errorCallback(new Error("ID property missing!"), null);
-	}
 }
 
 
