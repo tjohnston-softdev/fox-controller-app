@@ -38,10 +38,44 @@ function setRioMakerProperty(inpObject)
 }
 
 
+function createStoredDeviceObject(deviceData)
+{
+	var createRes = {object: null, errorMessage: ""};
+	
+	try
+	{
+		createRes.object = new deviceModelClass.StoredDevice(deviceData);
+	}
+	catch(e)
+	{
+		createRes.errorMessage = e.message;
+	}
+	
+	return createRes;
+}
+
+
+function checkStoredDeviceCreationSuccessful(sdCreate, errorCallback)
+{
+	var createSuccessful = false;
+	
+	if (sdCreate.object !== null)
+	{
+		createSuccessful = true;
+	}
+	else
+	{
+		return errorCallback(new Error(sdCreate.errorMessage), null);
+	}
+}
+
+
 
 module.exports =
 {
 	checkInputType: checkRioInputType,
 	checkMissingID: checkRioMissingID,
-	setMaker: setRioMakerProperty
+	setMaker: setRioMakerProperty,
+	createStoredDevice: createStoredDeviceObject,
+	checkCreateSuccessful: checkStoredDeviceCreationSuccessful
 };

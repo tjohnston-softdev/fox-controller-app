@@ -1,44 +1,41 @@
 # Changelog
 
 **./databases/device.database.js**
+* Wrote new function 'getEntryID'
+	* Generates ID for new database entries.
+	* When modifying an existing entry, the ID will be retained.
 * callUpdateDevice
-	* Moved `if (updateInputObject === undefined)` to its own function 'handleUpdateInputError'
-	* Renamed 'targetID' parameter to 'updateTargetID'
-* callReadDevice
-	* Renamed 'targetID' parameter to 'readTargetID'
-* Wrote new functions:
-	* 'callDeleteDevice' - Coordinates deletion of Remote IO device from database.
-	* 'getDeviceForDeletion' - Retrieves device object so it can be marked for deletion.
-	* 'updateDeleteStatus' - Updates Remote IO delete status.
-* Removed 'placeholder' function.
-
----
-
-**./fox-custom/**
-* New files:
-	* 'rio-intl.js' - Functions for Remote IO Index initialization.
-	* 'rio-modify.js' - Functions for adding or updating Remote IO devices via Database.
-
----
-
-**./fox-devices/remote_io/remote-io.index.js**
-* Added requirements for:
-	* ../../fox-custom/rio-intl.js
-	* ../../fox-custom/rio-modify.js
-* Moved functions to 'rioIntl'
-	* 'runInitializationLoop' as 'runDeviceInitializationLoop'
-	* 'runCallbackLoop' as 'runInitializationCallbackLoop'
-* Moved functions to 'rioModify'
-	* 'handleRioInputType' as 'checkRioInputType', called publicly as 'checkInputType'
-	* 'handleRioMissingID' as 'checkRioMissingID', called publicly as 'checkMissingID'
+	* Declared new variable 'preparedID'
+		* Assigned using 'getEntryID'
+		* Used for 'updateInputObject.id'
+	* Replaced 'updateTargetID' with 'preparedID' when calling 'put'
 
 ---
 
 **./fox-devices/remote_io/remote-io.index.js crudAddRemoteIoDevice**
-* Declared new variable 'newStoredDeviceObject'
-	* Has not been assigned yet.
-	* This will be a prepared 'StoredDevice'
-* The 'maker' property is set.
-	* Done by calling 'rioModify.setMaker'
-	* If a string is not given, it will retrieve the 'maker' via the model name.
-* Not done yet.
+* Renamed:
+	* 'newStoredDeviceObject' variable to 'newStoredDevice'
+	* 'newDeviceObject' parameter to 'inpDeviceObject'
+* Added functionality:
+	* Create 'StoredDevice' object.
+	* Attempt to add object to database.
+* Not complete yet.
+
+---
+
+**./fox-devices/_classes/device-model.class.js handlePropertyUpdate**
+* IF structure:
+	* Commented out first call to 'checkStringProp'
+	* This will be temporary.
+	* Value will be used as-is without validation.
+
+---
+
+**./fox-custom/rio-modify.js - New functions**
+* createStoredDeviceObject
+	* Attempts to create a 'StoredDevice' object.
+	* Uses a Try-Catch structure.
+	* Does not throw an error in itself.
+* checkStoredDeviceCreationSuccessful
+	* Checks whether the 'StoredDevice' object was created successfully.
+	* If not, an error will be thrown.

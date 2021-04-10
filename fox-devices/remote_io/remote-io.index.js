@@ -11,7 +11,6 @@ var initializationComplete = false;
 var runningIoDevices = [];
 
 
-
 function initializeRemoteIoFactory()
 {
 	remoteIoDatabase.listDevices(function (listErr, listDevices)
@@ -69,15 +68,28 @@ function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
 }
 
 
-function crudAddRemoteIoDevice(newDeviceObject, crudCallback)
+function crudAddRemoteIoDevice(inpDeviceObject, crudCallback)
 {
 	// Todo
-	var newStoredDeviceObject = null;
+	var newStoredDevice = null;
 	
-	rioModify.checkInputType(newDeviceObject, crudCallback);
-	newDeviceObject.id = "Example";
-	rioModify.setMaker(newDeviceObject);
-	return crudCallback(null, true);
+	rioModify.checkInputType(inpDeviceObject, crudCallback);
+	inpDeviceObject.id = "Example";
+	rioModify.setMaker(inpDeviceObject);
+	newStoredDevice = rioModify.createStoredDevice(inpDeviceObject);
+	rioModify.checkCreateSuccessful(newStoredDevice, crudCallback);
+	
+	remoteIoDatabase.createDeviceEntity(newStoredDevice.object, function (addDeviceErr, addDeviceRes)
+	{
+		if (addDeviceErr !== null)
+		{
+			return crudCallback(addDeviceErr, null);
+		}
+		else
+		{
+			return crudCallback(null, addDeviceRes);
+		}
+	});
 }
 
 

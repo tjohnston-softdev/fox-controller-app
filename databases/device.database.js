@@ -67,15 +67,16 @@ function loadDatabase(dbName)
 	
 	function callUpdateDevice(updateTargetID, updateInputObject, updateCallback)
 	{
+		var preparedID = getEntryID(updateTargetID, dbHash);
 		var objectDefinition = "";
 		
 		handleUpdateInputError(updateInputObject, updateCallback);
 		
 		updateInputObject["__modified"] = Date.now();
-		updateInputObject["id"] = updateTargetID;
+		updateInputObject["id"] = preparedID;
 		objectDefinition = JSON.stringify(updateInputObject);
 		
-		loadedDatabaseObject.put(updateTargetID, objectDefinition, function (updateErr, updateRes)
+		loadedDatabaseObject.put(preparedID, objectDefinition, function (updateErr, updateRes)
 		{
 			if (updateErr !== null)
 			{
@@ -175,6 +176,26 @@ function addRetrievedEntry(dataObj, delStat, entryArr)
 	{
 		parsedEntry = null;
 	}
+}
+
+
+function getEntryID(existingValue, hashObj)
+{
+	var existType = typeof existingValue;
+	var randomSeed = null;
+	var resultID = null;
+	
+	if (existType === "string" && existingValue.length > 0)
+	{
+		resultID = existingValue;
+	}
+	else
+	{
+		randomSeed = Date.now();
+		resultID = hashObj.encode(randomSeed);
+	}
+	
+	return resultID;
 }
 
 

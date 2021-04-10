@@ -41,7 +41,8 @@ function handlePropertyUpdate(pObject, updKey, updValue)
 {
 	if (updKey === "id" || updKey === "deviceType" || updKey === "name" || updKey === "ipAddress" || updKey === "macAddress")
 	{
-		pObject[updKey] = validationTasks.checkStringProp(updKey, updValue, null, "StoredDevice", "setting");
+		//pObject[updKey] = validationTasks.checkStringProp(updKey, updValue, null, "StoredDevice", "setting");
+		pObject[updKey] = updValue;
 	}
 	else if (updKey === "maker" || updKey === "model")
 	{
