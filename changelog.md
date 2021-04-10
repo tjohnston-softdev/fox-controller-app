@@ -1,21 +1,26 @@
 # Changelog
 
 **Test Status**
-* Parts E and F pass successfully.
 * G - Controller Files
-	* Device settings pass.
-	* Device classes pass.
-	* Remote IO factories pass.
-	* Remote IO index is on hold.
+	* Even writing the correct function stubs makes a signifiant difference in pass rates.
+	* Most of the functionality has not been written yet.
+	* Tests passed: 86 / 123.
 
 ---
 
-**./fox-devices/_classes/device-model.class.js**
-* Merged 'getUpdateObject' into the 'StoredDevice' constructor.
-* handlePropertyUpdate
-	* Renamed 'parentObject' parameter to 'pObject'
-
----
-
-**./fox-devices/remote_io/remote-io.factories.js**
-* Renamed 'remoteIoPlaceholder' to 'factoryPlaceholder'.
+**./fox-devices/remote_io/remote-io-index.js**
+* Wrote stubs for missing main functions.
+	* These are properly named functions with the correct parameters.
+	* Not just generic placeholders.
+	* Includes "Todo" comment.
+	* Functions are:
+		* crudUpdateRemoteIoDevice
+		* crudDeleteRemoteIoDevice
+		* getRemoteIoStatus
+		* programListRemoteIoDevices
+		* programCheckNodeExists
+		* programRegisterNode
+		* programSetDeviceOutput
+		* programGetIoProperties
+* Added "Todo" comment to 'crudAddRemoteIoDevice'
+* Removed 'rioIndexPlaceholder' function.

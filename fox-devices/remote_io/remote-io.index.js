@@ -69,10 +69,68 @@ function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
 
 function crudAddRemoteIoDevice(newDeviceObject, crudCallback)
 {
+	// Todo
 	handleRioInputType(newDeviceObject, crudCallback);
 	newDeviceObject.id = "Example";
 	return crudCallback(null, true);
 }
+
+
+function crudUpdateRemoteIoDevice(updatedDeviceObject, crudCallback)
+{
+	// Todo
+	return crudCallback(null, true);
+}
+
+
+function crudDeleteRemoteIoDevice(deviceTargetID, deletePermanent, crudCallback)
+{
+	// Todo
+	return crudCallback(null, true);
+}
+
+
+function getRemoteIoStatus(deviceTargetID)
+{
+	// Todo
+	return {};
+}
+
+
+function programListRemoteIoDevices(targetManufacturer, listCallback)
+{
+	// Todo
+	return listCallback(null, []);
+}
+
+
+function programCheckNodeExists(deviceTargetID)
+{
+	// Todo
+	return true;
+}
+
+
+function programRegisterNode(ioType, nodeConfig, registerCallback)
+{
+	// Todo
+	return registerCallback(null, {});
+}
+
+
+function programSetDeviceOutput(deviceTargetID, ioPrefix, ioIndex, outputValue)
+{
+	// Todo
+	return {};
+}
+
+
+function programGetIoProperties(deviceTargetID)
+{
+	// Todo
+	return {};
+}
+
 
 
 function runInitializationLoop(deviceArray)
@@ -134,13 +192,6 @@ function handleRioMissingID(inpObject, errorCallback)
 }
 
 
-function rioIndexPlaceholder(cb)
-{
-	return cb(null, true);
-}
-
-
-
 
 module.exports =
 {
@@ -149,12 +200,12 @@ module.exports =
 	listRemoteIoDevices: crudListRemoteIoDevices,
 	addRemoteIoDevice: crudAddRemoteIoDevice,
 	getRemoteIoDevice: crudGetRemoteIoDevice,
-	modRemoteIoDevice: rioIndexPlaceholder,
-	delRemoteIoDevice: rioIndexPlaceholder,
-	getRioDeviceStatus: rioIndexPlaceholder,
-	listRiosForNode: rioIndexPlaceholder,
-	isNodeExists: rioIndexPlaceholder,
-	registerNode: rioIndexPlaceholder,
-	setDeviceOutput: rioIndexPlaceholder,
-	getIoProperties: rioIndexPlaceholder
+	modRemoteIoDevice: crudUpdateRemoteIoDevice,
+	delRemoteIoDevice: crudDeleteRemoteIoDevice,
+	getRioDeviceStatus: getRemoteIoStatus,
+	listRiosForNode: programListRemoteIoDevices,
+	isNodeExists: programCheckNodeExists,
+	registerNode: programRegisterNode,
+	setDeviceOutput: programSetDeviceOutput,
+	getIoProperties: programGetIoProperties
 };
