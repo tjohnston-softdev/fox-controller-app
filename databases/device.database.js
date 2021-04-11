@@ -30,7 +30,7 @@ function loadDatabase(dbName)
 		
 		readStreamObject.on("data", function (currentEntry)
 		{
-			addRetrievedEntry(currentEntry);
+			addRetrievedEntry(currentEntry, deleteStatus, retrievedEntries);
 		});
 		
 		readStreamObject.on("end", function()
@@ -76,9 +76,9 @@ function loadDatabase(dbName)
 		updateInputObject["id"] = preparedID;
 		objectDefinition = JSON.stringify(updateInputObject);
 		
-		loadedDatabaseObject.put(preparedID, objectDefinition, function (updateErr, updateRes)
+		loadedDatabaseObject.put(preparedID, objectDefinition, function (updateErr)
 		{
-			if (updateErr !== null)
+			if (updateErr !== undefined && updateErr !== null)
 			{
 				return updateCallback(updateErr, null);
 			}

@@ -70,7 +70,6 @@ function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
 
 function crudAddRemoteIoDevice(inpDeviceObject, crudCallback)
 {
-	// Todo
 	var newStoredDevice = null;
 	
 	rioModify.checkInputType(inpDeviceObject, crudCallback);
