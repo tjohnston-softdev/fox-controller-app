@@ -1,24 +1,14 @@
 # Changelog
 
-**./fox-custom/**
-* New files
-	* 'create-folder.js' - Used to create folders.
-	* 'database-help.js' - Contains secondary functions for database usage.
+**Test Status**
+* G - Controller Files
+	* Device settings tests pass normally.
+	* Device class tests pass normally.
+	* Index tests remain unchanged.
 
 ---
 
-**./databases/device.database.js**
-* Added requirements for:
-	* ../fox-custom/create-folder
-	* ../fox-custom/database-help
-* Moved the 'createDatabaseFolder' function to 'createFolder'
-* Moved the following functions to 'databaseHelp'
-	* 'getEntryID' as 'generateEntryID'
-	* 'handleUpdateInputError' as 'checkUpdateInputEntered'
-	* 'addRetrievedEntry' can stay for now.
-
----
-
-**./fox-devices/remote_io/remote-io-index.js**
-* Added "Todo: Disable" to 'crudDeleteRemoteIoDevice'
-* Added "Todo: Enable" to 'crudAddRemoteIoDevice'
+**./fox-devices/_classes/device-model.class.js handlePropertyUpdate**
+* Revised IF structure for 'id' property:
+	* If non-null, validate required string as normal.
+	* Otherwise, set to null without error.

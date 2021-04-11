@@ -39,10 +39,17 @@ class StoredDevice
 
 function handlePropertyUpdate(pObject, updKey, updValue)
 {
-	if (updKey === "id" || updKey === "deviceType" || updKey === "name" || updKey === "ipAddress" || updKey === "macAddress")
+	if (updKey === "id" && updValue !== null)
 	{
-		//pObject[updKey] = validationTasks.checkStringProp(updKey, updValue, null, "StoredDevice", "setting");
-		pObject[updKey] = updValue;
+		pObject[updKey] = validationTasks.checkStringProp(updKey, updValue, null, "StoredDevice", "setting");
+	}
+	else if (updKey === "id")
+	{
+		pObject[updKey] = null;
+	}
+	else if (updKey === "deviceType" || updKey === "name" || updKey === "ipAddress" || updKey === "macAddress")
+	{
+		pObject[updKey] = validationTasks.checkStringProp(updKey, updValue, null, "StoredDevice", "setting");
 	}
 	else if (updKey === "maker" || updKey === "model")
 	{
