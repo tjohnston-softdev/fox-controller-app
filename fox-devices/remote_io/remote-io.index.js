@@ -95,14 +95,28 @@ function crudAddRemoteIoDevice(inpDeviceObject, crudCallback)
 function crudUpdateRemoteIoDevice(updatedDeviceObject, crudCallback)
 {
 	// Todo
-	return crudCallback(null, true);
+	var modifiedStoredDevice = null;
+	var localID = null;
+	
+	rioModify.checkInputType(inpDeviceObject, crudCallback);
+	rioModify.checkMissingID(inpDeviceObject, crudCallback);
+	localID = inpDeviceObject.id;
 }
 
 
 function crudDeleteRemoteIoDevice(deviceTargetID, deletePermanent, crudCallback)
 {
-	// Todo
-	return crudCallback(null, true);
+	remoteIoDatabase.deleteDeviceEntity(deviceTargetID, deletePermanent, function (deleteDeviceErr)
+	{
+		if (deleteDeviceErr !== null)
+		{
+			return crudCallback(deleteDeviceErr, null);
+		}
+		else
+		{
+			return crudCallback(null, true);
+		}
+	});
 }
 
 
