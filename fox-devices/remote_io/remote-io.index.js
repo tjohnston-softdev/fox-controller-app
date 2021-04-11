@@ -70,6 +70,7 @@ function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
 
 function crudAddRemoteIoDevice(inpDeviceObject, crudCallback)
 {
+	// Todo: Enable
 	var newStoredDevice = null;
 	
 	rioModify.checkInputType(inpDeviceObject, crudCallback);
@@ -106,6 +107,7 @@ function crudUpdateRemoteIoDevice(updatedDeviceObject, crudCallback)
 
 function crudDeleteRemoteIoDevice(deviceTargetID, deletePermanent, crudCallback)
 {
+	// Todo: Disable
 	remoteIoDatabase.deleteDeviceEntity(deviceTargetID, deletePermanent, function (deleteDeviceErr)
 	{
 		if (deleteDeviceErr !== null)

@@ -2,8 +2,10 @@ const path = require("path");
 const fs = require("fs");
 const level = require("level");
 const hashGen = require("hashids");
+const createFolder = require("../fox-custom/create-folder");
+const databaseHelp = require("../fox-custom/database-help");
 const databaseRoot = "../fox-dbs";
-createDatabaseFolder(databaseRoot);
+createFolder(databaseRoot);
 
 
 function loadDatabase(dbName)
@@ -13,7 +15,7 @@ function loadDatabase(dbName)
 	var loadedDatabaseObject = null;
 	var loadRes = {};
 	
-	createDatabaseFolder(dbFolderPath);
+	createFolder(dbFolderPath);
 	loadedDatabaseObject = level(dbFolderPath);
 	
 	
@@ -67,10 +69,10 @@ function loadDatabase(dbName)
 	
 	function callUpdateDevice(updateTargetID, updateInputObject, updateCallback)
 	{
-		var preparedID = getEntryID(updateTargetID, dbHash);
+		var preparedID = databaseHelp.generateID(updateTargetID, dbHash);
 		var objectDefinition = "";
 		
-		handleUpdateInputError(updateInputObject, updateCallback);
+		databaseHelp.checkUpdateInput(updateInputObject, updateCallback);
 		
 		updateInputObject["__modified"] = Date.now();
 		updateInputObject["id"] = preparedID;
@@ -146,19 +148,6 @@ function loadDatabase(dbName)
 }
 
 
-
-function createDatabaseFolder(targetPath)
-{
-	var folderOpts = {recursive: true};
-	var folderExists = fs.existsSync(targetPath);
-	
-	if (folderExists !== true)
-	{
-		fs.mkdirSync(targetPath, folderOpts);
-	}
-}
-
-
 function addRetrievedEntry(dataObj, delStat, entryArr)
 {
 	var parsedEntry = {};
@@ -175,35 +164,6 @@ function addRetrievedEntry(dataObj, delStat, entryArr)
 	catch(e)
 	{
 		parsedEntry = null;
-	}
-}
-
-
-function getEntryID(existingValue, hashObj)
-{
-	var existType = typeof existingValue;
-	var randomSeed = null;
-	var resultID = null;
-	
-	if (existType === "string" && existingValue.length > 0)
-	{
-		resultID = existingValue;
-	}
-	else
-	{
-		randomSeed = Date.now();
-		resultID = hashObj.encode(randomSeed);
-	}
-	
-	return resultID;
-}
-
-
-function handleUpdateInputError(inpObj, errorCallback)
-{
-	if (inpObj === undefined)
-	{
-		return errorCallback(new Error("Missing entity"), null);
 	}
 }
 
