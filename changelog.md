@@ -1,16 +1,8 @@
 # Changelog
 
-**Test Status**
-* G - Controller Files
-	* Remote IO devices can now be deleted.
-	* Tests passed: 94 / 123
-
----
-
 **./fox-devices/remote_io/remote-io.index.js**
-* crudUpdateRemoteIoDevice
-	* Declared local variables.
-	* Added input validation.
-	* Save object ID.
-	* Still a work-in-progress.
-* 'crudDeleteRemoteIoDevice' is complete.
+* Wrote result object for 'getRemoteIoStatus'
+	* Uses the 'statusRes' variable.
+	* Returned by the function.
+	* For now, all devices are assumed to be running.
+	* This function is still incomplete.

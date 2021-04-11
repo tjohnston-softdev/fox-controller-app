@@ -123,7 +123,8 @@ function crudDeleteRemoteIoDevice(deviceTargetID, deletePermanent, crudCallback)
 function getRemoteIoStatus(deviceTargetID)
 {
 	// Todo
-	return {};
+	var statusRes = {id: deviceTargetID, isRunning: true};
+	return statusRes;
 }
 
 
