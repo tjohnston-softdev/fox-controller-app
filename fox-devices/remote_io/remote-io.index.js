@@ -142,7 +142,17 @@ function programSetDeviceOutput(deviceTargetID, ioPrefix, ioIndex, outputValue)
 function programGetIoProperties(deviceTargetID)
 {
 	// Todo
-	return {};
+	var targetRunning = rioProgram.checkDeviceRunning(deviceTargetID, runningIoDevices);
+	var targetObject = null;
+	var progPropsRes = {};
+	
+	if (targetRunning === true)
+	{
+		targetObject = runningIoDevices[deviceTargetID];
+		progPropsRes = targetObject.getRioDeviceProperties();
+	}
+	
+	return progPropsRes;
 }
 
 

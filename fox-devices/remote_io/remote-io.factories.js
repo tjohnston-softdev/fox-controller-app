@@ -6,19 +6,22 @@ const modelClass = require("../_classes/device-model.class");
 function createRemoteIoModule(inputObject)
 {
 	var storedDeviceObject = new modelClass.StoredDevice(inputObject);
+	var connectedDeviceObject = deviceClass.ConnectedDevice(storedDeviceObject);
 	var prepRes = {};
 	
 	
 	function disableRemoteIo()
 	{
-		return true;
+		var disabled = true;
+		return disabled;
 	}
 	
 	
 	function getRemoteIoDeviceProperties()
 	{
 		// Todo
-		return true;
+		var retrievedProperties = connectedDeviceObject.getRioProperties();
+		return retrievedProperties;
 	}
 	
 	function registerRemoteIoNodeCallback()
