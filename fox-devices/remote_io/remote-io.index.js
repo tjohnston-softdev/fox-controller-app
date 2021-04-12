@@ -71,37 +71,14 @@ function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
 function crudAddRemoteIoDevice(inpDeviceObject, crudCallback)
 {
 	// Todo: Enable
-	var newStoredDevice = null;
-	
-	rioModify.checkInputType(inpDeviceObject, crudCallback);
-	inpDeviceObject.id = "Example";
-	rioModify.setMaker(inpDeviceObject);
-	newStoredDevice = rioModify.createStoredDevice(inpDeviceObject);
-	rioModify.checkCreateSuccessful(newStoredDevice, crudCallback);
-	
-	remoteIoDatabase.createDeviceEntity(newStoredDevice.object, function (addDeviceErr, addDeviceRes)
-	{
-		if (addDeviceErr !== null)
-		{
-			return crudCallback(addDeviceErr, null);
-		}
-		else
-		{
-			return crudCallback(null, addDeviceRes);
-		}
-	});
+	rioModify.addNewDevice(inpDeviceObject, remoteIoDatabase, runningIoDevices, crudCallback);
 }
 
 
 function crudUpdateRemoteIoDevice(updatedDeviceObject, crudCallback)
 {
 	// Todo
-	var modifiedStoredDevice = null;
-	var localID = null;
-	
-	rioModify.checkInputType(inpDeviceObject, crudCallback);
-	rioModify.checkMissingID(inpDeviceObject, crudCallback);
-	localID = inpDeviceObject.id;
+	rioModify.updateExistingDevice(updatedDeviceObject, remoteIoDatabase, runningIoDevices, crudCallback);
 }
 
 

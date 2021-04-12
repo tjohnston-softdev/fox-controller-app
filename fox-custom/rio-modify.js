@@ -2,6 +2,45 @@ const deviceModelClass = require("../fox-devices/_classes/device-model.class");
 const deviceSettings = require("../fox-devices/device.settings");
 
 
+
+function addNewDeviceEntry(inpDeviceObj, rioDatabase, runDeviceList, addNewCallback)
+{
+	var newStoredDevice = null;
+	
+	checkRioInputType(inpDeviceObj, addNewCallback);
+	inpDeviceObj.id = "Example";
+	setRioMakerProperty(inpDeviceObj);
+	newStoredDevice = createStoredDeviceObject(inpDeviceObj);
+	checkStoredDeviceCreationSuccessful(newStoredDevice, addNewCallback);
+	
+	rioDatabase.createDeviceEntity(newStoredDevice.object, function (addDeviceErr, addDeviceRes)
+	{
+		if (addDeviceErr !== null)
+		{
+			return addNewCallback(addDeviceErr, null);
+		}
+		else
+		{
+			return addNewCallback(null, addDeviceRes);
+		}
+	});
+}
+
+
+
+function updateExistingDeviceEntry(updatedDeviceObj, rioDatabase, runDeviceList, updateExistingCallback)
+{
+	var modifiedStoredDevice = null;
+	var localID = null;
+	
+	checkRioInputType(inpDeviceObj, addNewCallback);
+	checkRioMissingID(inpDeviceObj, addNewCallback);
+	localID = inpDeviceObject.id;
+	
+	return updateExistingCallback(null, true);
+}
+
+
 function checkRioInputType(inpValue, errorCallback)
 {
 	var givenType = typeof inpValue;
@@ -73,9 +112,6 @@ function checkStoredDeviceCreationSuccessful(sdCreate, errorCallback)
 
 module.exports =
 {
-	checkInputType: checkRioInputType,
-	checkMissingID: checkRioMissingID,
-	setMaker: setRioMakerProperty,
-	createStoredDevice: createStoredDeviceObject,
-	checkCreateSuccessful: checkStoredDeviceCreationSuccessful
+	addNewDevice: addNewDeviceEntry,
+	updateExistingDevice: updateExistingDeviceEntry
 };
