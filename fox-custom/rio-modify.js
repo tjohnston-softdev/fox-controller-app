@@ -20,7 +20,7 @@ function addNewDeviceEntry(inpDeviceObj, rioDatabase, runDeviceList, addNewCallb
 		{
 			return addNewCallback(addDeviceErr, null);
 		}
-		else if (newStoredDevice.isEnabled === true)
+		else if (newStoredDevice.object.isEnabled === true)
 		{
 			enableDevice(addDeviceRes, rioDatabase, runDeviceList, addNewCallback);
 		}
@@ -52,6 +52,7 @@ function updateExistingDeviceEntry(updatedDeviceObj, rioDatabase, runDeviceList,
 		{
 			modifiedStoredDevice = createStoredDevice(existDeviceRes);
 			checkCreationSuccessful(modifiedStoredDevice, updateExistingCallback);
+			saveDeviceChanges(localID, modifiedStoredDevice.object, rioDatabase, runDeviceList, updateExistingCallback);
 		}
 	});
 }

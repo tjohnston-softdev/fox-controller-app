@@ -88,8 +88,15 @@ function crudDeleteRemoteIoDevice(deviceTargetID, deletePermanent, crudCallback)
 
 function getRemoteIoStatus(deviceTargetID)
 {
-	// Todo
-	var statusRes = {id: deviceTargetID, isRunning: true};
+	var statusRes = {id: deviceTargetID, isRunning: false, commsErrors: []};
+	var deviceObject = runningIoDevices[deviceTargetID];
+	var elementType = typeof deviceObject;
+	
+	if (deviceObject !== undefined && deviceObject !== null && elementType === "object")
+	{
+		statusRes.isRunning = true;
+	}
+	
 	return statusRes;
 }
 
@@ -101,10 +108,11 @@ function programListRemoteIoDevices(targetManufacturer, listCallback)
 }
 
 
-function programCheckNodeExists(deviceTargetID)
+function programCheckNodeExists(existTargetID)
 {
-	// Todo
-	return true;
+	var statusObject = getRemoteIoStatus(existTargetID);
+	var existRes = statusObject.isRunning;
+	return existRes;
 }
 
 
