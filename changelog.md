@@ -1,22 +1,21 @@
 # Changelog
 
-**./fox-custom/rio-modify.js**
-* Added requirement for '../fox-devices/remote_io/remote-io.factories'
-* Renamed functions:
-	* 'checkRioInputType' to 'checkInputType'
-	* 'checkRioMissingID' to 'checkMissingID'
-	* 'setRioMakerProperty' to 'setMaker'
-	* 'createStoredDeviceObject' to 'createStoredDevice'
-	* 'checkStoredDeviceCreationSuccessful' to 'checkCreationSuccessful'
-* Revised 'addNewDeviceEntry' calback IF structure.
-	* If there is an add error, return it.
-	* If the added device is enabled, call 'enableDevice'
-	* Otherwise, return the ID safely.
-* Wrote new functions:
-	* 'enableDevice' - Retrieves updated database entry and adds to 'running devices' list.
-	* 'handleDeviceListUpdate' - Updated 'running devices' list.
+**./fox-custom/rio-modify.js updateExistingDeviceEntry**
+* Swapped variable declarations:
+	* modifiedStoredDevice
+	* localID
+* Calls database to retrieve existing device
+	* If this is successful, call 'saveDeviceChanges'
+	* Otherwise, return error.
+
+---
+
+**./fox-custom/rio-modify.js - New Functions**
+* 'disableDevice' - Removes object by given ID from 'running device' list.
+* 'saveDeviceChanges' - Saves modified entry to Remote IO database.
 
 ---
 
 **./fox-devices/remote_io/remote-io.index.js**
-* Removed "Todo" from 'crudAddRemoteIoDevice'
+* Removed "Todo" from 'crudUpdateRemoteIoDevice'
+

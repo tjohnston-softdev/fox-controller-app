@@ -35,14 +35,47 @@ function addNewDeviceEntry(inpDeviceObj, rioDatabase, runDeviceList, addNewCallb
 
 function updateExistingDeviceEntry(updatedDeviceObj, rioDatabase, runDeviceList, updateExistingCallback)
 {
-	var modifiedStoredDevice = null;
 	var localID = null;
+	var modifiedStoredDevice = null;
 	
-	checkInputType(inpDeviceObj, addNewCallback);
-	checkMissingID(inpDeviceObj, addNewCallback);
-	localID = inpDeviceObject.id;
+	checkInputType(updatedDeviceObj, updateExistingCallback);
+	checkMissingID(updatedDeviceObj, updateExistingCallback);
+	localID = updatedDeviceObj.id;
 	
-	return updateExistingCallback(null, true);
+	rioDatabase.readDeviceEntity(localID, function (existDeviceErr, existDeviceRes)
+	{
+		if (existDeviceErr !== null)
+		{
+			return updateExistingCallback(existDeviceErr, null);
+		}
+		else
+		{
+			modifiedStoredDevice = createStoredDevice(existDeviceRes);
+			checkCreationSuccessful(modifiedStoredDevice, updateExistingCallback);
+		}
+	});
+}
+
+
+function saveDeviceChanges(newIdString, newDataObject, rioDbase, rDeviceList, saveCallback)
+{
+	rioDbase.updateDeviceEntity(newIdString, newDataObject, function (saveChangeErr, saveChangeRes)
+	{
+		if (saveChangeErr !== null)
+		{
+			return saveCallback(saveChangeErr, null);
+		}
+		else if (newDataObject.isEnabled === true)
+		{
+			disableDevice(newIdString, rDeviceList);
+			enableDevice(newIdString, rioDbase, rDeviceList, saveCallback);
+		}
+		else
+		{
+			disableDevice(newIdString, rDeviceList);
+			return saveCallback(null, newIdString);
+		}
+	});
 }
 
 
@@ -62,6 +95,15 @@ function enableDevice(deviceID, rioDB, deviceList, enableCallback)
 			return enableCallback(null, deviceID);
 		}
 	});
+}
+
+
+function disableDevice(deviceID, deviceList)
+{
+	if (deviceList[deviceID] !== undefined)
+	{
+		delete deviceList[deviceID];
+	}
 }
 
 
