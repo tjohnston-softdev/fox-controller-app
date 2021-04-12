@@ -4,7 +4,6 @@ const rioFactories = require('./remote-io.factories');
 const databaseLibrary = require("../../databases/device.database");
 const rioIntl = require("../../fox-custom/rio-intl");
 const rioModify = require("../../fox-custom/rio-modify");
-const rioProgram = require("../../fox-custom/rio-program");
 const remoteIoDatabase = databaseLibrary("remote-io.db");
 
 var initializationCallbacks = [];
@@ -89,11 +88,14 @@ function crudDeleteRemoteIoDevice(deviceTargetID, deletePermanent, crudCallback)
 
 function getRemoteIoStatus(deviceTargetID)
 {
-	var statusRes = {};
+	var statusRes = {id: deviceTargetID, isRunning: false, commsErrors: []};
+	var deviceObject = runningIoDevices[deviceTargetID];
+	var elementType = typeof deviceObject;
 	
-	statusRes["id"] = deviceTargetID;
-	statusRes["isRunning"] = rioProgram.checkDeviceRunning(deviceTargetID, runningIoDevices);
-	statusRes["commsErrors"] = [];
+	if (deviceObject !== undefined && deviceObject !== null && elementType === "object")
+	{
+		statusRes.isRunning = true;
+	}
 	
 	return statusRes;
 }
@@ -101,26 +103,15 @@ function getRemoteIoStatus(deviceTargetID)
 
 function programListRemoteIoDevices(targetManufacturer, listCallback)
 {
-	var targetDevices = [];
-	
-	crudListRemoteIoDevices(function (programListErr, programListRes)
-	{
-		if (programListErr !== null)
-		{
-			return listCallback(programListErr, null);
-		}
-		else
-		{
-			targetDevices = rioProgram.filterDevicesByManufacturer(targetManufacturer, programListRes);
-			return listCallback(null, targetDevices);
-		}
-	});
+	// Todo
+	return listCallback(null, []);
 }
 
 
-function programCheckNodeExists(deviceTargetID)
+function programCheckNodeExists(existTargetID)
 {
-	var existRes = rioProgram.checkDeviceRunning(deviceTargetID, runningIoDevices);
+	var statusObject = getRemoteIoStatus(existTargetID);
+	var existRes = statusObject.isRunning;
 	return existRes;
 }
 
