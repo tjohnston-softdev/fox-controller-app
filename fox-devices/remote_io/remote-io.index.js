@@ -70,7 +70,6 @@ function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
 
 function crudAddRemoteIoDevice(inpDeviceObject, crudCallback)
 {
-	// Todo: Enable
 	rioModify.addNewDevice(inpDeviceObject, remoteIoDatabase, runningIoDevices, crudCallback);
 }
 

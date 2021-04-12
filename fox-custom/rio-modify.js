@@ -1,5 +1,6 @@
 const deviceModelClass = require("../fox-devices/_classes/device-model.class");
 const deviceSettings = require("../fox-devices/device.settings");
+const rioFactories = require('../fox-devices/remote_io/remote-io.factories');
 
 
 
@@ -7,17 +8,21 @@ function addNewDeviceEntry(inpDeviceObj, rioDatabase, runDeviceList, addNewCallb
 {
 	var newStoredDevice = null;
 	
-	checkRioInputType(inpDeviceObj, addNewCallback);
+	checkInputType(inpDeviceObj, addNewCallback);
 	inpDeviceObj.id = "Example";
-	setRioMakerProperty(inpDeviceObj);
-	newStoredDevice = createStoredDeviceObject(inpDeviceObj);
-	checkStoredDeviceCreationSuccessful(newStoredDevice, addNewCallback);
+	setMaker(inpDeviceObj);
+	newStoredDevice = createStoredDevice(inpDeviceObj);
+	checkCreationSuccessful(newStoredDevice, addNewCallback);
 	
 	rioDatabase.createDeviceEntity(newStoredDevice.object, function (addDeviceErr, addDeviceRes)
 	{
 		if (addDeviceErr !== null)
 		{
 			return addNewCallback(addDeviceErr, null);
+		}
+		else if (newStoredDevice.isEnabled === true)
+		{
+			enableDevice(addDeviceRes, rioDatabase, runDeviceList, addNewCallback);
 		}
 		else
 		{
@@ -33,15 +38,64 @@ function updateExistingDeviceEntry(updatedDeviceObj, rioDatabase, runDeviceList,
 	var modifiedStoredDevice = null;
 	var localID = null;
 	
-	checkRioInputType(inpDeviceObj, addNewCallback);
-	checkRioMissingID(inpDeviceObj, addNewCallback);
+	checkInputType(inpDeviceObj, addNewCallback);
+	checkMissingID(inpDeviceObj, addNewCallback);
 	localID = inpDeviceObject.id;
 	
 	return updateExistingCallback(null, true);
 }
 
 
-function checkRioInputType(inpValue, errorCallback)
+function enableDevice(deviceID, rioDB, deviceList, enableCallback)
+{
+	var preparedModule = null;
+	
+	rioDB.readDeviceEntity(deviceID, function (selectErr, selectRes)
+	{
+		if (selectErr !== null)
+		{
+			return enableCallback(selectErr, null);
+		}
+		else
+		{
+			handleDeviceListUpdate(deviceID, selectRes, deviceList);
+			return enableCallback(null, deviceID);
+		}
+	});
+}
+
+
+function handleDeviceListUpdate(elementKey, moduleObj, listObj)
+{
+	var existValue = listObj[elementKey];
+	var existType = typeof existingValue;
+	
+	var prepModule = null;
+	var prepType = "";
+	
+	var canAdd = true;
+	var prepValid = false;
+	
+	if (existValue !== undefined && existValue !== null && existType === "object")
+	{
+		canAdd = false;
+	}
+	else
+	{
+		prepModule = rioFactories.RemoteIoModule(moduleObj);
+		prepType = typeof prepModule;
+		prepValid = (prepModule !== undefined && prepModule !== null && prepType === "object");
+	}
+	
+	
+	if (canAdd === true && prepValid === true)
+	{
+		listObj[elementKey] = prepModule;
+	}
+}
+
+
+function checkInputType(inpValue, errorCallback)
 {
 	var givenType = typeof inpValue;
 	var correctType = false;
@@ -59,7 +113,7 @@ function checkRioInputType(inpValue, errorCallback)
 }
 
 
-function checkRioMissingID(inpObject, errorCallback)
+function checkMissingID(inpObject, errorCallback)
 {
 	if (typeof inpObject.id !== "string")
 	{
@@ -68,7 +122,7 @@ function checkRioMissingID(inpObject, errorCallback)
 }
 
 
-function setRioMakerProperty(inpObject)
+function setMaker(inpObject)
 {
 	if (typeof inpObject.maker !== "string")
 	{
@@ -77,7 +131,7 @@ function setRioMakerProperty(inpObject)
 }
 
 
-function createStoredDeviceObject(deviceData)
+function createStoredDevice(deviceData)
 {
 	var createRes = {object: null, errorMessage: ""};
 	
@@ -94,7 +148,7 @@ function createStoredDeviceObject(deviceData)
 }
 
 
-function checkStoredDeviceCreationSuccessful(sdCreate, errorCallback)
+function checkCreationSuccessful(sdCreate, errorCallback)
 {
 	var createSuccessful = false;
 	
