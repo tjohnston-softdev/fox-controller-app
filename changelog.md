@@ -1,20 +1,18 @@
 # Changelog
 
-**./fox-custom/rio-program.js**
-* New file - Contains secondary functions for Remote IO Index programming.
+**./fox-devices/remote_io/remote-io-factories.js**
+* Removed 'factoryPlaceholder' function.
+* createRemoteIoModule
+	* Removed 'maker' and 'ipAddress' result properties.
+	* Functions are now defined internally instead of using a placeholder.
+	* Only 'disableRemoteIo' is complete so far. It does not require any real functionality.
 
 ---
 
-**./fox-devices/remote_io/remote-io.index.js**
-* Added requirement for:
-	* ../../fox-custom/rio-program
-* getRemoteIoStatus
-	* Moved the element type checking script to 'rioProgram'
-	* Removed the variables 'deviceObject' and 'elementType'
-	* 'statusRes' is declared as a blank object with properties assigned separately.
-* programCheckNodeExists
-	* Removed 'statusObject' variable.
-	* 'existRes' is assigned by calling 'rioProgram.checkDeviceRunning'
-	* Parameter is renamed back to 'deviceTargetID'
-* programListRemoteIoDevices
-	* Emulated function successfully.
+**./fox-devices/_classes/device-model.class.js**
+* New main functions:
+	* 'defineDeviceModel' - Creates 'DeviceModel' object.
+	* 'defineIoContainer' - Creates 'IoContainer' object.
+* New secondary function 'setDeviceIoContainers'
+	* Sets the 'ioContainers' property of the 'DeviceModel' class.
+	* Uses 'IoContainer' objects.

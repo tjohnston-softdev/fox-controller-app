@@ -3,6 +3,48 @@ const rioSettings = require("../remote_io/remote_io.settings");
 const validationTasks = require("../../fox-custom/validation-tasks");
 
 
+
+function defineDeviceModel(inputModelObj, inputIpAddress)
+{
+	class DeviceModel
+	{
+		constructor(inpModel, inpIpAddress)
+		{
+			this.modelType = inpModel.modelType;
+			this.ipAddress = inputIpAddress;
+			this.infoUrl = inpModel.infoUrl;
+			this.ioContainers = setDeviceIoContainers(inpModel.ioConfigs);
+			
+			return this;
+		}
+	}
+	
+	var defineRes = new DeviceModel(inputModelObj, inputIpAddress);
+	return defineRes;
+}
+
+
+function defineIoContainer(inputIoType, inputIoPrefix, inputIoLength)
+{
+	class IoContainer
+	{
+		constructor(inputType, inputPrefix, inputLength)
+		{
+			this.ioType = inputType;
+			this.ioPrefix = inputPrefix;
+			this.controlValues = [];
+			this.length = inputLength;
+			this.commsError = "";
+			
+			return this;
+		}
+	}
+	
+	var defineRes = new IoContainer(inputIoType, inputIoPrefix, inputIoLength);
+	return defineRes;
+}
+
+
 class StoredDevice
 {
 	constructor(inputDeviceObj)
@@ -71,7 +113,36 @@ function handlePropertyUpdate(pObject, updKey, updValue)
 	return true;
 }
 
+
+
+function setDeviceIoContainers(configArr)
+{
+	var configIndex = 0;
+	var currentConfigObject = {};
+	var currentType = "";
+	var currentPrefix = "";
+	var currentLength = -1;
+	var currentPrepared = null;
+	
+	var setRes = {};
+	
+	for (configIndex = 0; configIndex < configArr.length; configIndex = configIndex + 1)
+	{
+		currentConfigObject = configArr[configIndex];
+		currentType = currentConfigObject.ioType;
+		currentPrefix = currentConfigObject.ioPrefix;
+		currentLength = currentConfigObject.length;
+		
+		currentPrepared = defineIoContainer(currentType, currentPrefix, currentLength);
+		setRes[currentPrefix] = currentPrepared;
+	}
+	
+	return setRes;
+}
+
 module.exports =
 {
+	DeviceModel: defineDeviceModel,
+	IoContainer: defineIoContainer,
 	StoredDevice: StoredDevice
 };

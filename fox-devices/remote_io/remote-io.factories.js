@@ -8,21 +8,47 @@ function createRemoteIoModule(inputObject)
 	var storedDeviceObject = new modelClass.StoredDevice(inputObject);
 	var prepRes = {};
 	
-	prepRes.maker = storedDeviceObject.maker;
-	prepRes.ipAddress = storedDeviceObject.ipAddress;
-	prepRes.disableRio = factoryPlaceholder;
-	prepRes.getRioDeviceProperties = factoryPlaceholder;
-	prepRes.registerNodeCallback = factoryPlaceholder;
-	prepRes.setOutputFromNode = factoryPlaceholder;
-	prepRes.getCommsErrors = factoryPlaceholder;
+	
+	function disableRemoteIo()
+	{
+		return true;
+	}
+	
+	
+	function getRemoteIoDeviceProperties()
+	{
+		// Todo
+		return true;
+	}
+	
+	function registerRemoteIoNodeCallback()
+	{
+		// Todo
+		return true;
+	}
+	
+	
+	function setRemoteIoOutput()
+	{
+		// Todo
+		return true;
+	}
+	
+	
+	function getCommunicationErrors()
+	{
+		// Todo
+		return true;
+	}
+	
+	
+	prepRes.disableRio = disableRemoteIo;
+	prepRes.getRioDeviceProperties = getRemoteIoDeviceProperties;
+	prepRes.registerNodeCallback = registerRemoteIoNodeCallback;
+	prepRes.setOutputFromNode = setRemoteIoOutput;
+	prepRes.getCommsErrors = getCommunicationErrors;
 	
 	return prepRes;
-}
-
-
-function factoryPlaceholder()
-{
-	return true;
 }
 
 
