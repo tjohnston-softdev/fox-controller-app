@@ -82,18 +82,7 @@ function crudUpdateRemoteIoDevice(updatedDeviceObject, crudCallback)
 
 function crudDeleteRemoteIoDevice(deviceTargetID, deletePermanent, crudCallback)
 {
-	// Todo: Disable
-	remoteIoDatabase.deleteDeviceEntity(deviceTargetID, deletePermanent, function (deleteDeviceErr)
-	{
-		if (deleteDeviceErr !== null)
-		{
-			return crudCallback(deleteDeviceErr, null);
-		}
-		else
-		{
-			return crudCallback(null, true);
-		}
-	});
+	rioModify.deleteDevice(deviceTargetID, deletePermanent, remoteIoDatabase, runningIoDevices, crudCallback);
 }
 
 

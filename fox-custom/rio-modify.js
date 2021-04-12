@@ -57,6 +57,24 @@ function updateExistingDeviceEntry(updatedDeviceObj, rioDatabase, runDeviceList,
 }
 
 
+function deleteDeviceEntry(inpDeleteID, inpPerm, rioDatabase, runDeviceList, dropCallback)
+{
+	disableDevice(inpDeleteID, runDeviceList);
+	
+	rioDatabase.deleteDeviceEntity(inpDeleteID, inpPerm, function (deleteDeviceErr)
+	{
+		if (deleteDeviceErr !== null)
+		{
+			return dropCallback(deleteDeviceErr, null);
+		}
+		else
+		{
+			return dropCallback(null, true);
+		}
+	});
+}
+
+
 function saveDeviceChanges(newIdString, newDataObject, rioDbase, rDeviceList, saveCallback)
 {
 	rioDbase.updateDeviceEntity(newIdString, newDataObject, function (saveChangeErr, saveChangeRes)
@@ -209,5 +227,6 @@ function checkCreationSuccessful(sdCreate, errorCallback)
 module.exports =
 {
 	addNewDevice: addNewDeviceEntry,
-	updateExistingDevice: updateExistingDeviceEntry
+	updateExistingDevice: updateExistingDeviceEntry,
+	deleteDevice: deleteDeviceEntry
 };
