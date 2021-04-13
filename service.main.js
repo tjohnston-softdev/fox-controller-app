@@ -1,4 +1,6 @@
-const restartTime = 2000;
+const rioIndex = require("./fox-devices/remote_io/remote-io.index");
+const restartTime = 1000;
+const maxSize = 64000000;
 
 class Controller
 {
@@ -28,19 +30,19 @@ class Controller
 	
 	getDiskSpace(diskCallback)
 	{
-		var randBytes = Math.random() * 500000000000;
+		var randBytes = Math.random() * maxSize;
 		return diskCallback(randBytes);
 	}
 	
 	getDatabaseSize(sizeCallback)
 	{
-		var randBytes = Math.random() * 100000;
+		var randBytes = Math.random() * maxSize;
 		return sizeCallback(randBytes);
 	}
 	
 	getLogSize(logCallback)
 	{
-		var randBytes = Math.random() * 50000;
+		var randBytes = Math.random() * maxSize;
 		return logCallback(randBytes);
 	}
 	
@@ -65,10 +67,16 @@ class Controller
 	
 	rebootController()
 	{
-		setTimeout(function()
+		this.restartProcess();
+	}
+	
+	
+	factoryReset(factResetCallback)
+	{
+		rioIndex.listRemoteIoDevices(function(deviceQueryErr, deviceQueryRes)
 		{
-			process.exit();
-		}, restartTime);
+			return factResetCallback(deviceQueryErr, deviceQueryRes);
+		});
 	}
 }
 
