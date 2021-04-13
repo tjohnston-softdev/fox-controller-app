@@ -1,1 +1,1 @@
-console.log("Node RED Settings");
+module.exports = {};

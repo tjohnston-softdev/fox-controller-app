@@ -1,21 +1,11 @@
 # Changelog
 
 **Test Status**
-* Wrote emulation for settings file.
-* All tests pass successfully.
+* Wrote emulation for Node RED settings file.
+* Only the file's existence is tested. The actual contents do not matter.
 
 ---
 
-**.gitignore**
-* Added '/fox-controller.log'
-	* This is in case it is generated in future testing.
-
----
-
-**./service.main.js**
-* Added "Todo" comment to 'factoryReset'
-
----
-
-**./settings.js**
+**./node-red-settings.js**
 * Wrote emulation for file.
+	* Returns blank object.
