@@ -19,7 +19,6 @@ function createRemoteIoModule(inputObject)
 	
 	function getRemoteIoDeviceProperties()
 	{
-		// Todo
 		var retrievedProperties = connectedDeviceObject.getRioProperties();
 		return retrievedProperties;
 	}

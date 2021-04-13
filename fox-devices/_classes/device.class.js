@@ -25,6 +25,7 @@ function defineConnectedDevice(storedDeviceObject)
 		
 		getRioProperties()
 		{
+			var currentKey = "";
 			var currentContainer = {};
 			var currentType = "";
 			var currentPrefix = "";
@@ -39,8 +40,9 @@ function defineConnectedDevice(storedDeviceObject)
 			getPropRes[rioSettings.ioTypes.status] = [];
 			getPropRes[rioSettings.ioTypes.control] = [];
 			
-			for (currentContainer in modelDeviceObject.ioContainers)
+			for (currentKey in modelDeviceObject.ioContainers)
 			{
+				currentContainer = modelDeviceObject.ioContainers[currentKey];
 				currentType = currentContainer.ioType;
 				currentPrefix = currentContainer.ioPrefix;
 				
