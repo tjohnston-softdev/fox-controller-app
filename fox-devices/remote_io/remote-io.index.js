@@ -147,7 +147,7 @@ function programRegisterNode(ioType, nodeConfig, registerCallback)
 function programSetDeviceOutput(deviceTargetID, ioPrefix, ioIndex, outputValue)
 {
 	// Todo
-	return {};
+	return undefined;
 }
 
 
