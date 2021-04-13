@@ -105,6 +105,12 @@ function loadDatabase(dbName)
 	}
 	
 	
+	function callDatabaseClose(dbCloseCallback)
+	{
+		loadedDatabaseObject.close(dbCloseCallback);
+	}
+	
+	
 	function getDeviceForDeletion(delTgtID, getDeleteCallback)
 	{
 		callReadDevice(delTgtID, function (getDeleteErr, getDeleteRes)
@@ -143,6 +149,7 @@ function loadDatabase(dbName)
 	loadRes["readDeviceEntity"] = callReadDevice;
 	loadRes["updateDeviceEntity"] = callUpdateDevice;
 	loadRes["deleteDeviceEntity"] = callDeleteDevice;
+	loadRes["closeDatabase"] = callDatabaseClose
 	
 	return loadRes;
 }

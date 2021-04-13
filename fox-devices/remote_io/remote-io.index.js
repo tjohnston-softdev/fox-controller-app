@@ -159,6 +159,13 @@ function programGetIoProperties(deviceTargetID)
 
 
 
+function closeRemoteIoDatabase(closeRioCallback)
+{
+	remoteIoDatabase.closeDatabase(closeRioCallback);
+}
+
+
+
 module.exports =
 {
 	initRemoteIoFactory: initializeRemoteIoFactory,
@@ -173,5 +180,6 @@ module.exports =
 	isNodeExists: programCheckNodeExists,
 	registerNode: programRegisterNode,
 	setDeviceOutput: programSetDeviceOutput,
-	getIoProperties: programGetIoProperties
+	getIoProperties: programGetIoProperties,
+	closeRioDatabase: closeRemoteIoDatabase
 };
