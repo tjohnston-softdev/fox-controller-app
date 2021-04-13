@@ -1,11 +1,27 @@
 # Changelog
 
 **Test Status**
-* Wrote emulation for Node RED settings file.
-* Only the file's existence is tested. The actual contents do not matter.
+* G - Controller Files
+	* All tests pass.
 
 ---
 
-**./node-red-settings.js**
-* Wrote emulation for file.
-	* Returns blank object.
+**./fox-devices/_classes/device.class.js**
+* Added 'mName' parameter to 'handleModel'
+* 'ConnectedDevice' constructor
+	* Added 'storeDeviceObj.model' to 'handleModel' call.
+
+---
+
+**./fox-devices/remote_io/remote-io.factories.js**
+* Removed "Todo" comments.
+
+---
+
+**./fox-devices/remote_io/remote-io.index.js**
+* programRegisterNode
+	* Declared 'flaggedMessage' variable.
+	* Removed 'registerRes' variable.
+	* 'flaggedMessage' is set when returning "Module doesn't exist!" error.
+* programSetDeviceOutput
+	* Removed "Todo" comment.

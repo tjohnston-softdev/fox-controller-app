@@ -15,7 +15,7 @@ function defineConnectedDevice(storedDeviceObject)
 			
 			handleClassType(storeDeviceObj);
 			baseModel = deviceSettings.getModel(storeDeviceObj.model);
-			handleModel(baseModel);
+			handleModel(baseModel, storeDeviceObj.model);
 			this.storedDevice = storeDeviceObj;
 			
 			modelDeviceObject = modelClasses.DeviceModel(baseModel, storeDeviceObj.ipAddress);
@@ -100,7 +100,7 @@ function handleClassType(_storedDevice)
 }
 
 
-function handleModel(retrievedEntry)
+function handleModel(retrievedEntry, mName)
 {
 	var resType = typeof retrievedEntry;
 	var handleRes = false;

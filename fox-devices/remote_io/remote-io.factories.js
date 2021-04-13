@@ -55,14 +55,12 @@ function createRemoteIoModule(inputObject)
 	
 	function setRemoteIoOutput()
 	{
-		// Todo
 		return true;
 	}
 	
 	
 	function getCommunicationErrors()
 	{
-		// Todo
 		return true;
 	}
 	

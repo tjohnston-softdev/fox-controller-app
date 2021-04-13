@@ -129,7 +129,7 @@ function programRegisterNode(ioType, nodeConfig, registerCallback)
 {
 	var targetExists = rioProgram.checkDeviceRunning(nodeConfig.deviceId, runningIoDevices);
 	var targetObject = null;
-	var registerRes = undefined;
+	var flaggedMessage = "";
 	
 	if (targetExists === true)
 	{
@@ -138,14 +138,14 @@ function programRegisterNode(ioType, nodeConfig, registerCallback)
 	}
 	else
 	{
-		return registerCallback(new Error("Module doesn't exist! (disabled or deleted)"), undefined);
+		flaggedMessage = "Module doesn't exist! (disabled or deleted)"
+		return registerCallback(new Error(flaggedMessage), undefined);
 	}
 }
 
 
 function programSetDeviceOutput(deviceTargetID, ioPrefix, ioIndex, outputValue)
 {
-	// Todo
 	return undefined;
 }
 
