@@ -2,12 +2,20 @@
 
 **Test Status**
 * G - Controller Files
-	* 'Set Device Output' valid tests pass.
-	* Invalid tests for different functions need further investigation.
-	* Total: 117 / 123.
+	* All Remote IO tests pass except for invalid 'Set Device Output'
+	* Passed: 121 / 123.
 
 ---
 
-**./fox-devices/remote_io/remote-io.index.js**
-* 'programSetDeviceOutput' returns undefined.
-	* Even setting the correct return type passes most tests.
+**./fox-devices/remote_io/remote-io.index.js programRegisterNode**
+* For missing devices, the 'result' argument in the callback returns 'undefined' instead of null.
+* Removed "Todo" comment.
+
+---
+
+**./fox-devices/remote_io/remote-io.factories.js registerRemoteIoNodeCallback**
+* Declared new variable 'flaggedMessage'
+	* Stores error message text.
+	* Set when 'inputObject.ioSetId' fails.
+	* Used as an argument for 'registerCallback'
+* Removed "Todo" comment.

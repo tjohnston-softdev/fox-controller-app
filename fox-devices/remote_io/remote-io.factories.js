@@ -25,12 +25,12 @@ function createRemoteIoModule(inputObject)
 	
 	function registerRemoteIoNodeCallback(inputType, inputObject, registerCallback)
 	{
-		// Todo
 		var ioSet = inputObject.ioSetId;
 		var parsedPrefix = rioSettings.parseIoPrefix(ioSet);
 		var parsedIndex = rioSettings.parseIoIndex(ioSet);
 		
 		var retrievedIoSet = undefined;
+		var flaggedMessage = "";
 		
 		var registerFunction = function(){};
 		
@@ -40,7 +40,8 @@ function createRemoteIoModule(inputObject)
 		}
 		else
 		{
-			registerCallback('Wrong ioPrefix or ioIndex in nodeConfig.ioSetId = ' + ioSet);
+			flaggedMessage = "Wrong ioPrefix or ioIndex in nodeConfig.ioSetId = " + ioSet;
+			registerCallback(flaggedMessage);
 		}
 		
 		if (retrievedIoSet !== undefined)
