@@ -73,6 +73,7 @@ class Controller
 	
 	factoryReset(factResetCallback)
 	{
+		// Todo
 		rioIndex.listRemoteIoDevices(function(deviceQueryErr, deviceQueryRes)
 		{
 			return factResetCallback(deviceQueryErr, deviceQueryRes);
