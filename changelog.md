@@ -2,11 +2,12 @@
 
 **Test Status**
 * G - Controller Files
-	* Wrote most emulation for the 'service.main' file.
-	* Only rebooting and factory reset remain.
-	* The tests only check whether the function exists but they will most likely be required for the APIs.
+	* Wrote emulation for controller rebooting.
+	* Since this is only a simulation, actually rebooting the computer is not necessary.
+	* Simply exiting the process will do.
 
 ---
 
 **./service.main.js**
-* Wrote most emulation for this file.
+* Emulated the 'rebootController' function.
+	* Behaves the same as 'restartProcess'

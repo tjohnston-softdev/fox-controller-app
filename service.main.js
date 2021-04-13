@@ -61,6 +61,15 @@ class Controller
 			process.exit();
 		}, restartTime);
 	}
+	
+	
+	rebootController()
+	{
+		setTimeout(function()
+		{
+			process.exit();
+		}, restartTime);
+	}
 }
 
 
