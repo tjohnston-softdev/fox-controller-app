@@ -46,9 +46,10 @@ function getSignalTypeValue(prefixStr)
 }
 
 
-function parseIoPrefixString(ioSetID)
+function parseIoPrefixString(ioSetId)
 {
-	var prefixPart = extractIoSetPart(ioSetID, 0);
+	var splitArr = ioSetId.split("-");
+	var prefixPart = splitArr[0];
 	var parseRes = null;
 	
 	if (ioPrefixesObj[prefixPart] !== undefined)
@@ -60,9 +61,10 @@ function parseIoPrefixString(ioSetID)
 }
 
 
-function parseIoIndexValue(ioSetID)
+function parseIoIndexValue(ioSetId)
 {
-	var numberPart = extractIoSetPart(ioSetID, 1);
+	var splitArr = ioSetId.split("-");
+	var numberPart = splitArr[1];
 	var castValue = parseInt(numberPart);
 	var correctType = Number.isInteger(castValue);
 	
@@ -74,28 +76,6 @@ function parseIoIndexValue(ioSetID)
 	}
 	
 	return parseRes;
-}
-
-
-function extractIoSetPart(fullString, partIndex)
-{
-	var argType = typeof fullString;
-	var splitArr = [];
-	var splitMade = false;
-	var partRes = "";
-	
-	if (argType === "string")
-	{
-		splitArr = fullString.split("-");
-		splitMade = Array.isArray(splitArr);
-	}
-	
-	if (splitMade === true && splitArr.length > partIndex)
-	{
-		partRes = splitArr[partIndex];
-	}
-	
-	return partRes;
 }
 
 
