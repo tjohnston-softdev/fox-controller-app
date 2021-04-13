@@ -23,6 +23,13 @@ function defineConnectedDevice(storedDeviceObject)
 		}
 		
 		
+		getIoContainer(contPrefix)
+		{
+			var containerRes = modelDeviceObject.ioContainers[contPrefix];
+			return containerRes;
+		}
+		
+		
 		getRioProperties()
 		{
 			var currentKey = "";

@@ -23,10 +23,32 @@ function createRemoteIoModule(inputObject)
 		return retrievedProperties;
 	}
 	
-	function registerRemoteIoNodeCallback()
+	function registerRemoteIoNodeCallback(inputType, inputObject, registerCallback)
 	{
 		// Todo
-		return true;
+		var ioSet = inputObject.ioSetId;
+		var parsedPrefix = rioSettings.parseIoPrefix(ioSet);
+		var parsedIndex = rioSettings.parseIoIndex(ioSet);
+		
+		var retrievedIoSet = undefined;
+		
+		var registerFunction = function(){};
+		
+		if (parsedPrefix !== null && parsedIndex !== null)
+		{
+			retrievedIoSet = connectedDeviceObject.getIoContainer(parsedPrefix);
+		}
+		else
+		{
+			registerCallback('Wrong ioPrefix or ioIndex in nodeConfig.ioSetId = ' + ioSet);
+		}
+		
+		if (retrievedIoSet !== undefined)
+		{
+			registerFunction = function unregisterNode(){};
+		}
+		
+		return registerFunction;
 	}
 	
 	
