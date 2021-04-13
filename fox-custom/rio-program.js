@@ -61,6 +61,13 @@ function filterDeviceObjectsByManufacturer(tgtManufacturer, deviceList)
 }
 
 
+function getUnknownModuleErrorText()
+{
+	var writeRes = "Module doesn't exist! (disabled or deleted)";
+	return writeRes;
+}
+
+
 
 function saveFilteredDevice(deviceObj)
 {
@@ -78,5 +85,6 @@ function saveFilteredDevice(deviceObj)
 module.exports =
 {
 	checkDeviceRunning: checkRioDeviceRunning,
-	filterDevicesByManufacturer: filterDeviceObjectsByManufacturer
+	filterDevicesByManufacturer: filterDeviceObjectsByManufacturer,
+	getUnknownModuleError: getUnknownModuleErrorText
 };

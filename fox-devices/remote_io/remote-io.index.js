@@ -138,7 +138,7 @@ function programRegisterNode(ioType, nodeConfig, registerCallback)
 	}
 	else
 	{
-		flaggedMessage = "Module doesn't exist! (disabled or deleted)"
+		flaggedMessage = rioProgram.getUnknownModuleError();
 		return registerCallback(new Error(flaggedMessage), undefined);
 	}
 }
