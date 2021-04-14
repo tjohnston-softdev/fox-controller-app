@@ -1,21 +1,35 @@
 # Changelog
 
 **Test Status**
-* Express server boots successfully on port 3000
-* 'Online check' testing works.
-* For this emulator, the 'offline' testing still works even when the controller is online.
-	* This is because the original controller runs script files in the background whereas the emulated files don't.
-	* There is still an error because the tests check whether the controller is offline.
+* '/api/admin/defaults' endpoint is tested successfully.
+* The other admin endpoints are requested successfully but the results have not been emulated yet.
 
 ---
 
-**./app.js**
-* Renamed to 'server.js'
+**./server.js**
+* Added requirement for './routes/admin'
+* Defined route:
+	* `app.use('/api/admin', adminRouter);`
 
 ---
 
-**./bin/www**
-* Updated requirement path to '../server.js'
-* Renamed variables:
-	* 'app' to 'serverFile'
-	* 'server' to 'serverObject'
+**./routes/users.js**
+* This is a demo file from the express generator.
+* Changed bracket structure for root.
+* Added '/sub' request to test routing.
+
+---
+
+**./routes/index.js**
+* Demo file from express generator sends home page.
+* Changed bracket structure
+* Defined the page title into a separate object variable 'params'
+
+---
+
+**./routes/admin.js**
+* New file - Defines 'Admin' API routes.
+	* Placeholder
+	* DHCP Clients (Todo)
+	* Defaults (Complete)
+	* Logs (Todo)
