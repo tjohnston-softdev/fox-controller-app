@@ -25,8 +25,12 @@ router.get('/defaults', function(req, res, next)
 
 router.get('/logs', function(req, res, next)
 {
-	// Todo
-	res.send("Logs");
+	var logObject = {};
+	
+	logObject["success"] = true;
+	logObject["logs"] = "Lorem Ipsum etc";
+	
+	res.send(logObject);
 });
 
 
