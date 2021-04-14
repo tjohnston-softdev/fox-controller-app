@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var serverFile = require('../server');
 var debug = require('debug')('fox-controller-app:server');
 var http = require('http');
 
@@ -13,21 +13,21 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+serverFile.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var serverObject = http.createServer(serverFile);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+serverObject.listen(port);
+serverObject.on('error', onError);
+serverObject.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -82,7 +82,7 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
+  var addr = serverObject.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
