@@ -1,5 +1,6 @@
 var express = require('express');
 var dhcpGenerator = require("../fox-api/dhcp-generator");
+var serviceMain = require("../service.main");
 var router = express.Router();
 
 
@@ -31,6 +32,15 @@ router.get('/logs', function(req, res, next)
 	logObject["logs"] = "Lorem Ipsum etc";
 	
 	res.send(logObject);
+});
+
+
+router.get('/health', function(req, res, next)
+{
+	serviceMain.controller.getHealth(function (contHealthObj)
+	{
+		res.send(contHealthObj);
+	});
 });
 
 

@@ -75,6 +75,46 @@ function generateRandomHost()
 }
 
 
+function generateRandomGigahertz()
+{
+	var baseValue = Math.random() * 5.1;
+	var formatValue = baseValue.toFixed(2);
+	var ghzNumber = parseFloat(formatValue);
+	return ghzNumber;
+}
+
+
+function generateRandomCoreCount()
+{
+	var baseValue = chooseRandomInteger(1, 16);
+	var oddFlag = baseValue % 2;
+	var coreCount = baseValue;
+	
+	if (coreCount > 2)
+	{
+		coreCount = coreCount - oddFlag;
+	}
+	
+	return coreCount;
+}
+
+
+function generateRandomVolume(maxVol)
+{
+	var baseValue = chooseRandomInteger(1, maxVol);
+	var oddFlag = baseValue % 2;
+	var gigaCount = baseValue;
+	
+	if (gigaCount > 2)
+	{
+		gigaCount = gigaCount - oddFlag;
+	}
+	
+	var memoryBytes = gigaCount * 1000000000;
+	return memoryBytes;
+}
+
+
 
 function chooseRandomInteger(lowerLimit, upperLimit)
 {
@@ -100,5 +140,8 @@ module.exports =
 	generateTime: generateRandomTime,
 	generateIpAddress: generateRandomIpAddress,
 	generateMacAddress: generateRandomMacAddress,
-	generateHost: generateRandomHost
+	generateHost: generateRandomHost,
+	generateGigahertz: generateRandomGigahertz,
+	generateCoreCount: generateRandomCoreCount,
+	generateVolume: generateRandomVolume
 };

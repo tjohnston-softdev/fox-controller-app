@@ -1,8 +1,11 @@
+const os = require("os");
 const fs = require("fs-extra");
 const series = require("run-series");
 const forEachItem = require("async-each");
 const contFolders = require("./settings");
 const rioIndex = require("./fox-devices/remote_io/remote-io.index");
+const deviceInfo = require("./fox-api/device-info");
+const systemInfo = require("./fox-api/system-info");
 const restartTime = 1000;
 const maxSize = 64000000;
 
@@ -17,6 +20,19 @@ class Controller
 	getHealth(healthCallback)
 	{
 		var healthRes = {};
+		
+		healthRes.version = "0.1.0";
+		healthRes.serialNumber = os.hostname();
+		healthRes.device = deviceInfo.getObject();
+		healthRes.time = systemInfo.getTime();
+		healthRes.cpuCurrentSpeed = systemInfo.getCPU();
+		healthRes.mem = systemInfo.getMemory();
+		healthRes.fsSize = {};
+		healthRes.environment = {};
+		healthRes.networkInterfaces = {};
+		healthRes.databaseSize = {};
+		healthRes.logSize = {};
+		
 		return healthCallback(healthRes);
 	}
 	
