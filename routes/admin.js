@@ -1,4 +1,5 @@
 var express = require('express');
+var dhcpGenerator = require("../fox-api/dhcp-generator");
 var router = express.Router();
 
 
@@ -10,8 +11,8 @@ router.get('/', function(req, res, next)
 
 router.get('/dhcp-clients', function(req, res, next)
 {
-	// Todo
-	res.send("DHCP Clients");
+	var clientArray = dhcpGenerator.generateClients(10);
+	res.send(clientArray);
 });
 
 
