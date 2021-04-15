@@ -29,7 +29,7 @@ class Controller
 		healthRes.mem = systemInfo.getMemory();
 		healthRes.fsSize = systemInfo.getFileSystems();
 		healthRes.environment = {};
-		healthRes.networkInterfaces = {};
+		healthRes.networkInterfaces = systemInfo.getNetworkInterfaces();
 		healthRes.databaseSize = {};
 		healthRes.logSize = {};
 		

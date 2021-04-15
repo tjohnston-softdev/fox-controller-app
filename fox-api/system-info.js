@@ -1,6 +1,7 @@
 const sizeFactors = require("../fox-custom/size-factors");
 const randomValues = require("../fox-custom/random-values");
 const fsDrive = require("../fox-custom/fs-drive");
+const netInterface = require("../fox-custom/net-interface");
 
 
 function getTimeObject()
@@ -109,6 +110,37 @@ function getFileSystemArray()
 }
 
 
+function getNetworkInterfaceArray()
+{
+	var loopNumber = 1;
+	var networkCount = randomValues.generateInteger(2, 5);
+	
+	var currentNetworkObject = {};
+	var infoRes = [];
+	
+	for (loopNumber = 1; loopNumber <= networkCount; loopNumber = loopNumber + 1)
+	{
+		currentNetworkObject = netInterface.initializeObject();
+		
+		if (loopNumber === 1)
+		{
+			netInterface.setInternal(currentNetworkObject);
+		}
+		else
+		{
+			currentNetworkObject.iface = "Network Interface " + loopNumber;
+			currentNetworkObject.ip4 = randomValues.generateIpAddress();
+			currentNetworkObject.ip6 = randomValues.generateIpSix();
+			currentNetworkObject.mac = randomValues.generateMacAddress();
+		}
+		
+		infoRes.push(currentNetworkObject);
+	}
+	
+	return infoRes;
+}
+
+
 function calculateCpuAverage(coreCount, totalSpd)
 {
 	var divAmount = totalSpd / coreCount;
@@ -124,5 +156,6 @@ module.exports =
 	getTime: getTimeObject,
 	getCPU: getCpuObject,
 	getMemory: getMemoryObject,
-	getFileSystems: getFileSystemArray
+	getFileSystems: getFileSystemArray,
+	getNetworkInterfaces: getNetworkInterfaceArray
 };

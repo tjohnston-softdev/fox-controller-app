@@ -19,7 +19,6 @@ function initializeDriveObject()
 
 function setFileSystemProperties(driveNumber, driveObj)
 {
-	
 	if (platform === "win32")
 	{
 		driveObj.type = "NTFS";

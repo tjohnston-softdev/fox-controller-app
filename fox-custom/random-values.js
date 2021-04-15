@@ -32,6 +32,28 @@ function generateRandomIpAddress()
 }
 
 
+function generateRandomIpSix()
+{
+	var currentPart = "";
+	var addressParts = [];
+	
+	while (addressParts.length < 8)
+	{
+		currentPart = "";
+		
+		while (currentPart.length < 4)
+		{
+			currentPart += chooseRandomElement(hexValues);
+		}
+		
+		addressParts.push(currentPart);
+	}
+	
+	var addressString = addressParts.join(":");
+	return addressString;
+}
+
+
 function generateRandomMacAddress()
 {
 	var currentFirst = "";
@@ -166,6 +188,7 @@ module.exports =
 {
 	generateTime: generateRandomTime,
 	generateIpAddress: generateRandomIpAddress,
+	generateIpSix: generateRandomIpSix,
 	generateMacAddress: generateRandomMacAddress,
 	generateHost: generateRandomHost,
 	generateUptime: generateRandomUptime,
