@@ -27,7 +27,7 @@ class Controller
 		healthRes.time = systemInfo.getTime();
 		healthRes.cpuCurrentSpeed = systemInfo.getCPU();
 		healthRes.mem = systemInfo.getMemory();
-		healthRes.fsSize = {};
+		healthRes.fsSize = systemInfo.getFileSystems();
 		healthRes.environment = {};
 		healthRes.networkInterfaces = {};
 		healthRes.databaseSize = {};

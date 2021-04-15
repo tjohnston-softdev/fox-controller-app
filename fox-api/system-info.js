@@ -1,5 +1,6 @@
 const sizeFactors = require("../fox-custom/size-factors");
 const randomValues = require("../fox-custom/random-values");
+const fsDrive = require("../fox-custom/fs-drive");
 
 
 function getTimeObject()
@@ -80,6 +81,34 @@ function getMemoryObject()
 }
 
 
+function getFileSystemArray()
+{
+	var loopNumber = 1;
+	var driveCount = randomValues.generateInteger(1, 6);
+	var currentCapacity = -1;
+	var currentUsed = -1;
+	
+	var currentDriveObject = {};
+	var infoRes = [];
+	
+	for (loopNumber = 1; loopNumber <= driveCount; loopNumber = loopNumber + 1)
+	{
+		currentCapacity = randomValues.generateVolume(3000, sizeFactors.GB);
+		currentUsed = randomValues.generateUsagePercent();
+		currentDriveObject = fsDrive.initializeObject();
+		
+		currentDriveObject.size = String(currentCapacity);
+		currentDriveObject.used = Math.floor(currentCapacity * currentUsed);
+		currentDriveObject.use = currentUsed * 100;
+		fsDrive.setFileSystem(loopNumber, currentDriveObject);
+		
+		infoRes.push(currentDriveObject);
+	}
+	
+	return infoRes;
+}
+
+
 function calculateCpuAverage(coreCount, totalSpd)
 {
 	var divAmount = totalSpd / coreCount;
@@ -94,5 +123,6 @@ module.exports =
 {
 	getTime: getTimeObject,
 	getCPU: getCpuObject,
-	getMemory: getMemoryObject
+	getMemory: getMemoryObject,
+	getFileSystems: getFileSystemArray
 };

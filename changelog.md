@@ -1,41 +1,25 @@
 # Changelog
 
-**./fox-custom/random-values.js**
-* chooseRandomElement
-	* Renamed 'charIndex' to 'eIndex'
-	* Renamed 'hexRes' to 'elementRes'
-	* Can now be called publicly as 'generateArrayElement'
-* chooseRandomInteger
-	* Renamed 'numRes' variable to 'intRes'
-	* Can now be called publicly as 'generateInteger'
-* chooseRandomFloat
-	* New function
-	* Randomly chooses a float value between a range.
-	* Called publicly as 'generateFloat'
-* generateRandomUptime
-	* New function
-	* Generates system total uptime.
-	* This refers to the machine as a whole. Not just the Node JS process.
-	* Uses the process uptime as a base.
-	* Multiplication ranges from 1.05 to 50.00
-	* Final value is rounded to the nearest whole + 3
-* generateRandomGigahertz
-	* Multiplication factor has been changed from 5.1 to 5.25
-* generateRandomUsagePercent
-	* New function
-	* This generates a percentage value for volume sizes.
-	* Uses a range of 0.05 to 0.95
+**Test Status**
+* Emulated file system for '/api/admin/health' endpoint.
+* Passed: 38 / 60
 
 ---
 
-**./fox-api/system-info.js getTimeObject**
-* 'uptime' is now assigned by calling 'randomValues.generateUptime'
-* 'timezoneName' now uses the full name for UTC.
+**./fox-custom/fs-drive.js**
+* New file - Used to write file system information for generated volumes.
+* Writes either Windows or Unix themed information based on the user's operating system.
+* Unlike the drive capacity, this information is not randomly generated.
 
 ---
 
-**./fox-api/system-info.js getMemoryObject**
-* 'buffcache' is now assigned with a random size up to 500MB.
-* Variables are now assigned using 'generateUsagePercent'
-	* memPercent
-	* swapPercent
+**./fox-api/system-info.js**
+* Added requirement for '../fox-custom/fs-drive'
+* Wrote new function 'getFileSystemArray'
+	* Used to generate random drives for system information.
+	* Capacity up to 3TB
+
+---
+
+**./service.main.js getHealth**
+* 'fsSize' property emulated.
