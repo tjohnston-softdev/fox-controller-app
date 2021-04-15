@@ -75,9 +75,20 @@ function generateRandomHost()
 }
 
 
+function generateRandomUptime()
+{
+	var baseValue = process.uptime();
+	var multFactor = chooseRandomFloat(1.05, 50.00);
+	var uptimeDecimal = baseValue * multFactor;
+	var uptimeRounded = Math.round(uptimeDecimal) + 3;
+	
+	return uptimeRounded;
+}
+
+
 function generateRandomGigahertz()
 {
-	var baseValue = Math.random() * 5.1;
+	var baseValue = Math.random() * 5.25;
 	var formatValue = baseValue.toFixed(2);
 	var ghzNumber = parseFloat(formatValue);
 	return ghzNumber;
@@ -115,22 +126,38 @@ function generateRandomVolume(maxVol, unitSize)
 }
 
 
+function generateRandomUsagePercent()
+{
+	var percentRes = chooseRandomFloat(0.05, 0.95);
+	return percentRes;
+}
+
+
 
 function chooseRandomInteger(lowerLimit, upperLimit)
 {
 	var difference = upperLimit - lowerLimit;
 	var seedValue = Math.random() * difference;
-	var numRes = Math.round(lowerLimit + seedValue);
-	return numRes;
+	var intRes = Math.round(lowerLimit + seedValue);
+	return intRes;
+}
+
+
+function chooseRandomFloat(lowerLimit, upperLimit)
+{
+	var difference = upperLimit - lowerLimit;
+	var seedValue = Math.random() * difference;
+	var floatRes = lowerLimit + seedValue;
+	return floatRes;
 }
 
 
 function chooseRandomElement(subjectArray)
 {
 	var seedValue = Math.random() * subjectArray.length;
-	var charIndex = Math.floor(seedValue);
-	var hexRes = subjectArray[charIndex];
-	return hexRes;
+	var eIndex = Math.floor(seedValue);
+	var elementRes = subjectArray[eIndex];
+	return elementRes;
 }
 
 
@@ -141,7 +168,12 @@ module.exports =
 	generateIpAddress: generateRandomIpAddress,
 	generateMacAddress: generateRandomMacAddress,
 	generateHost: generateRandomHost,
+	generateUptime: generateRandomUptime,
 	generateGigahertz: generateRandomGigahertz,
 	generateCoreCount: generateRandomCoreCount,
-	generateVolume: generateRandomVolume
+	generateVolume: generateRandomVolume,
+	generateUsagePercent: generateRandomUsagePercent,
+	generateInteger: chooseRandomInteger,
+	generateFloat: chooseRandomFloat,
+	generateArrayElement: chooseRandomElement
 };

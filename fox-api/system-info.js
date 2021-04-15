@@ -7,9 +7,9 @@ function getTimeObject()
 	var infoRes = {};
 	
 	infoRes["current"] = Date.now();
-	infoRes["uptime"] = process.uptime();
+	infoRes["uptime"] = randomValues.generateUptime();
 	infoRes["timezone"] = "GMT+0000";
-	infoRes["timezoneName"] = "Universal";
+	infoRes["timezoneName"] = "Coordinated Universal Time (UTC)";
 	infoRes["process"] = process.uptime();
 	
 	return infoRes;
@@ -55,12 +55,12 @@ function getCpuObject()
 function getMemoryObject()
 {
 	var memTotal = randomValues.generateVolume(64, sizeFactors.GB);
-	var memPercent = Math.random();
+	var memPercent = randomValues.generateUsagePercent();
 	var memUsedBytes = Math.floor(memTotal * memPercent);
 	var memFreeBytes = memTotal - memUsedBytes;
 	
 	var swapTotal = randomValues.generateVolume(8, sizeFactors.GB);
-	var swapPercent = Math.random();
+	var swapPercent = randomValues.generateUsagePercent();
 	var swapUsedBytes = Math.floor(swapTotal * swapPercent);
 	var swapFreeBytes = swapTotal - swapUsedBytes;
 	
@@ -71,7 +71,7 @@ function getMemoryObject()
 	infoRes["used"] = memUsedBytes;
 	infoRes["active"] = memUsedBytes;
 	infoRes["available"] = memFreeBytes;
-	infoRes["buffcache"] = 0;
+	infoRes["buffcache"] = randomValues.generateVolume(500, sizeFactors.MB);
 	infoRes["swaptotal"] = swapTotal;
 	infoRes["swapused"] = swapUsedBytes;
 	infoRes["swapfree"] = swapFreeBytes;
