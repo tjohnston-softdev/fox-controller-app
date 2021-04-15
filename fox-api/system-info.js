@@ -1,3 +1,4 @@
+const sizeFactors = require("../fox-custom/size-factors");
 const randomValues = require("../fox-custom/random-values");
 
 
@@ -53,12 +54,12 @@ function getCpuObject()
 
 function getMemoryObject()
 {
-	var memTotal = randomValues.generateVolume(64);
+	var memTotal = randomValues.generateVolume(64, sizeFactors.GB);
 	var memPercent = Math.random();
 	var memUsedBytes = Math.floor(memTotal * memPercent);
 	var memFreeBytes = memTotal - memUsedBytes;
 	
-	var swapTotal = randomValues.generateVolume(8);
+	var swapTotal = randomValues.generateVolume(8, sizeFactors.GB);
 	var swapPercent = Math.random();
 	var swapUsedBytes = Math.floor(swapTotal * swapPercent);
 	var swapFreeBytes = swapTotal - swapUsedBytes;

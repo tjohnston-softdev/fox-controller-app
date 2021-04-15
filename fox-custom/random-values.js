@@ -99,18 +99,18 @@ function generateRandomCoreCount()
 }
 
 
-function generateRandomVolume(maxVol)
+function generateRandomVolume(maxVol, unitSize)
 {
 	var baseValue = chooseRandomInteger(1, maxVol);
 	var oddFlag = baseValue % 2;
-	var gigaCount = baseValue;
+	var unitCount = baseValue;
 	
-	if (gigaCount > 2)
+	if (unitCount > 2)
 	{
-		gigaCount = gigaCount - oddFlag;
+		unitCount = unitCount - oddFlag;
 	}
 	
-	var memoryBytes = gigaCount * 1000000000;
+	var memoryBytes = unitCount * unitSize;
 	return memoryBytes;
 }
 
