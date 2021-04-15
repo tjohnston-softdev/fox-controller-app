@@ -6,8 +6,8 @@ const contFolders = require("./settings");
 const rioIndex = require("./fox-devices/remote_io/remote-io.index");
 const deviceInfo = require("./fox-api/device-info");
 const systemInfo = require("./fox-api/system-info");
+const logSize = require("./fox-api/log-size");
 const restartTime = 1000;
-const maxSize = 64000000;
 
 class Controller
 {
@@ -19,6 +19,10 @@ class Controller
 	
 	getHealth(healthCallback)
 	{
+		var envFunc = this.getEnvironment;
+		var databaseFunc = this.getDatabaseSize;
+		var logFunc = this.getLogSize;
+		
 		var healthRes = {};
 		
 		healthRes.version = "0.1.0";
@@ -33,37 +37,65 @@ class Controller
 		healthRes.databaseSize = {};
 		healthRes.logSize = {};
 		
-		return healthCallback(healthRes);
+		series(
+		[
+			function (setEnvCb)
+			{
+				envFunc(function(envRes)
+				{
+					healthRes.environment = envRes;
+					return setEnvCb(null, true);
+				});
+			},
+			
+			function (setDatabaseCb)
+			{
+				databaseFunc(function(dbRes)
+				{
+					healthRes.databaseSize = dbRes;
+					return setDatabaseCb(null, true);
+				});
+			},
+			
+			function (setLogCb)
+			{
+				logFunc(function(logRes)
+				{
+					healthRes.logSize = logRes;
+					return setLogCb(null, true);
+				});
+			}
+		],
+		function (batchErr, batchRes)
+		{
+			return healthCallback(healthRes);
+		});
+		
 	}
 	
 	getEnvironment(envCallback)
 	{
-		var randTemp = Math.random() * 100;
-		var randHumid = Math.random() * 100;
+		// Todo
 		var environmentRes = {};
-		
-		environmentRes["temperature"] = Math.round(randTemp * 10) / 10;
-		environmentRes["humidity"] = Math.round(randHumid * 10) / 10;
-		
 		return envCallback(environmentRes);
 	}
 	
 	getDiskSpace(diskCallback)
 	{
-		var randBytes = Math.random() * maxSize;
-		return diskCallback(randBytes);
+		return diskCallback(123);
 	}
 	
 	getDatabaseSize(sizeCallback)
 	{
-		var randBytes = Math.random() * maxSize;
-		return sizeCallback(randBytes);
+		// Todo
+		var blankArr = [];
+		return sizeCallback(blankArr);
 	}
 	
 	getLogSize(logCallback)
 	{
-		var randBytes = Math.random() * maxSize;
-		return logCallback(randBytes);
+		var sizeRes = logSize.getObject();
+		return logCallback(sizeRes);
 	}
 	
 	stopFlows(stopCallback)
