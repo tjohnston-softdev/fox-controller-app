@@ -61,7 +61,7 @@ function getMemoryObject()
 	var memUsedBytes = Math.floor(memTotal * memPercent);
 	var memFreeBytes = memTotal - memUsedBytes;
 	
-	var swapTotal = randomValues.generateVolume(8, sizeFactors.GB);
+	var swapTotal = Math.floor(memTotal / 2);
 	var swapPercent = randomValues.generateUsagePercent();
 	var swapUsedBytes = Math.floor(swapTotal * swapPercent);
 	var swapFreeBytes = swapTotal - swapUsedBytes;
