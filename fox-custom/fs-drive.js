@@ -1,5 +1,3 @@
-const os = require("os");
-const platform = os.platform();
 const driveLetters = "ABCDEF";
 
 function initializeDriveObject()
@@ -17,7 +15,7 @@ function initializeDriveObject()
 }
 
 
-function setFileSystemProperties(driveNumber, driveObj)
+function setFileSystemProperties(driveNumber, driveObj, platform)
 {
 	if (platform === "win32")
 	{

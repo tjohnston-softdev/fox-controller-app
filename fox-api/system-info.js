@@ -1,3 +1,4 @@
+const osPlatform = require("../fox-custom/os-platform");
 const sizeFactors = require("../fox-custom/size-factors");
 const randomValues = require("../fox-custom/random-values");
 const fsDrive = require("../fox-custom/fs-drive");
@@ -101,7 +102,7 @@ function getFileSystemArray()
 		currentDriveObject.size = String(currentCapacity);
 		currentDriveObject.used = Math.floor(currentCapacity * currentUsed);
 		currentDriveObject.use = currentUsed * 100;
-		fsDrive.setFileSystem(loopNumber, currentDriveObject);
+		fsDrive.setFileSystem(loopNumber, currentDriveObject, osPlatform.name);
 		
 		infoRes.push(currentDriveObject);
 	}
