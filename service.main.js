@@ -6,6 +6,7 @@ const contFolders = require("./settings");
 const rioIndex = require("./fox-devices/remote_io/remote-io.index");
 const deviceInfo = require("./fox-api/device-info");
 const systemInfo = require("./fox-api/system-info");
+const envSensors = require("./fox-api/env-sensors");
 const logSize = require("./fox-api/log-size");
 const restartTime = 1000;
 
@@ -75,13 +76,13 @@ class Controller
 	
 	getEnvironment(envCallback)
 	{
-		// Todo
-		var environmentRes = {};
+		var environmentRes = envSensors.getInfo();
 		return envCallback(environmentRes);
 	}
 	
 	getDiskSpace(diskCallback)
 	{
+		// Todo
 		return diskCallback(123);
 	}
 	

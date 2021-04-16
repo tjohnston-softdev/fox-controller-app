@@ -1,21 +1,23 @@
 # Changelog
 
-**./fox-custom/os-platform.js**
-* New file - Stores OS platform of the user's machine.
-	* eg. Windows is "win32"
-* Defines this in a single place that can be accessed by other files as needed.
+**Test Status**
+* Properly emulated environmental sensor information for '/api/admin/health' endpoint.
+* Tests passed: 59 / 60
+	* Only database sizes remain.
 
 ---
 
-**./fox-custom/fs-drive.js**
-* Removed:
-	* 'os' requirement.
-	* 'platform' global variable.
-* setFileSystemProperties
-	* Added 'platform' parameter.
+**./fox-api/env-sensors.js**
+* New file - Creates test data for environmental sensors.
+* If the device OS is a dummy, it will only return placeholder information.
+* Temperature and Humidity are randomly generated.
 
 ---
 
-**./fox-api/system-info.js**
-* Added requirement for '../fox-custom/os-platform'
-* Added 'osPlatform' argument to 'fsDrive.setFileSystem' call
+**./service.main.js**
+* Added requirement for './fox-api/env-sensors'
+* getEnvironment
+	* 'environmentRes' is assigned by calling 'envSensors'
+	* Removed "Todo" comment.
+* getDiskSpace
+	* Added "Todo" comment.
