@@ -1,23 +1,23 @@
 # Changelog
 
 **Test Status**
-* Properly emulated environmental sensor information for '/api/admin/health' endpoint.
-* Tests passed: 59 / 60
-	* Only database sizes remain.
+* Emulated database size information for '/api/admin/health' endpoint.
+* All tests pass successfully.
+* Endpoint complete.
 
 ---
 
-**./fox-api/env-sensors.js**
-* New file - Creates test data for environmental sensors.
-* If the device OS is a dummy, it will only return placeholder information.
-* Temperature and Humidity are randomly generated.
+**./fox-api/database-info.js**
+* New file - Used to retrieve information about stored databases.
+* Unlike 'system-info.js', this uses real data instead of test data.
+
+---
+
+**./fox-custom/folder-item.js**
+* New file - Used to read information about a file in a folder contents loop.
 
 ---
 
 **./service.main.js**
-* Added requirement for './fox-api/env-sensors'
-* getEnvironment
-	* 'environmentRes' is assigned by calling 'envSensors'
-	* Removed "Todo" comment.
-* getDiskSpace
-	* Added "Todo" comment.
+* Added requirement for './fox-api/database-info'
+* Rewrote 'getDatabaseSize' to retrieve correct information.
