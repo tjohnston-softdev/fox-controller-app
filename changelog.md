@@ -1,6 +1,7 @@
 # Changelog
 
-**./routes/storage.js**
-* Revised error handling for:
-	* /user-files/list
-	* /user-files/download/
+**Test Status**
+* Device CRUD APIs overview
+	* Preperation tests pass successfully.
+	* Most endpoint tests fail.
+* Tests Passed: 67 / 160
