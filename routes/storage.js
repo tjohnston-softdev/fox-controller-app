@@ -1,6 +1,8 @@
+var path = require("path");
 var express = require('express');
 var contPaths = require("../settings");
 var folderInfo = require("../fox-api/folder-info");
+var downloadPrep = require("../fox-api/download-prep");
 var serviceMain = require("../service.main");
 var router = express.Router();
 
@@ -29,8 +31,24 @@ router.get('/user-files/list', function(req, res, next)
 
 router.get('/user-files/download/:fileName', function(req, res, next)
 {
-	// Todo
-	res.send("Test File Contents");
+	var preparedFileName = downloadPrep.readFileName(req.params.fileName);
+	var downloadPath = path.join(contPaths.userStoragePath, preparedFileName);
+	var complete = false;
+	
+	downloadPrep.checkDownloadExists(downloadPath, function (existErr, existRes)
+	{
+		if (existErr !== null)
+		{
+			res.status(400).send(existErr);
+		}
+		else
+		{
+			res.download(downloadPath, preparedFileName, function (sendErr)
+			{
+				complete = true;
+			});
+		}
+	});
 });
 
 
