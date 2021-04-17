@@ -7,7 +7,7 @@ const rioIndex = require("./fox-devices/remote_io/remote-io.index");
 const deviceInfo = require("./fox-api/device-info");
 const systemInfo = require("./fox-api/system-info");
 const envSensors = require("./fox-api/env-sensors");
-const databaseInfo = require("./fox-api/database-info");
+const folderInfo = require("./fox-api/folder-info");
 const logSize = require("./fox-api/log-size");
 const restartTime = 1000;
 
@@ -89,7 +89,7 @@ class Controller
 	
 	getDatabaseSize(sizeCallback)
 	{
-		databaseInfo.getContents(contFolders.dbsPath, function (getDbSizesErr, getDbSizesRes)
+		folderInfo.getContents(contFolders.dbsPath, function (getDbSizesErr, getDbSizesRes)
 		{
 			return sizeCallback(getDbSizesRes);
 		});
