@@ -1,3 +1,4 @@
+const timestamps = require("../fox-custom/timestamp-ranges");
 const randomValues = require("../fox-custom/random-values");
 
 function generateClientObjects(genCount)
@@ -11,7 +12,7 @@ function generateClientObjects(genCount)
 		currentClient = {};
 		currentMAC = randomValues.generateMacAddress();
 		
-		currentClient["leaseExpiry"] = randomValues.generateTime();
+		currentClient["leaseExpiry"] = randomValues.generateTime(timestamps.dhcpExpire);
 		currentClient["mac"] = currentMAC;
 		currentClient["ipAddress"] = randomValues.generateIpAddress();
 		currentClient["host"] = randomValues.generateHost();

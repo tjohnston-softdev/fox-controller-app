@@ -1,7 +1,5 @@
 const hexValues = [];
 const deviceTypes = [];
-const minTime = 3408220800000;				// 2078-01-01
-const maxTime = 32503680000000;				// 3000-01-01
 
 hexValues.push('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
 hexValues.push('a', 'b', 'c', 'd', 'e', 'f');
@@ -9,9 +7,9 @@ hexValues.push('a', 'b', 'c', 'd', 'e', 'f');
 deviceTypes.push("Device", "Model", "Unit", "Host", "Node");
 
 
-function generateRandomTime()
+function generateRandomTime(tsObject)
 {
-	var timestampNumber = chooseRandomInteger(minTime, maxTime);
+	var timestampNumber = chooseRandomInteger(tsObject.min, tsObject.max);
 	return timestampNumber;
 }
 
