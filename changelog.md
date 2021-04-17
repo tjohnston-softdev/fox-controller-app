@@ -1,9 +1,10 @@
 # Changelog
 
-**./routes/devices.js**
-* New file - Defines Device API endpoints.
+**Test Status**
+* Wrote emulation for '/api/devices/defaults' endpoint.
+* All tests pass.
 
 ---
 
-**./server.js**
-* Added Device API.
+**./routes/devices.js**
+* Emulated '/defaults' endpoint.

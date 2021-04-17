@@ -27,8 +27,13 @@ router.get(deviceApiUrls.deviceStatus, function(req, res, next)
 
 router.get(deviceApiUrls.defaults, function(req, res, next)
 {
-	// Todo
-	res.send("Defaults");
+	var defaultRes = {};
+	
+	defaultRes["deviceTypes"] = deviceSettings.deviceTypes;
+	defaultRes["rioMakers"] = deviceSettings.listRioMakers;
+	defaultRes["rioModelTypes"] = deviceSettings.listRioModelTypes;
+	
+	res.send(defaultRes);
 });
 
 
