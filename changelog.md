@@ -1,23 +1,18 @@
 # Changelog
 
-**Test Status**
-* Emulated database size information for '/api/admin/health' endpoint.
-* All tests pass successfully.
-* Endpoint complete.
+**./server.js**
+* Added Alarm API.
 
 ---
 
-**./fox-api/database-info.js**
-* New file - Used to retrieve information about stored databases.
-* Unlike 'system-info.js', this uses real data instead of test data.
+**./routes/alarm.js**
+* New file - Contains Alarm API endpoints.
 
 ---
 
-**./fox-custom/folder-item.js**
-* New file - Used to read information about a file in a folder contents loop.
-
----
-
-**./service.main.js**
-* Added requirement for './fox-api/database-info'
-* Rewrote 'getDatabaseSize' to retrieve correct information.
+**./fox-api/alarm-params.js**
+* New file - Contains functions for reading Alarm list endpoint parameters.
+	* Node ID
+	* Timestamp range.
+	* Limit object count.
+	* Swapping timestamp limits.
