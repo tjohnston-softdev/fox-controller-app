@@ -39,14 +39,35 @@ router.get(deviceApiUrls.defaults, function(req, res, next)
 
 router.get(deviceApiUrls.deviceType, function(req, res, next)
 {
-	// Todo
-	res.send("List Devices By Type");
+	rioIndex.listRemoteIoDevices(function (listQueryErr, listQueryRes)
+	{
+		if (listQueryErr !== null)
+		{
+			res.status(400).send(listQueryErr.message);
+		}
+		else
+		{
+			res.send(listQueryRes);
+		}
+	});
 });
 
 router.post(deviceApiUrls.deviceType, function(req, res, next)
 {
-	// Todo
-	res.send("Create Device");
+	var addResult = {};
+	
+	rioIndex.addRemoteIoDevice(req.body, function (addNewErr, addNewID)
+	{
+		if (addNewErr !== null)
+		{
+			res.status(400).send(addNewErr.message);
+		}
+		else
+		{
+			addResult = {success: true, id: addNewID};
+			res.send(addResult);
+		}
+	});
 });
 
 

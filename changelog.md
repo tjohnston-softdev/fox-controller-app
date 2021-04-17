@@ -1,10 +1,12 @@
 # Changelog
 
 **Test Status**
-* Wrote emulation for '/api/devices/defaults' endpoint.
-* All tests pass.
+* Wrote emulation for '/api/devices/:deviceType' endpoints.
+* Both GET and POST
 
 ---
 
 **./routes/devices.js**
-* Emulated '/defaults' endpoint.
+* Emulated the following endpoints:
+	* GET /:deviceType
+	* POST /:deviceType
