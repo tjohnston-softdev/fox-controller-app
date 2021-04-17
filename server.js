@@ -6,6 +6,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var adminRouter = require("./routes/admin");
 var alarmRouter = require("./routes/alarm");
+var storageRouter = require("./routes/storage");
 
 var app = express();
 
@@ -18,5 +19,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/alarm-history', alarmRouter);
+app.use('/api/storage', storageRouter);
 
 module.exports = app;

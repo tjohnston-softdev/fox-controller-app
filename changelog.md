@@ -1,11 +1,14 @@
 # Changelog
 
 **Test Status**
-* Overview:
-	* Storage path retrieved successfully.
-	* 'user-files/list' endpoint fails.
-	* 'Create User Storage' successful.
-	* 'user-files/download/test-file.txt' endpoint needs to be checked.
-	* 'Delete User Storage' successful.
-	* 'global/status' endpoint fails.
-* Tests Passed: 18 / 28
+* Storage API tests passed: 23 / 28
+
+---
+
+**./routes/storage.js**
+* New file - Defines Storage API endpoints.
+
+---
+
+**./server.js**
+* Added Storage API endpoints.
