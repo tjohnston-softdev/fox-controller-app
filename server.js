@@ -17,6 +17,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/admin', adminRouter);
-app.use('/api/alarm', alarmRouter);
+app.use('/api/alarm-history', alarmRouter);
 
 module.exports = app;
