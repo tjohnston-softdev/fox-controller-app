@@ -1,9 +1,12 @@
 # Changelog
 
-**./fox-api/database-info.js**
-* Renamed to 'folder-info.js'
+**Test Status**
+* Emulated '/api/storage/user-files/list' endpoint.
 
 ---
 
-**./service.main.js**
-* Updated requirement path.
+**./routes/storage.js**
+* Added requirements:
+	* ../settings
+	* ../fox-api/folder-info
+* '/user-files/list' emulation successful.
