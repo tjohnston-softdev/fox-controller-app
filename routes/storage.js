@@ -1,6 +1,7 @@
 var express = require('express');
 var contPaths = require("../settings");
 var folderInfo = require("../fox-api/folder-info");
+var serviceMain = require("../service.main");
 var router = express.Router();
 
 
@@ -29,14 +30,16 @@ router.get('/user-files/list', function(req, res, next)
 router.get('/user-files/download/:fileName', function(req, res, next)
 {
 	// Todo
-	res.send("Download");
+	res.send("Test File Contents");
 });
 
 
 router.get('/global/status', function(req, res, next)
 {
-	// Todo
-	res.send("Global Status");
+	serviceMain.controller.getDiskSpace(function (retrievedDiskSpace)
+	{
+		res.send(retrievedDiskSpace);
+	});
 });
 
 

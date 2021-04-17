@@ -83,8 +83,8 @@ class Controller
 	
 	getDiskSpace(diskCallback)
 	{
-		// Todo
-		return diskCallback(123);
+		var diskSpaceRes = systemInfo.getMainDisk();
+		return diskCallback(diskSpaceRes);
 	}
 	
 	getDatabaseSize(sizeCallback)

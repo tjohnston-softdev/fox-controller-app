@@ -87,23 +87,13 @@ function getFileSystemArray()
 {
 	var loopNumber = 1;
 	var driveCount = randomValues.generateInteger(1, 6);
-	var currentCapacity = -1;
-	var currentUsed = -1;
 	
 	var currentDriveObject = {};
 	var infoRes = [];
 	
 	for (loopNumber = 1; loopNumber <= driveCount; loopNumber = loopNumber + 1)
 	{
-		currentCapacity = randomValues.generateVolume(3000, sizeFactors.GB);
-		currentUsed = randomValues.generateUsagePercent();
-		currentDriveObject = fsDrive.initializeObject();
-		
-		currentDriveObject.size = String(currentCapacity);
-		currentDriveObject.used = Math.floor(currentCapacity * currentUsed);
-		currentDriveObject.use = currentUsed * 100;
-		fsDrive.setFileSystem(loopNumber, currentDriveObject, osPlatform.name);
-		
+		currentDriveObject = createFileSystemObject(loopNumber);
 		infoRes.push(currentDriveObject);
 	}
 	
@@ -142,6 +132,29 @@ function getNetworkInterfaceArray()
 }
 
 
+function getMainDiskObject()
+{
+	var infoRes = createFileSystemObject(1);
+	return infoRes;
+}
+
+
+
+function createFileSystemObject(fsNum)
+{
+	var currentCapacity = randomValues.generateVolume(3000, sizeFactors.GB);
+	var currentUsed = randomValues.generateUsagePercent();
+	var newFsObject = fsDrive.initializeObject();
+	
+	newFsObject.size = String(currentCapacity);
+	newFsObject.used = Math.floor(currentCapacity * currentUsed);
+	newFsObject.use = currentUsed * 100;
+	fsDrive.setFileSystem(fsNum, newFsObject, osPlatform.name);
+	
+	return newFsObject;
+}
+
+
 function calculateCpuAverage(coreCount, totalSpd)
 {
 	var divAmount = totalSpd / coreCount;
@@ -158,5 +171,6 @@ module.exports =
 	getCPU: getCpuObject,
 	getMemory: getMemoryObject,
 	getFileSystems: getFileSystemArray,
-	getNetworkInterfaces: getNetworkInterfaceArray
+	getNetworkInterfaces: getNetworkInterfaceArray,
+	getMainDisk: getMainDiskObject
 };
