@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var adminRouter = require("./routes/admin");
 var alarmRouter = require("./routes/alarm");
 var storageRouter = require("./routes/storage");
+var deviceRouter = require("./routes/devices");
 
 var app = express();
 
@@ -20,5 +21,6 @@ app.use('/', indexRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/alarm-history', alarmRouter);
 app.use('/api/storage', storageRouter);
+app.use('/api/devices', deviceRouter);
 
 module.exports = app;
