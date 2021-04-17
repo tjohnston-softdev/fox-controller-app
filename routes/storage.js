@@ -19,7 +19,7 @@ router.get('/user-files/list', function(req, res, next)
 	{
 		if (storageContentsErr !== null)
 		{
-			res.status(400).send(storageContentsErr);
+			res.status(400).send(storageContentsErr.message);
 		}
 		else
 		{
@@ -39,7 +39,7 @@ router.get('/user-files/download/:fileName', function(req, res, next)
 	{
 		if (existErr !== null)
 		{
-			res.status(400).send(existErr);
+			res.status(400).send(existErr.message);
 		}
 		else
 		{
