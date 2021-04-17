@@ -34,7 +34,7 @@ function defineNode(num)
 	var defineRes = {};
 	
 	defineRes["ts"] = randomValues.generateTime(timestamps.alarm);
-	defineRes["id"] = randomValues.generateNodeID();
+	defineRes["nodeId"] = randomValues.generateNodeID();
 	defineRes["state"] = randomValues.generateFlag();
 	defineRes["name"] = "Alarm Node Object " + num;
 	
@@ -46,7 +46,7 @@ function defineAvailability(baseNode)
 {
 	var defineRes = {};
 	
-	defineRes["id"] = baseNode.id;
+	defineRes["id"] = baseNode.nodeId;
 	defineRes["name"] = baseNode.name;
 	defineRes["okText"] = "OK";
 	defineRes["alarmText"] = "";
@@ -95,7 +95,7 @@ function getAlarmObjects(inputParams)
 		
 		if (currentTimeMatch === true && currentNodeMatch === true)
 		{
-			queryRes.push(currentAlarm);
+			//queryRes.push(currentAlarm);
 		}
 		
 		loopIndex = loopIndex + 1;
@@ -107,7 +107,7 @@ function getAlarmObjects(inputParams)
 
 function getAvailabilityObjects()
 {
-	return available;
+	return [];
 }
 
 

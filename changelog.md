@@ -1,24 +1,30 @@
 # Changelog
 
-**./fox-custom/random-values.js - New Functions**
-* generateRandomNodeID
-	* Generates Node ID for alarm database.
-	* Format: `[hex]{8}.[hex]{6}`
-* generateRandomFlag
-	* Generates 0 or 1.
-	* Uses base random function.
-	* Rounds to nearest whole.
+**Test Status**
+* Successfully emulated Alarm API endpoints.
+	* /api/alarm/list/:nodeId
+	* /api/alarm/available
 
 ---
 
-**./fox-custom/timestamp-ranges.js**
-* Changed "NOW" reference to "Date.now".
+**./routes/alarm.js**
+* Added requirement for '../fox-api/alarm-database'
+* Added `module.exports = router`
+* list
+	* Removed extra slash from path.
+	* Declared 'resultArray' variable.
+	* 'resultArray' is assigned by calling 'alarmDatabase.getAlarms'
+	* Endpoint sends 'resultArray' as output.
+	* Removed "Todo" comment.
+* available
+	* Declared 'resultArray' variable.
+	* 'resultArray' is assigned by calling 'alarmDatabase.getAvailable'
+	* Removed "Todo" comment.
 
 ---
 
 **./fox-api/alarm-database.js**
-* New file.
-	* Unlike Remote IO, this is not a database in the traditional sense.
-	* It simply emulates the Alarm database for the relevant APIs using JSON objects.
-	* Randomly generates 10 - 500 Alarm objects on runtime.
-	* Alarm and availability objects have a 1:1 relationship.
+* Changed 'id' property to 'nodeId' (defineNode)
+* Changed 'baseNode.id' to 'baseNode.nodeId' (defineAvailability)
+* Commented out `queryRes.push` (getAlarmObjects)
+* 'getAvailabilityObjects' now returns an empty array.

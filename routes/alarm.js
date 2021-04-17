@@ -1,5 +1,6 @@
 var express = require('express');
 var alarmParams = require("../fox-api/alarm-params");
+var alarmDatabase = require("../fox-api/alarm-database");
 var router = express.Router();
 
 router.get('/', function(req, res, next)
@@ -8,12 +9,11 @@ router.get('/', function(req, res, next)
 });
 
 
-router.get('//list/:nodeId', function(req, res, next)
+router.get('/list/:nodeId', function(req, res, next)
 {
-	// Todo
-	
 	var currentTime = Date.now();
 	var paraObject = {};
+	var resultArray = [];
 	
 	paraObject["nodeID"] = alarmParams.readNodeID(req.params.nodeId);
 	paraObject["timeLower"]	= alarmParams.readNumber(req.query.from, 0);
@@ -21,12 +21,16 @@ router.get('//list/:nodeId', function(req, res, next)
 	paraObject["limit"] = alarmParams.readLimit(req.query.limit, 100);
 	alarmParams.swapTimestamps(paraObject);
 	
-	res.send(paraObject);
+	resultArray = alarmDatabase.getAlarms(paraObject);
+	
+	res.send(resultArray);
 });
 
 
 router.get('/available', function(req, res, next)
 {
-	// Todo
-	res.send("Available");
+	var resultArray = alarmDatabase.getAvailable();
+	res.send(resultArray);
 });
+
+module.exports = router;
