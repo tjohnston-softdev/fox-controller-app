@@ -153,6 +153,37 @@ function generateRandomUsagePercent()
 }
 
 
+function generateRandomNodeID()
+{
+	var currentHex = "";
+	var firstPart = "";
+	var secondPart = "";
+	
+	while (firstPart.length < 8)
+	{
+		currentHex = chooseRandomElement(hexValues);
+		firstPart += currentHex;
+	}
+	
+	while (secondPart.length < 6)
+	{
+		currentHex = chooseRandomElement(hexValues);
+		secondPart += currentHex;
+	}
+	
+	var nodeRes = firstPart + "." + secondPart;
+	return nodeRes;
+}
+
+
+function generateRandomFlag()
+{
+	var seedValue = Math.random();
+	var flagRes = Math.round(seedValue);
+	return flagRes;
+}
+
+
 
 function chooseRandomInteger(lowerLimit, upperLimit)
 {
@@ -194,6 +225,8 @@ module.exports =
 	generateCoreCount: generateRandomCoreCount,
 	generateVolume: generateRandomVolume,
 	generateUsagePercent: generateRandomUsagePercent,
+	generateNodeID: generateRandomNodeID,
+	generateFlag: generateRandomFlag,
 	generateInteger: chooseRandomInteger,
 	generateFloat: chooseRandomFloat,
 	generateArrayElement: chooseRandomElement

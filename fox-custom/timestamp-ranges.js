@@ -5,7 +5,7 @@ function createTimestamps()
 	var createRes = {};
 	
 	createRes["dhcpExpire"] = defineTimestampRange(3408220800000, 32503680000000);			// 2078-01-01 to 3000-01-01
-	createRes["alarm"] = defineTimestampRange(thirtyDaysAgo, currentTime);					// Within ~30 days of NOW()
+	createRes["alarm"] = defineTimestampRange(thirtyDaysAgo, currentTime);					// Within ~30 days of Date.now()
 	
 	return createRes;
 }
