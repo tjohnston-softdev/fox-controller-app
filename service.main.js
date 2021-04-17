@@ -89,7 +89,7 @@ class Controller
 	
 	getDatabaseSize(sizeCallback)
 	{
-		databaseInfo.getDatabases(contFolders.dbsPath, function (getDbSizesErr, getDbSizesRes)
+		databaseInfo.getContents(contFolders.dbsPath, function (getDbSizesErr, getDbSizesRes)
 		{
 			return sizeCallback(getDbSizesRes);
 		});

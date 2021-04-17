@@ -3,25 +3,25 @@ const forEachItem = require("async-each");
 const folderItem = require("../fox-custom/folder-item");
 
 
-function getDatabaseInformation(rootPathString, dbInfoCallback)
+function getFolderContents(folderPathString, foldContsCallback)
 {
-	var databaseFolderExists = fs.existsSync(rootPathString);
-	var databaseArrayObject = [];
+	var targetFolderExists = fs.existsSync(folderPathString);
+	var entryArrayObject = [];
 	
-	if (databaseFolderExists === true)
+	if (targetFolderExists === true)
 	{
-		readDatabaseFolder(rootPathString, databaseArrayObject, dbInfoCallback);
+		readTargetFolder(folderPathString, entryArrayObject, foldContsCallback);
 	}
 	else
 	{
-		return dbInfoCallback(null, databaseArrayObject);
+		return foldContsCallback(null, entryArrayObject);
 	}
 }
 
 
-function readDatabaseFolder(rootPathStr, databaseArrayObj, readFolderCallback)
+function readTargetFolder(folderPathStr, entryArrayObj, readFolderCallback)
 {
-	fs.readdir(rootPathStr, function(folderErr, contentEntries)
+	fs.readdir(folderPathStr, function(folderErr, contentEntries)
 	{
 		if (folderErr !== undefined && folderErr !== null)
 		{
@@ -29,18 +29,18 @@ function readDatabaseFolder(rootPathStr, databaseArrayObj, readFolderCallback)
 		}
 		else
 		{
-			loopFolderContents(rootPathStr, contentEntries, databaseArrayObj, readFolderCallback);
+			loopFolderContents(folderPathStr, contentEntries, entryArrayObj, readFolderCallback);
 		}
 	});
 }
 
 
-function loopFolderContents(rootPath, contentsArray, databaseArray, contentLoopCallback)
+function loopFolderContents(folderPath, contentsArray, entryArray, contentLoopCallback)
 {
 	forEachItem(contentsArray,
 	function (currentName, iterationCallback)
 	{
-		folderItem.readItem(rootPath, currentName, databaseArray, iterationCallback);
+		folderItem.readItem(folderPath, currentName, entryArray, iterationCallback);
 	},
 	function (loopErr, loopRes)
 	{
@@ -50,7 +50,7 @@ function loopFolderContents(rootPath, contentsArray, databaseArray, contentLoopC
 		}
 		else
 		{
-			return contentLoopCallback(null, databaseArray);
+			return contentLoopCallback(null, entryArray);
 		}
 	});
 }
@@ -60,5 +60,5 @@ function loopFolderContents(rootPath, contentsArray, databaseArray, contentLoopC
 
 module.exports =
 {
-	getDatabases: getDatabaseInformation
+	getContents: getFolderContents
 };
