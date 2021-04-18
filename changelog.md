@@ -1,50 +1,12 @@
 # Changelog
 
-**Test Status**
-* Device API endpoints
-	* Most invalid cases pass since error format has been corrected.
-	* Total Passed: 142 / 160
+**./fox-custom/database-help.js**
+* Rewrote 'checkUpdateInputEntered' to catch null and other non-JSON values.
+	* If an object is entered, it is safe.
+	* Otherwise, flag error.
 
 ---
 
-**./package.json**
-* Installed modules:
-	* http-errors
-	* body-parser
-
----
-
-**./routes/devices.js**
-* Required newly installed modules.
-* Modified router to use 'bodyParser'
-* Modified the following endpoints to use 'httpErrors'
-	* /status/:deviceType/:deviceId
-		* GET
-	* /:deviceType
-		* GET
-		* POST
-	* /:deviceType/:deviceId
-		* GET
-		* PUT
-		* DELETE
-
----
-
-**./routes/storage.js**
-* Required newly installed modules.
-* Modified router to use 'bodyParser'
-* Modified the following endpoints to use 'httpErrors'
-	* /user-files/list
-	* /user-files/download/:fileName
-
----
-
-**./fox-api/error-html.js**
-* New file - Writes error page HTML.
-* Based on 'pug' rendering used by original Controller.
-
----
-
-**./server.js**
-* Required './fox-api/error-html'
-* Wrote error handler.
+**./databases/device.database.js - callCreateDevice**
+* No longer reads and uses existing object ID.
+* Only calls 'callUpdateDevice' with a null ID.

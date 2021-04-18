@@ -20,7 +20,14 @@ function generateEntryID(existingValue, hashObj)
 
 function checkUpdateInputEntered(inpObj, errorCallback)
 {
-	if (inpObj === undefined)
+	var entryType = typeof inpObj;
+	var objectEntered = false;
+	
+	if (inpObj !== undefined && inpObj !== null && entryType === "object")
+	{
+		objectEntered = true;
+	}
+	else
 	{
 		return errorCallback(new Error("Missing entity"), null);
 	}
