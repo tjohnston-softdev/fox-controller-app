@@ -1,4 +1,6 @@
 var express = require('express');
+var bodyParser = require("body-parser");
+var httpErrors = require("http-errors");
 var deviceParams = require("../fox-api/device-params");
 var deviceSettings = require("../fox-devices/device.settings");
 var rioIndex = require('../fox-devices/remote_io/remote-io.index');
@@ -12,6 +14,8 @@ var deviceApiUrls =
     deviceQuery: '/:deviceType/:deviceId'
 };
 
+router.use(bodyParser.urlencoded({extended: false}));
+
 
 router.get('/', function(req, res, next)
 {
@@ -24,6 +28,7 @@ router.get(deviceApiUrls.deviceStatus, function(req, res, next)
 	var prepDeviceType = deviceParams.readPage(req.params.deviceType);
 	var prepDeviceID = deviceParams.readPage(req.params.deviceId);
 	var retrievedStatus = {};
+	var errorObject = null;
 	
 	if (prepDeviceType !== null && prepDeviceID !== null)
 	{
@@ -32,7 +37,8 @@ router.get(deviceApiUrls.deviceStatus, function(req, res, next)
 	}
 	else
 	{
-		res.status(404).send("Page Does Not Exist");
+		var errorObject = httpErrors(404);
+		return next(errorObject);
 	}
 });
 
@@ -55,7 +61,7 @@ router.get(deviceApiUrls.deviceType, function(req, res, next)
 	{
 		if (listQueryErr !== null)
 		{
-			res.status(400).send(listQueryErr.message);
+			res.send(listQueryErr);
 		}
 		else
 		{
@@ -67,12 +73,14 @@ router.get(deviceApiUrls.deviceType, function(req, res, next)
 router.post(deviceApiUrls.deviceType, function(req, res, next)
 {
 	var addResult = {};
+	var errorObject = null;
 	
 	rioIndex.addRemoteIoDevice(req.body, function (addNewErr, addNewID)
 	{
 		if (addNewErr !== null)
 		{
-			res.status(400).send(addNewErr.message);
+			errorObject = httpErrors(500, addNewErr.message);
+			return next(errorObject);
 		}
 		else
 		{
@@ -86,6 +94,7 @@ router.post(deviceApiUrls.deviceType, function(req, res, next)
 router.get(deviceApiUrls.deviceQuery, function(req, res, next)
 {
 	var prepDeviceID = deviceParams.readPage(req.params.deviceId);
+	var errorObject = null;
 	
 	deviceParams.retrieveDevice(prepDeviceID, function(retrievedData)
 	{
@@ -95,11 +104,13 @@ router.get(deviceApiUrls.deviceQuery, function(req, res, next)
 		}
 		else if (retrievedData.outcome === 0)
 		{
-			res.status(400).send(retrievedData.messageText);
+			errorObject = httpErrors(retrievedData.messageText);
+			return next(errorObject);
 		}
 		else
 		{
-			res.status(404).send(retrievedData.messageText);
+			errorObject = httpErrors(404);
+			return next(errorObject);
 		}
 	});
 });
@@ -107,12 +118,14 @@ router.get(deviceApiUrls.deviceQuery, function(req, res, next)
 router.put(deviceApiUrls.deviceQuery, function(req, res, next)
 {
 	var updateResultObject = {};
+	var errorObject = null;
 	
 	rioIndex.modRemoteIoDevice(req.body, function (updateExistingErr, updatedID)
 	{
 		if (updateExistingErr !== null)
 		{
-			res.status(400).send(updateExistingErr.message);
+			errorObject = httpErrors(updateExistingErr);
+			return next(errorObject);
 		}
 		else
 		{
@@ -129,12 +142,14 @@ router.delete(deviceApiUrls.deviceQuery, function(req, res, next)
 	var deleteProp = req.headers["delete-permanently"];
 	var delStatus = (deleteProp === "true");
 	var deleteResultObject = {};
+	var errorObject = null;
 	
 	rioIndex.delRemoteIoDevice(req.params.deviceId, delStatus, function (deleteExistingErr)
 	{
 		if (deleteExistingErr !== null)
 		{
-			res.status(400).send(deleteExistingErr.message);
+			errorObject = httpErrors(deleteExistingErr);
+			return next(errorObject);
 		}
 		else
 		{

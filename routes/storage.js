@@ -1,10 +1,14 @@
 var path = require("path");
 var express = require('express');
+var bodyParser = require("body-parser");
+var httpErrors = require("http-errors");
 var contPaths = require("../settings");
 var folderInfo = require("../fox-api/folder-info");
 var downloadPrep = require("../fox-api/download-prep");
 var serviceMain = require("../service.main");
 var router = express.Router();
+
+router.use(bodyParser.urlencoded({extended: false}));
 
 
 router.get('/', function(req, res, next)
@@ -15,11 +19,14 @@ router.get('/', function(req, res, next)
 
 router.get('/user-files/list', function(req, res, next)
 {
+	var errorObject = null;
+	
 	folderInfo.getContents(contPaths.userStoragePath, function (storageContentsErr, storageContentsRes)
 	{
 		if (storageContentsErr !== null)
 		{
-			res.status(400).send(storageContentsErr.message);
+			errorObject = httpErrors(storageContentsErr);
+			return next(errorObject);
 		}
 		else
 		{
@@ -34,12 +41,14 @@ router.get('/user-files/download/:fileName', function(req, res, next)
 	var preparedFileName = downloadPrep.readFileName(req.params.fileName);
 	var downloadPath = path.join(contPaths.userStoragePath, preparedFileName);
 	var complete = false;
+	var errorObject = null;
 	
 	downloadPrep.checkDownloadExists(downloadPath, function (existErr, existRes)
 	{
 		if (existErr !== null)
 		{
-			res.status(400).send(existErr.message);
+			errorObject = httpErrors(existErr);
+			return next(errorObject);
 		}
 		else
 		{
