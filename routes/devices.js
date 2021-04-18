@@ -1,4 +1,5 @@
 var express = require('express');
+var deviceParams = require("../fox-api/device-params");
 var deviceSettings = require("../fox-devices/device.settings");
 var rioIndex = require('../fox-devices/remote_io/remote-io.index');
 var router = express.Router();
@@ -20,8 +21,19 @@ router.get('/', function(req, res, next)
 
 router.get(deviceApiUrls.deviceStatus, function(req, res, next)
 {
-	// Todo
-	res.send("Device Status");
+	var prepDeviceType = deviceParams.readPage(req.params.deviceType);
+	var prepDeviceID = deviceParams.readPage(req.params.deviceId);
+	var retrievedStatus = {};
+	
+	if (prepDeviceType !== null && prepDeviceID !== null)
+	{
+		retrievedStatus = rioIndex.getRioDeviceStatus(prepDeviceID);
+		res.send(retrievedStatus);
+	}
+	else
+	{
+		res.status(404).send();
+	}
 });
 
 
