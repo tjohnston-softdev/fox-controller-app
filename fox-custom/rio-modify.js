@@ -9,7 +9,6 @@ function addNewDeviceEntry(inpDeviceObj, rioDatabase, runDeviceList, addNewCallb
 	var newStoredDevice = null;
 	
 	checkInputType(inpDeviceObj, addNewCallback);
-	inpDeviceObj.id = "Example";
 	setMaker(inpDeviceObj);
 	newStoredDevice = createStoredDevice(inpDeviceObj);
 	checkCreationSuccessful(newStoredDevice, addNewCallback);
@@ -50,7 +49,7 @@ function updateExistingDeviceEntry(updatedDeviceObj, rioDatabase, runDeviceList,
 		}
 		else
 		{
-			modifiedStoredDevice = createStoredDevice(existDeviceRes);
+			modifiedStoredDevice = createStoredDevice(updatedDeviceObj);
 			checkCreationSuccessful(modifiedStoredDevice, updateExistingCallback);
 			saveDeviceChanges(localID, modifiedStoredDevice.object, rioDatabase, runDeviceList, updateExistingCallback);
 		}

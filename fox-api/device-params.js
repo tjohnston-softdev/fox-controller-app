@@ -1,3 +1,5 @@
+const rioIndex = require("../fox-devices/remote_io/remote-io.index");
+
 function readPagePart(parameterString)
 {
 	var givenType = typeof parameterString;
@@ -12,17 +14,44 @@ function readPagePart(parameterString)
 }
 
 
-function readDeleteHeaderStatus(headerObj)
+function retrieveDeviceObject(inpDeviceID, deviceCallback)
 {
-	var givenValue = headerObj["delete-permanently"];
-	var readRes = false;
+	var apiResult = {};
 	
-	if (givenValue === "true")
+	apiResult["outcome"] = -1;
+	apiResult["deviceInfo"] = {};
+	apiResult["messageText"] = "";
+	
+	if (inpDeviceID !== null)
 	{
-		readRes = true;
+		callRemoteIoRead(inpDeviceID, apiResult, deviceCallback);
 	}
-	
-	return readRes;
+	else
+	{
+		apiResult.outcome = -1;
+		apiResult.messageText = "Device ID Not Entered";
+		return deviceCallback(apiResult);
+	}
+}
+
+
+function callRemoteIoRead(deviceID, resObject, rioCallback)
+{
+	rioIndex.getRemoteIoDevice(deviceID, function (rioErr, retrievedObject)
+	{
+		if (rioErr !== null)
+		{
+			resObject.outcome = 0;
+			resObject.messageText = rioErr.message;
+		}
+		else
+		{
+			resObject.outcome = 1;
+			resObject.deviceInfo = retrievedObject;
+		}
+		
+		return rioCallback(resObject);
+	});
 }
 
 
@@ -30,5 +59,5 @@ function readDeleteHeaderStatus(headerObj)
 module.exports =
 {
 	readPage: readPagePart,
-	readDeleteHeader: readDeleteHeaderStatus
+	retrieveDevice: retrieveDeviceObject
 };

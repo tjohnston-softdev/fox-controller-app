@@ -44,7 +44,17 @@ function loadDatabase(dbName)
 	
 	function callCreateDevice(addInputObject, addCallback)
 	{
-		callUpdateDevice(null, addInputObject, addCallback);
+		var enteredID = addInputObject.id;
+		var idType = typeof enteredID;
+		
+		if (idType === "string" && enteredID.length > 0)
+		{
+			callUpdateDevice(enteredID, addInputObject, addCallback);
+		}
+		else
+		{
+			callUpdateDevice(null, addInputObject, addCallback);
+		}
 	}
 	
 	
