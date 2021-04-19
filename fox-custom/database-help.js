@@ -18,19 +18,20 @@ function generateEntryID(existingValue, hashObj)
 }
 
 
-function checkUpdateInputEntered(inpObj, errorCallback)
+function checkUpdateInputEntered(inpObj, prepID, jsonSyntax, checkInpCallback)
 {
-	// TODO: Callback Restructure
 	var entryType = typeof inpObj;
-	var objectEntered = false;
 	
 	if (inpObj !== undefined && inpObj !== null && entryType === "object")
 	{
-		objectEntered = true;
+		inpObj["__modified"] = Date.now();
+		inpObj["id"] = preparedID;
+		jsonSyntax.definition = JSON.stringify(inpObj);
+		return checkInpCallback(null, true);
 	}
 	else
 	{
-		return errorCallback(new Error("Missing entity"), null);
+		return checkInpCallback(new Error("Missing entity"), null);
 	}
 }
 

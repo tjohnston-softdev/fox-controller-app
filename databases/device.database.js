@@ -2,15 +2,16 @@ const path = require("path");
 const fs = require("fs");
 const level = require("level");
 const hashGen = require("hashids");
+const series = require("run-series");
 const createFolder = require("../fox-custom/create-folder");
 const databaseHelp = require("../fox-custom/database-help");
-const databaseRoot = "../fox-dbs";
-createFolder(databaseRoot);
+const pathSettings = require("../settings");
+createFolder(pathSettings.dbsPath);
 
 
 function loadDatabase(dbName)
 {
-	var dbFolderPath = path.join(databaseRoot, dbName);
+	var dbFolderPath = path.join(pathSettings.dbsPath, dbName);
 	var dbHash = new hashGen(dbName);
 	var loadedDatabaseObject = null;
 	var loadRes = {};
@@ -70,16 +71,14 @@ function loadDatabase(dbName)
 	function callUpdateDevice(updateTargetID, updateInputObject, updateCallback)
 	{
 		var preparedID = databaseHelp.generateID(updateTargetID, dbHash);
-		var objectDefinition = "";
+		var jsonSyntaxObject = {definition: ""};
 		
-		// TODO: Callback Restructure
-		databaseHelp.checkUpdateInput(updateInputObject, updateCallback);
-		
-		updateInputObject["__modified"] = Date.now();
-		updateInputObject["id"] = preparedID;
-		objectDefinition = JSON.stringify(updateInputObject);
-		
-		loadedDatabaseObject.put(preparedID, objectDefinition, function (updateErr)
+		series(
+		[
+			databaseHelp.checkUpdateInput.bind(null, updateInputObject, preparedID, jsonSyntaxObject),
+			loadedDatabaseObject.put.bind(null, updateInputObject, jsonSyntaxObject.definition)
+		],
+		function (updateErr)
 		{
 			if (updateErr !== undefined && updateErr !== null)
 			{

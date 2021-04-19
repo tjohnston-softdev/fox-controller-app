@@ -1,3 +1,4 @@
+const series = require("run-series");
 const deviceModelClass = require("../fox-devices/_classes/device-model.class");
 const deviceSettings = require("../fox-devices/device.settings");
 const rioFactories = require('../fox-devices/remote_io/remote-io.factories');
@@ -6,27 +7,27 @@ const rioFactories = require('../fox-devices/remote_io/remote-io.factories');
 
 function addNewDeviceEntry(inpDeviceObj, rioDatabase, runDeviceList, addNewCallback)
 {
-	var newStoredDevice = null;
+	var newStoredDevice = {contents: null};
 	
-	// TODO: Callback Restructure
-	checkInputType(inpDeviceObj, addNewCallback);
-	setMaker(inpDeviceObj);
-	newStoredDevice = createStoredDevice(inpDeviceObj);
-	checkCreationSuccessful(newStoredDevice, addNewCallback);
-	
-	rioDatabase.createDeviceEntity(newStoredDevice.object, function (addDeviceErr, addDeviceRes)
+	series(
+	{
+		"inputTypeValid": checkInputType.bind(null, inpDeviceObj),
+		"newStoredDevice": createStoredDevice.bind(null, inpDeviceObj),
+		"insertResult": insertNewDeviceObject.bind(null, inpDeviceObj, newStoredDevice, rioDatabase)
+	},
+	function (addDeviceErr, addDeviceRes)
 	{
 		if (addDeviceErr !== null)
 		{
 			return addNewCallback(addDeviceErr, null);
 		}
-		else if (newStoredDevice.object.isEnabled === true)
+		else if (addDeviceRes.newStoredDevice.isEnabled === true)
 		{
-			enableDevice(addDeviceRes, rioDatabase, runDeviceList, addNewCallback);
+			enableDevice(addDeviceRes.insertResult, rioDatabase, runDeviceList, addNewCallback);
 		}
 		else
 		{
-			return addNewCallback(null, addDeviceRes);
+			return addNewCallback(null, addDeviceRes.insertResult);
 		}
 	});
 }
@@ -35,25 +36,24 @@ function addNewDeviceEntry(inpDeviceObj, rioDatabase, runDeviceList, addNewCallb
 
 function updateExistingDeviceEntry(updatedDeviceObj, rioDatabase, runDeviceList, updateExistingCallback)
 {
-	var localID = null;
-	var modifiedStoredDevice = null;
+	var modifiedStoredDevice = {contents: null};
 	
-	// TODO: Callback Restructure
-	checkInputType(updatedDeviceObj, updateExistingCallback);
-	checkMissingID(updatedDeviceObj, updateExistingCallback);
-	localID = updatedDeviceObj.id;
-	
-	rioDatabase.readDeviceEntity(localID, function (existDeviceErr, existDeviceRes)
+	series(
+	[
+		checkInputType.bind(null, updatedDeviceObj),
+		checkMissingID.bind(null, updatedDeviceObj),
+		rioDatabase.readDeviceEntity.bind(null, updatedDeviceObj.id),
+		createStoredDevice.bind(null, updatedDeviceObj, modifiedStoredDevice),
+	],
+	function (existDeviceErr, existDeviceRes)
 	{
 		if (existDeviceErr !== null)
 		{
-			return updateExistingCallback(existDeviceErr, null);
+			return updateExistingCallback(existDeviceErr, null)
 		}
 		else
 		{
-			modifiedStoredDevice = createStoredDevice(updatedDeviceObj);
-			checkCreationSuccessful(modifiedStoredDevice, updateExistingCallback);
-			saveDeviceChanges(localID, modifiedStoredDevice.object, rioDatabase, runDeviceList, updateExistingCallback);
+			saveDeviceChanges(updatedDeviceObj.id, modifiedStoredDevice.contents, rioDatabase, runDeviceList, updateExistingCallback);
 		}
 	});
 }
@@ -75,6 +75,20 @@ function deleteDeviceEntry(inpDeleteID, inpPerm, rioDatabase, runDeviceList, dro
 		}
 	});
 }
+
+
+
+function insertNewDeviceObject(origInput, prepInput, rioDbase, insertNewCallback)
+{
+	setMaker(origInput);
+	
+	rioDbase.createDeviceEntity(prepInput.contents, function (insertEntryErr, insertEntryRes)
+	{
+		return insertNewCallback(insertEntryErr, insertEntryRes);
+	});
+}
+
+
 
 
 function saveDeviceChanges(newIdString, newDataObject, rioDbase, rDeviceList, saveCallback)
@@ -157,38 +171,40 @@ function handleDeviceListUpdate(elementKey, moduleObj, listObj)
 }
 
 
-function checkInputType(inpValue, errorCallback)
+function checkInputType(inpValue, typeCallback)
 {
-	// TODO: Callback Restructure
 	var givenType = typeof inpValue;
-	var correctType = false;
 	var flaggedMessage = "";
 	
 	if (inpValue !== undefined && inpValue !== null && givenType === "object")
 	{
-		correctType = true;
+		return typeCallback(null, true);
 	}
 	else
 	{
 		flaggedMessage = "Must be an object: " + inpValue;
-		return errorCallback(new Error(flaggedMessage), null);
+		return typeCallback(new Error(flaggedMessage), null);
 	}
 }
 
 
-function checkMissingID(inpObject, errorCallback)
+function checkMissingID(inpObject, missingCallback)
 {
-	// TODO: Callback Restructure
-	if (typeof inpObject.id !== "string")
+	var idType = typeof inpObject.id;
+	
+	if (idType === "string")
 	{
-		return errorCallback(new Error("ID property missing!"), null);
+		return missingCallback(null, inpObject.id);
+	}
+	else
+	{
+		return missingCallback(new Error("ID property missing!"), null);
 	}
 }
 
 
 function setMaker(inpObject)
 {
-	// TODO: Callback Restructure
 	if (typeof inpObject.maker !== "string")
 	{
 		inpObject.maker = deviceSettings.getDeviceMakerByModel(inpObject.model);
@@ -196,35 +212,22 @@ function setMaker(inpObject)
 }
 
 
-function createStoredDevice(deviceData)
-{
-	var createRes = {object: null, errorMessage: ""};
+function createStoredDevice(deviceData, sdCreateCallback)
+{	
+	var createErr = null;
+	var createRes = null;
 	
 	try
 	{
-		createRes.object = new deviceModelClass.StoredDevice(deviceData);
+		createRes = new deviceModelClass.StoredDevice(deviceData);
 	}
-	catch(e)
+	catch(thrownErr)
 	{
-		createRes.errorMessage = e.message;
+		createErr = thrownErr;
 	}
-	
-	return createRes;
-}
-
-
-function checkCreationSuccessful(sdCreate, errorCallback)
-{
-	// TODO: Callback Restructure
-	var createSuccessful = false;
-	
-	if (sdCreate.object !== null)
+	finally
 	{
-		createSuccessful = true;
-	}
-	else
-	{
-		return errorCallback(new Error(sdCreate.errorMessage), null);
+		return sdCreateCallback(createErr, createRes);
 	}
 }
 
