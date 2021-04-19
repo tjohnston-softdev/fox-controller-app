@@ -1,12 +1,8 @@
 # Changelog
 
-**./fox-custom/database-help.js**
-* Rewrote 'checkUpdateInputEntered' to catch null and other non-JSON values.
-	* If an object is entered, it is safe.
-	* Otherwise, flag error.
-
----
-
-**./databases/device.database.js - callCreateDevice**
-* No longer reads and uses existing object ID.
-* Only calls 'callUpdateDevice' with a null ID.
+* Marked callback functions that need to be restructured.
+* Denoted with a comment: "TODO: Callback Restructure"
+* Affected files:
+	* ./databases/device.database.js
+	* ./fox-custom/database-help.js
+	* ./fox-custom/rio-modify.js

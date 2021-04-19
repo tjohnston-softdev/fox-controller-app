@@ -8,6 +8,7 @@ function addNewDeviceEntry(inpDeviceObj, rioDatabase, runDeviceList, addNewCallb
 {
 	var newStoredDevice = null;
 	
+	// TODO: Callback Restructure
 	checkInputType(inpDeviceObj, addNewCallback);
 	setMaker(inpDeviceObj);
 	newStoredDevice = createStoredDevice(inpDeviceObj);
@@ -37,6 +38,7 @@ function updateExistingDeviceEntry(updatedDeviceObj, rioDatabase, runDeviceList,
 	var localID = null;
 	var modifiedStoredDevice = null;
 	
+	// TODO: Callback Restructure
 	checkInputType(updatedDeviceObj, updateExistingCallback);
 	checkMissingID(updatedDeviceObj, updateExistingCallback);
 	localID = updatedDeviceObj.id;
@@ -157,6 +159,7 @@ function handleDeviceListUpdate(elementKey, moduleObj, listObj)
 
 function checkInputType(inpValue, errorCallback)
 {
+	// TODO: Callback Restructure
 	var givenType = typeof inpValue;
 	var correctType = false;
 	var flaggedMessage = "";
@@ -175,6 +178,7 @@ function checkInputType(inpValue, errorCallback)
 
 function checkMissingID(inpObject, errorCallback)
 {
+	// TODO: Callback Restructure
 	if (typeof inpObject.id !== "string")
 	{
 		return errorCallback(new Error("ID property missing!"), null);
@@ -184,6 +188,7 @@ function checkMissingID(inpObject, errorCallback)
 
 function setMaker(inpObject)
 {
+	// TODO: Callback Restructure
 	if (typeof inpObject.maker !== "string")
 	{
 		inpObject.maker = deviceSettings.getDeviceMakerByModel(inpObject.model);
@@ -210,6 +215,7 @@ function createStoredDevice(deviceData)
 
 function checkCreationSuccessful(sdCreate, errorCallback)
 {
+	// TODO: Callback Restructure
 	var createSuccessful = false;
 	
 	if (sdCreate.object !== null)

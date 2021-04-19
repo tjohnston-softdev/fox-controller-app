@@ -20,6 +20,7 @@ function generateEntryID(existingValue, hashObj)
 
 function checkUpdateInputEntered(inpObj, errorCallback)
 {
+	// TODO: Callback Restructure
 	var entryType = typeof inpObj;
 	var objectEntered = false;
 	

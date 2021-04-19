@@ -72,6 +72,7 @@ function loadDatabase(dbName)
 		var preparedID = databaseHelp.generateID(updateTargetID, dbHash);
 		var objectDefinition = "";
 		
+		// TODO: Callback Restructure
 		databaseHelp.checkUpdateInput(updateInputObject, updateCallback);
 		
 		updateInputObject["__modified"] = Date.now();
