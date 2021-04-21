@@ -2,7 +2,6 @@ const path = require("path");
 const fs = require("fs");
 const level = require("level");
 const hashGen = require("hashids");
-const series = require("run-series");
 const createFolder = require("../fox-custom/create-folder");
 const databaseHelp = require("../fox-custom/database-help");
 const pathSettings = require("../settings");
@@ -73,22 +72,19 @@ function loadDatabase(dbName)
 		var preparedID = databaseHelp.generateID(updateTargetID, dbHash);
 		var jsonSyntaxObject = {definition: ""};
 		
-		series(
-		[
-			databaseHelp.checkUpdateInput.bind(null, updateInputObject, preparedID, jsonSyntaxObject),
-			loadedDatabaseObject.put.bind(null, updateInputObject, jsonSyntaxObject.definition)
-		],
-		function (updateErr)
+		
+		databaseHelp.checkUpdateInput(updateInputObject, preparedID, jsonSyntaxObject, function (inpCheckErr, inpCheckRes)
 		{
-			if (updateErr !== undefined && updateErr !== null)
+			if (inpCheckErr !== null)
 			{
-				return updateCallback(updateErr, null);
+				return updateCallback(inpCheckErr, null);
 			}
 			else
 			{
-				return updateCallback(null, updateInputObject.id);
+				handlePut(preparedID, jsonSyntaxObject.definition, updateCallback);
 			}
 		});
+		
 	}
 	
 	
@@ -139,6 +135,23 @@ function loadDatabase(dbName)
 			else
 			{
 				return deleteStatusCallback(null, true);
+			}
+		});
+	}
+	
+	
+	
+	function handlePut(putID, putSyntax, putCallback)
+	{
+		loadedDatabaseObject.put(putID, putSyntax, function (putErr, putRes)
+		{
+			if (putErr !== undefined && putErr !== null)
+			{
+				return putCallback(putErr, null);
+			}
+			else
+			{
+				return putCallback(null, putID);
 			}
 		});
 	}

@@ -3,7 +3,9 @@ const deviceSettings = require("../device.settings");
 const rioFactories = require('./remote-io.factories');
 const databaseLibrary = require("../../databases/device.database");
 const rioIntl = require("../../fox-custom/rio-intl");
-const rioModify = require("../../fox-custom/rio-modify");
+const rioAddNew = require("../../fox-rio-modify/rm-add-new");
+const rioUpdateExisting = require("../../fox-rio-modify/rm-update-existing");
+const rioDeleteExisting = require("../../fox-rio-modify/rm-delete-existing");
 const rioProgram = require("../../fox-custom/rio-program");
 const remoteIoDatabase = databaseLibrary("remote-io.db");
 
@@ -71,19 +73,19 @@ function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
 
 function crudAddRemoteIoDevice(inpDeviceObject, crudCallback)
 {
-	rioModify.addNewDevice(inpDeviceObject, remoteIoDatabase, runningIoDevices, crudCallback);
+	rioAddNew.addEntry(inpDeviceObject, remoteIoDatabase, runningIoDevices, crudCallback);
 }
 
 
 function crudUpdateRemoteIoDevice(updatedDeviceObject, crudCallback)
 {
-	rioModify.updateExistingDevice(updatedDeviceObject, remoteIoDatabase, runningIoDevices, crudCallback);
+	rioUpdateExisting.updateEntry(updatedDeviceObject, remoteIoDatabase, runningIoDevices, crudCallback);
 }
 
 
 function crudDeleteRemoteIoDevice(deviceTargetID, deletePermanent, crudCallback)
 {
-	rioModify.deleteDevice(deviceTargetID, deletePermanent, remoteIoDatabase, runningIoDevices, crudCallback);
+	rioDeleteExisting.deleteEntry(deviceTargetID, deletePermanent, remoteIoDatabase, runningIoDevices, crudCallback);
 }
 
 

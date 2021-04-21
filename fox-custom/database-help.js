@@ -25,7 +25,7 @@ function checkUpdateInputEntered(inpObj, prepID, jsonSyntax, checkInpCallback)
 	if (inpObj !== undefined && inpObj !== null && entryType === "object")
 	{
 		inpObj["__modified"] = Date.now();
-		inpObj["id"] = preparedID;
+		inpObj["id"] = prepID;
 		jsonSyntax.definition = JSON.stringify(inpObj);
 		return checkInpCallback(null, true);
 	}
