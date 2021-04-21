@@ -4,15 +4,8 @@ var httpErrors = require("http-errors");
 var deviceParams = require("../fox-api/device-params");
 var deviceSettings = require("../fox-devices/device.settings");
 var rioIndex = require('../fox-devices/remote_io/remote-io.index');
+var deviceApiUrls = require("../fox-api/device-paths");
 var router = express.Router();
-
-var deviceApiUrls =
-{
-	deviceStatus: '/status/:deviceType/:deviceId',
-    defaults: '/defaults',
-    deviceType: '/:deviceType',
-    deviceQuery: '/:deviceType/:deviceId'
-};
 
 router.use(bodyParser.urlencoded({extended: false}));
 
