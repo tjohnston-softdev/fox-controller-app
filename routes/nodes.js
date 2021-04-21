@@ -15,7 +15,17 @@ router.get('/', function(req, res, next)
 
 router.get('/:maker', function(req, res, next)
 {
-	res.send("List Nodes by Manufacturer");
+	rioIndex.listRiosForNode(req.params.maker, function(nodeListErr, nodeListRes)
+	{
+		if (nodeListErr !== null)
+		{
+			res.send(nodeListErr);
+		}
+		else
+		{
+			res.send(nodeListRes);
+		}
+	});
 });
 
 
