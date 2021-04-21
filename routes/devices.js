@@ -134,19 +134,20 @@ router.delete(deviceApiUrls.deviceQuery, function(req, res, next)
 {
 	var deleteProp = req.headers["delete-permanently"];
 	var delStatus = (deleteProp === "true");
-	var deleteResultObject = {};
+	var deleteResultObject = {success: false, body: "", id: ""};
 	var errorObject = null;
 	
 	rioIndex.delRemoteIoDevice(req.params.deviceId, delStatus, function (deleteExistingErr)
 	{
-		if (deleteExistingErr !== null)
+		if (deleteExistingErr !== undefined && deleteExistingErr !== null)
 		{
-			errorObject = httpErrors(deleteExistingErr);
-			return next(errorObject);
+			deleteResultObject.success = true;
+			deleteResultObject.body = deleteExistingErr.message;
+			res.send(deleteResultObject);
 		}
 		else
 		{
-			deleteResultObject["success"] = true;
+			deleteResultObject.success = true;
 			res.send(deleteResultObject);
 		}
 	});
