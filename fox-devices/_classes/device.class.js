@@ -68,6 +68,11 @@ function defineConnectedDevice(storedDeviceObject)
 					
 					if (currentType === rioSettings.ioTypes.control)
 					{
+						getPropRes[rioSettings.ioTypes.control].push(currentProperty);
+						getPropRes[rioSettings.ioTypes.status].push(currentProperty);
+					}
+					else if (currentType === rioSettings.ioTypes.status)
+					{
 						getPropRes[rioSettings.ioTypes.status].push(currentProperty);
 					}
 					
