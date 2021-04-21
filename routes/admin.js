@@ -1,4 +1,5 @@
 var express = require('express');
+var httpErrors = require("http-errors");
 var dhcpGenerator = require("../fox-api/dhcp-generator");
 var serviceMain = require("../service.main");
 var router = express.Router();
@@ -41,6 +42,29 @@ router.get('/health', function(req, res, next)
 	{
 		res.send(contHealthObj);
 	});
+});
+
+
+router.post('/restart/:unit', function(req, res, next)
+{
+	var resultObject = {success: true};
+	var errorObject = null;
+	
+	if (req.params.unit === "fox")
+	{
+		serviceMain.controller.rebootController();
+		res.send(resultObject);
+	}
+	else if (req.params.unit === "process")
+	{
+		serviceMain.controller.restartProcess();
+		res.send(resultObject);
+	}
+	else
+	{
+		errorObject = httpErrors(400);
+		next(errorObject, "Wrong request!");
+	}
 });
 
 

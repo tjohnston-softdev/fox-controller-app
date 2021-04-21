@@ -1,7 +1,13 @@
 # Changelog
 
 **Test Status**
-* Most reset tests pass:
-	* Process: 9 / 12
-	* Device: 9 / 12
-	* Factory: 17 / 20
+* Wrote emulation for '/api/admin/restart/:unit' endpoint.
+* Tests pass successfully.
+	* There is still a glitch with the offline check that causes an error.
+	* However, this is on the testing end and not API emulation.
+
+---
+
+**./routes/admin.js**
+* Required 'http-errors' module.
+* Emulated '/restart/:unit'
