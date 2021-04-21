@@ -9,6 +9,7 @@ var adminRouter = require("./routes/admin");
 var alarmRouter = require("./routes/alarm");
 var storageRouter = require("./routes/storage");
 var deviceRouter = require("./routes/devices");
+var nodesRouter = require("./routes/nodes");
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use('/api/admin', adminRouter);
 app.use('/api/alarm-history', alarmRouter);
 app.use('/api/storage', storageRouter);
 app.use('/api/devices', deviceRouter);
+app.use('/api/nodes', nodesRouter);
 
 
 app.use(function (errorObject, req, res, next)
