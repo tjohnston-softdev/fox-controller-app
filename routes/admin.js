@@ -68,5 +68,16 @@ router.post('/restart/:unit', function(req, res, next)
 });
 
 
+router.post('/factory-reset', function(req, res, next)
+{
+	var resultObject = {success: true};
+	
+	serviceMain.controller.factoryReset(function (resetErr, resetRes)
+	{
+		res.send(resultObject);
+	});
+});
+
+
 
 module.exports = router;
