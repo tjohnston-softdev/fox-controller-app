@@ -37,11 +37,9 @@ function checkObjectMissingID(inpObject, missingCallback)
 
 function setInputMaker(inpObject)
 {
-	var makerType = typeof inpObject.maker;
-	
-	if (makerType !== "string")
+	if (inpObject.maker === undefined)
 	{
-		inpObject.maker = deviceSettings.getDeviceMakerByModel(inpObject.model);
+		inpObject.maker = null;
 	}
 }
 

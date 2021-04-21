@@ -11,6 +11,7 @@ function addNewDeviceEntry(inpDeviceObj, rioDatabase, runDeviceList, addNewCallb
 		}
 		else
 		{
+			rioEntryHelp.setMaker(inpDeviceObj);
 			handleDeviceEntryCreation(inpDeviceObj, rioDatabase, runDeviceList, addNewCallback);
 		}
 	});
@@ -36,9 +37,7 @@ function handleDeviceEntryCreation(inpDevice, rioDbaseObject, runDevices, entryC
 
 
 function insertNewDeviceObject(origInput, prepInput, rioDbaseObj, runDevListObject, insertNewCallback)
-{
-	rioEntryHelp.setMaker(origInput);
-	
+{	
 	rioDbaseObj.createDeviceEntity(prepInput, function (insertEntryErr, insertEntryRes)
 	{
 		if (insertEntryErr !== null)
