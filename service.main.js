@@ -9,6 +9,7 @@ const systemInfo = require("./fox-api/system-info");
 const envSensors = require("./fox-api/env-sensors");
 const folderInfo = require("./fox-api/folder-info");
 const logSize = require("./fox-api/log-size");
+const databaseArray = require("./fox-api/database-array");
 const restartTime = 1000;
 
 class Controller
@@ -89,9 +90,19 @@ class Controller
 	
 	getDatabaseSize(sizeCallback)
 	{
-		folderInfo.getContents(contFolders.dbsPath, function (getDbSizesErr, getDbSizesRes)
+		var dbSizeRes = [];
+		
+		folderInfo.getContents(contFolders.dbsPath, function (dbFolderErr, dbFolderRes)
 		{
-			return sizeCallback(getDbSizesRes);
+			if (dbFolderErr !== null)
+			{
+				return sizeCallback(dbSizeRes);
+			}
+			else
+			{
+				dbSizeRes = databaseArray.prepareArray(dbFolderRes);
+				return sizeCallback(dbSizeRes);
+			}
 		});
 	}
 	

@@ -23,16 +23,13 @@ function handleStatObject(eName, fileStats, resArr, statCallback)
 {
 	var correctNameType = checkNameType(eName);
 	var correctObjectType = (fileStats instanceof fs.Stats);
+	var dirStatus = false;
 	var prepEntry = {};
 	
 	if (correctNameType === true && correctObjectType === true)
 	{
-		prepEntry["name"] = eName;
-		prepEntry["size"] = fileStats.size;
-		prepEntry["isDirectory"] = fileStats.isDirectory();
-		prepEntry["modified"] = Math.round(fileStats.mtimeMs);
-		prepEntry["created"] = Math.round(fileStats.birthtimeMs);
-		
+		dirStatus = fileStats.isDirectory();
+		prepEntry = defineItemObject(eName, fileStats.size, dirStatus, fileStats.mtimeMs, fileStats.birthtimeMs);
 		resArr.push(prepEntry);
 		return statCallback(null, true);
 	}
@@ -45,6 +42,20 @@ function handleStatObject(eName, fileStats, resArr, statCallback)
 		return statCallback(new Error('name must be a string'), null);
 	}
 	
+}
+
+
+function defineItemObject(itemName, itemSize, itemDir, itemModifiedTs, itemCreatedTs)
+{
+	var defineRes = {};
+	
+	defineRes["name"] = itemName;
+	defineRes["size"] = itemSize
+	defineRes["isDirectory"] = itemDir
+	defineRes["modified"] = Math.round(itemModifiedTs);
+	defineRes["created"] = Math.round(itemCreatedTs);
+	
+	return defineRes;
 }
 
 
@@ -65,5 +76,6 @@ function checkNameType(nValue)
 
 module.exports =
 {
-	readItem: readFolderItem
+	readItem: readFolderItem,
+	defineItem: defineItemObject
 };
