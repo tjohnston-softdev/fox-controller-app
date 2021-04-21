@@ -30,7 +30,7 @@ router.get(deviceApiUrls.deviceStatus, function(req, res, next)
 	}
 	else
 	{
-		var errorObject = httpErrors(404);
+		errorObject = httpErrors(404);
 		return next(errorObject);
 	}
 });
