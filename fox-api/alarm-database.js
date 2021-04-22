@@ -78,7 +78,7 @@ function setAlarmStatus(avObject, colFlag)
 
 
 
-function getAlarmObjects(inputParams)
+function getPopulatedAlarmObjects(inputParams)
 {
 	var loopIndex = 0;
 	var currentAlarm = {};
@@ -95,13 +95,25 @@ function getAlarmObjects(inputParams)
 		
 		if (currentTimeMatch === true && currentNodeMatch === true)
 		{
-			//queryRes.push(currentAlarm);
+			queryRes.push(currentAlarm);
 		}
 		
 		loopIndex = loopIndex + 1;
 	}
 	
 	return queryRes;
+}
+
+
+function getPopulatedAvailabilityObjects()
+{
+	return available;
+}
+
+
+function getAlarmObjects()
+{
+	return [];
 }
 
 
@@ -143,6 +155,8 @@ function checkNodeMatch(idVal, inpParas)
 
 module.exports =
 {
+	getPopulatedAlarms: getPopulatedAlarmObjects,
+	getPopulatedAvailable: getPopulatedAvailabilityObjects,
 	getAlarms: getAlarmObjects,
 	getAvailable: getAvailabilityObjects
 };
