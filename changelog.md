@@ -1,3 +1,4 @@
 # Changelog
 
-FOX Controller emulator is now feature complete.
+**./public/index.html**
+* Updated page text to refer to the FOX Controller.
