@@ -46,7 +46,7 @@ function defineNode(num)
 	
 	defineRes["ts"] = randomValues.generateTime(timestamps.alarm);
 	defineRes["nodeId"] = randomValues.generateNodeID();
-	defineRes["state"] = randomValues.generateFlag();
+	defineRes["state"] = randomValues.generateBinary();
 	defineRes["name"] = "Alarm Node Object " + num;
 	
 	return defineRes;

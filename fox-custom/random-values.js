@@ -203,7 +203,7 @@ function generateRandomNodeID()
 
 
 // Binary value.
-function generateRandomFlag()
+function generateRandomBinary()
 {
 	var seedValue = Math.random();
 	var flagRes = Math.round(seedValue);
@@ -255,7 +255,7 @@ module.exports =
 	generateVolume: generateRandomVolume,
 	generateUsagePercent: generateRandomUsagePercent,
 	generateNodeID: generateRandomNodeID,
-	generateFlag: generateRandomFlag,
+	generateBinary: generateRandomBinary,
 	generateInteger: chooseRandomInteger,
 	generateFloat: chooseRandomFloat,
 	generateArrayElement: chooseRandomElement
