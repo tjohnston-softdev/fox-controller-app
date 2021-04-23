@@ -1,3 +1,7 @@
+// Secondary functions for creating Remote IO database entries.
+
+
+// Use or generate entry ID.
 function generateEntryID(existingValue, hashObj)
 {
 	var existType = typeof existingValue;
@@ -6,10 +10,12 @@ function generateEntryID(existingValue, hashObj)
 	
 	if (existType === "string" && existingValue.length > 0)
 	{
+		// ID exists.
 		resultID = existingValue;
 	}
 	else
 	{
+		// Generate new random ID.
 		randomSeed = Date.now();
 		resultID = hashObj.encode(randomSeed);
 	}
@@ -18,12 +24,14 @@ function generateEntryID(existingValue, hashObj)
 }
 
 
+// Validates update entry input object.
 function checkUpdateInputEntered(inpObj, prepID, jsonSyntax, checkInpCallback)
 {
 	var entryType = typeof inpObj;
 	
 	if (inpObj !== undefined && inpObj !== null && entryType === "object")
 	{
+		// Correct object type - Prepare input.
 		inpObj["__modified"] = Date.now();
 		inpObj["id"] = prepID;
 		jsonSyntax.definition = JSON.stringify(inpObj);
@@ -31,6 +39,7 @@ function checkUpdateInputEntered(inpObj, prepID, jsonSyntax, checkInpCallback)
 	}
 	else
 	{
+		// Error.
 		return checkInpCallback(new Error("Missing entity"), null);
 	}
 }

@@ -1,5 +1,8 @@
+// Functions for input validation.
+
 const validator = require("validator");
 
+// Object type.
 function checkBaseObjectType(inputObj, inputDesc)
 {
 	var givenType = typeof inputObj;
@@ -19,6 +22,7 @@ function checkBaseObjectType(inputObj, inputDesc)
 
 
 
+// String property.
 function checkStringProperty(propName, propValue, defaultValue, className, actionDesc)
 {
 	var defaultType = typeof defaultValue;
@@ -28,14 +32,17 @@ function checkStringProperty(propName, propValue, defaultValue, className, actio
 	
 	if (givenType === "string")
 	{
+		// Use string.
 		readRes = propValue;
 	}
 	else if (defaultType === "string")
 	{
+		// Use default.
 		readRes = defaultValue;
 	}
 	else
 	{
+		// Type error.
 		flaggedMessage = writePropertyTypeError(propName, "string", propValue, className, actionDesc);
 		throw new Error(flaggedMessage);
 	}
@@ -44,6 +51,7 @@ function checkStringProperty(propName, propValue, defaultValue, className, actio
 }
 
 
+// True or False property.
 function checkBooleanProperty(propName, propValue, defaultValue, className, actionDesc)
 {
 	var flaggedMessage = "";
@@ -51,14 +59,17 @@ function checkBooleanProperty(propName, propValue, defaultValue, className, acti
 	
 	if (propValue === true || propValue === false)
 	{
+		// Use value.
 		readRes = propValue;
 	}
 	else if (defaultValue === true || defaultValue === false)
 	{
+		// Use default.
 		readRes = defaultValue;
 	}
 	else
 	{
+		// Type error.
 		flaggedMessage = writePropertyTypeError(propName, "boolean", propValue, className, actionDesc);
 		throw new Error(flaggedMessage);
 	}
@@ -67,6 +78,7 @@ function checkBooleanProperty(propName, propValue, defaultValue, className, acti
 }
 
 
+// Number property.
 function checkNumberProperty(propName, propValue, defaultValue, className, actionDesc)
 {
 	var defaultNumberGiven = Number.isFinite(defaultValue);
@@ -75,14 +87,17 @@ function checkNumberProperty(propName, propValue, defaultValue, className, actio
 	
 	if (correctType === true)
 	{
+		// Use number.
 		readRes = propValue;
 	}
 	else if (defaultNumberGiven === true)
 	{
+		// Use default.
 		readRes = defaultValue;
 	}
 	else
 	{
+		// Type error.
 		flaggedMessage = writePropertyTypeError(propName, "number", propValue, className, actionDesc);
 		throw new Error(flaggedMessage);
 	}
@@ -91,6 +106,7 @@ function checkNumberProperty(propName, propValue, defaultValue, className, actio
 }
 
 
+// Device Type value.
 function checkDeviceTypeProperty(propName, targetValue, remoteIoValue)
 {
 	var flaggedMessage = "";
@@ -98,10 +114,12 @@ function checkDeviceTypeProperty(propName, targetValue, remoteIoValue)
 	
 	if (targetValue === remoteIoValue)
 	{
+		// Valid.
 		readRes = targetValue;
 	}
 	else
 	{
+		// Unsupported.
 		flaggedMessage = writeUnsupportedValueError(propName, targetValue);
 		throw new Error(flaggedMessage);
 	}
@@ -110,18 +128,21 @@ function checkDeviceTypeProperty(propName, targetValue, remoteIoValue)
 }
 
 
+// String array match.
 function checkReferenceStringProperty(propName, targetValue, stringArr)
 {
-	var manufacturerExists = stringArr.includes(targetValue);
+	var stringExists = stringArr.includes(targetValue);
 	var flaggedMessage = "";
 	var readRes = "";
 	
-	if (manufacturerExists === true)
+	if (stringExists === true)
 	{
+		// Valid.
 		readRes = targetValue;
 	}
 	else
 	{
+		// Does not exist.
 		flaggedMessage = writeUnsupportedValueError(propName, targetValue);
 		throw new Error(flaggedMessage);
 	}
@@ -130,7 +151,7 @@ function checkReferenceStringProperty(propName, targetValue, stringArr)
 }
 
 
-
+// IP Address property.
 function checkIpAddressProperty(propName, propValue)
 {
 	var givenType = typeof propValue;
@@ -141,15 +162,18 @@ function checkIpAddressProperty(propName, propValue)
 	
 	if (givenType === "string")
 	{
+		// Check string format.
 		correctFormat = validator.isIP(propValue);
 	}
 	
 	if (correctFormat === true)
 	{
+		// Valid.
 		readRes = propValue;
 	}
 	else
 	{
+		// Incorrect format.
 		flaggedMessage = propName + " must be an IP address!";
 		throw new Error(flaggedMessage);
 	}
@@ -158,6 +182,7 @@ function checkIpAddressProperty(propName, propValue)
 }
 
 
+// Writes property type error text.
 function writePropertyTypeError(vProp, vType, vEntry, vClass, vAction)
 {
 	var writeRes = "";
@@ -177,6 +202,7 @@ function writePropertyTypeError(vProp, vType, vEntry, vClass, vAction)
 }
 
 
+// Writes unsupported value error text.
 function writeUnsupportedValueError(vProp, vUnknown)
 {
 	var writeRes = "";
@@ -191,6 +217,7 @@ function writeUnsupportedValueError(vProp, vUnknown)
 
 
 
+// Adds quote to error.
 function quoteText(txt)
 {
 	var quoted = "'" + txt + "'";

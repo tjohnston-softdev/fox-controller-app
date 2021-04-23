@@ -1,3 +1,5 @@
+// Reads system platform.
+
 const os = require("os");
 
 function readPlatform()

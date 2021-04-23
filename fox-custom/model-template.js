@@ -1,3 +1,7 @@
+// Creates object for supported Automation Logic Controller model.
+
+
+// Initialize with main data.
 function createModelObject(modelString, comString, pollCountNum, pollIntervalNum)
 {
 	var createRes = {};
@@ -16,6 +20,7 @@ function createModelObject(modelString, comString, pollCountNum, pollIntervalNum
 }
 
 
+// Add IO Config object.
 function addIoConfigObject(typeString, prefixString, lengthNum, configArr)
 {
 	var newConfig = {};
@@ -28,6 +33,7 @@ function addIoConfigObject(typeString, prefixString, lengthNum, configArr)
 }
 
 
+// Add manufacturer to objects in model array.
 function addManufacturerString(nameString, modelArr)
 {
 	var objectIndex = 0;
@@ -41,6 +47,7 @@ function addManufacturerString(nameString, modelArr)
 }
 
 
+// Placeholder function.
 function placeholder()
 {
 	return true;

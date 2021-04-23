@@ -1,3 +1,7 @@
+// Secondary functions for Remote IO Index program tasks.
+
+
+// Check device running.
 function checkRioDeviceRunning(inpDeviceID, runDeviceList)
 {
 	var deviceObject = runDeviceList[inpDeviceID];
@@ -13,7 +17,7 @@ function checkRioDeviceRunning(inpDeviceID, runDeviceList)
 }
 
 
-
+// Get devices by manufacturer.
 function filterDeviceObjectsByManufacturer(tgtManufacturer, deviceList)
 {
 	var deviceIndex = 0;
@@ -27,18 +31,23 @@ function filterDeviceObjectsByManufacturer(tgtManufacturer, deviceList)
 	
 	var filterRes = [];
 	
+	// Device object loop.
 	for (deviceIndex = 0; deviceIndex < deviceList.length; deviceIndex = deviceIndex + 1)
 	{
+		// Read current device manufacturer.
 		currentDevice = deviceList[deviceIndex];
 		currentManufacturer = currentDevice.maker;
 		currentType = typeof currentManufacturer;
+		
 		currentSet = false;
 		currentPrepared = "";
 		currentFilter = {};
 		currentPass = false;
 		
+		
 		if (currentType === "string" && currentManufacturer.length > 0)
 		{
+			// Manufacturer string read - Prepare text.
 			currentSet = true;
 			currentPrepared = currentManufacturer.toLowerCase();
 			currentPrepared = currentPrepared.trim();
@@ -46,10 +55,12 @@ function filterDeviceObjectsByManufacturer(tgtManufacturer, deviceList)
 		
 		if (currentSet === true && currentPrepared !== tgtManufacturer)
 		{
+			// Ignore current object.
 			currentPass = false;
 		}
 		else
 		{
+			// Filter current object.
 			currentFilter = saveFilteredDevice(currentDevice);
 			filterRes.push(currentFilter);
 			currentPass = true;
@@ -61,6 +72,7 @@ function filterDeviceObjectsByManufacturer(tgtManufacturer, deviceList)
 }
 
 
+// Unknown Module error.
 function getUnknownModuleErrorText()
 {
 	var writeRes = "Module doesn't exist! (disabled or deleted)";
@@ -69,6 +81,7 @@ function getUnknownModuleErrorText()
 
 
 
+// Filtered device object.
 function saveFilteredDevice(deviceObj)
 {
 	var saveRes = {};

@@ -1,3 +1,7 @@
+// Network Interface objects.
+
+
+// Define object.
 function initializeNetworkObject()
 {
 	var intlRes = {};
@@ -12,6 +16,7 @@ function initializeNetworkObject()
 }
 
 
+// Internal loopback interface.
 function setInternalValues(netObj)
 {
 	netObj.iface = "lo0";

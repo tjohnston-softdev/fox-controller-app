@@ -1,3 +1,5 @@
+// Defines size unit factors.
+
 function calculateSizeFactors()
 {
 	var baseAmount = 1000;

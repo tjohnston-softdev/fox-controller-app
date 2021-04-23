@@ -1,17 +1,15 @@
 # Changelog
 
 **Commented Files**
-* ./fox-api/alarm-database.js
-* ./fox-api/alarm-params.js
-* ./fox-api/database-array.js
+* ./fox-custom/create-folder.js
+* ./fox-custom/database-help.js
+* ./fox-custom-folder-item.js
 * *etc*
 
 ---
 
-**./fox-api/log-size.js**
-* Clarified the significance of the creation timestamp while commenting.
-
----
-
-**./fox-api/system-info.js - getMemoryObject**
-* Variables are declared and assigned on separate lines.
+**./fox-custom/**
+* validation-tasks.js - checkReferenceStringProperty
+	* Renamed 'manufacturerExists' variable to 'stringExists'
+* rio-device-status.js - insertListEntry
+	* Variables are declared and assigned on separate lines.

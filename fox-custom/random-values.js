@@ -1,12 +1,17 @@
+// Functions for generating random values.
+
 const hexValues = [];
 const deviceTypes = [];
 
+// Hex values.
 hexValues.push('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
 hexValues.push('a', 'b', 'c', 'd', 'e', 'f');
 
+// Device types.
 deviceTypes.push("Device", "Model", "Unit", "Host", "Node");
 
 
+// Timestamp within range.
 function generateRandomTime(tsObject)
 {
 	var timestampNumber = chooseRandomInteger(tsObject.min, tsObject.max);
@@ -14,11 +19,13 @@ function generateRandomTime(tsObject)
 }
 
 
+// IPv4 Address
 function generateRandomIpAddress()
 {
 	var currentNumber = -1;
 	var chosenNumbers = [];
 	
+	// Generate 8-bit values.
 	while (chosenNumbers.length < 4)
 	{
 		currentNumber = chooseRandomInteger(0, 255);
@@ -30,15 +37,18 @@ function generateRandomIpAddress()
 }
 
 
+// IPv6 Address.
 function generateRandomIpSix()
 {
 	var currentPart = "";
 	var addressParts = [];
 	
+	// Outer loop generates groups.
 	while (addressParts.length < 8)
 	{
 		currentPart = "";
 		
+		// Inner loop generates hex values.
 		while (currentPart.length < 4)
 		{
 			currentPart += chooseRandomElement(hexValues);
@@ -52,6 +62,7 @@ function generateRandomIpSix()
 }
 
 
+// MAC Address.
 function generateRandomMacAddress()
 {
 	var currentFirst = "";
@@ -59,6 +70,7 @@ function generateRandomMacAddress()
 	var currentPart = "";
 	var addressParts = [];
 	
+	// 6 groups of 2 hex values.
 	while (addressParts.length < 6)
 	{
 		currentFirst = chooseRandomElement(hexValues);
@@ -72,6 +84,7 @@ function generateRandomMacAddress()
 }
 
 
+// DHCP Host Name
 function generateRandomHost()
 {
 	var wildcardFlag = chooseRandomInteger(1, 100);
@@ -80,12 +93,15 @@ function generateRandomHost()
 	
 	var hostString = "";
 	
+	
 	if (wildcardFlag > 30 && wildcardFlag <= 40)
 	{
+		// 10% chance of wildcard.
 		hostString = "*";
 	}
 	else
 	{
+		// Specific name.
 		descPart = chooseRandomElement(deviceTypes);
 		numberPart = chooseRandomInteger(1, 9999);
 		hostString = descPart + "-" + numberPart;
@@ -95,6 +111,7 @@ function generateRandomHost()
 }
 
 
+// System uptime.
 function generateRandomUptime()
 {
 	var baseValue = process.uptime();
@@ -106,6 +123,7 @@ function generateRandomUptime()
 }
 
 
+// CPU core speed in Gigahertz.
 function generateRandomGigahertz()
 {
 	var baseValue = Math.random() * 5.25;
@@ -115,6 +133,7 @@ function generateRandomGigahertz()
 }
 
 
+// CPU core count.
 function generateRandomCoreCount()
 {
 	var baseValue = chooseRandomInteger(1, 16);
@@ -123,6 +142,7 @@ function generateRandomCoreCount()
 	
 	if (coreCount > 2)
 	{
+		// Round to even.
 		coreCount = coreCount - oddFlag;
 	}
 	
@@ -130,6 +150,7 @@ function generateRandomCoreCount()
 }
 
 
+// Volume size.
 function generateRandomVolume(maxVol, unitSize)
 {
 	var baseValue = chooseRandomInteger(1, maxVol);
@@ -138,6 +159,7 @@ function generateRandomVolume(maxVol, unitSize)
 	
 	if (unitCount > 2)
 	{
+		// Round to even.
 		unitCount = unitCount - oddFlag;
 	}
 	
@@ -146,6 +168,7 @@ function generateRandomVolume(maxVol, unitSize)
 }
 
 
+// Volume usage percent.
 function generateRandomUsagePercent()
 {
 	var percentRes = chooseRandomFloat(0.05, 0.95);
@@ -153,18 +176,21 @@ function generateRandomUsagePercent()
 }
 
 
+// Alarm Node ID.
 function generateRandomNodeID()
 {
 	var currentHex = "";
 	var firstPart = "";
 	var secondPart = "";
 	
+	// First part.
 	while (firstPart.length < 8)
 	{
 		currentHex = chooseRandomElement(hexValues);
 		firstPart += currentHex;
 	}
 	
+	// Second part.
 	while (secondPart.length < 6)
 	{
 		currentHex = chooseRandomElement(hexValues);
@@ -176,6 +202,7 @@ function generateRandomNodeID()
 }
 
 
+// Binary value.
 function generateRandomFlag()
 {
 	var seedValue = Math.random();
@@ -184,7 +211,7 @@ function generateRandomFlag()
 }
 
 
-
+// Whole number.
 function chooseRandomInteger(lowerLimit, upperLimit)
 {
 	var difference = upperLimit - lowerLimit;
@@ -194,6 +221,7 @@ function chooseRandomInteger(lowerLimit, upperLimit)
 }
 
 
+// Decimal number.
 function chooseRandomFloat(lowerLimit, upperLimit)
 {
 	var difference = upperLimit - lowerLimit;
@@ -203,6 +231,7 @@ function chooseRandomFloat(lowerLimit, upperLimit)
 }
 
 
+// Array element.
 function chooseRandomElement(subjectArray)
 {
 	var seedValue = Math.random() * subjectArray.length;

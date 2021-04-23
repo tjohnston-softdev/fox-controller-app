@@ -1,3 +1,7 @@
+// Defines timestamp limit objects.
+
+
+// Main function.
 function createTimestamps()
 {
 	var currentTime = Date.now();
@@ -11,6 +15,7 @@ function createTimestamps()
 }
 
 
+// Range object.
 function defineTimestampRange(lowerNum, upperNum)
 {
 	var defineRes = {};
@@ -22,6 +27,7 @@ function defineTimestampRange(lowerNum, upperNum)
 }
 
 
+// Calculate offset for alarm lower limit.
 function getAlarmOffset(curTime)
 {
 	var msPerMin = 1000 * 60;
