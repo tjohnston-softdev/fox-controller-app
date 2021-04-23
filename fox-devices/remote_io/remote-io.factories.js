@@ -12,8 +12,7 @@ function createRemoteIoModule(inputObject)
 	
 	function disableRemoteIo()
 	{
-		var disabled = true;
-		return disabled;
+		return true;
 	}
 	
 	

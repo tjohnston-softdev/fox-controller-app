@@ -64,8 +64,6 @@ function defineConnectedDevice(storedDeviceObject)
 					currentProperty["value"] = currentPrefix + '-' + currentNumber;
 					currentProperty["text"] = currentName + " " + currentNumber;
 					
-					getPropRes[rioSettings.ioTypes.control].push(currentProperty);
-					
 					if (currentType === rioSettings.ioTypes.control)
 					{
 						getPropRes[rioSettings.ioTypes.control].push(currentProperty);

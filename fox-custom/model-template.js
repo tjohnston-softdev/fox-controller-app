@@ -18,7 +18,12 @@ function createModelObject(modelString, comString, pollCountNum, pollIntervalNum
 
 function addIoConfigObject(typeString, prefixString, lengthNum, configArr)
 {
-	var newConfig = {"ioType": typeString, "ioPrefix": prefixString, "length": 4};
+	var newConfig = {};
+	
+	newConfig["ioType"] = typeString;
+	newConfig["ioPrefix"] = prefixString;
+	newConfig["length"] = lengthNum;
+	
 	configArr.push(newConfig);
 }
 
