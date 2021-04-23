@@ -1,3 +1,5 @@
+// Hard-coded 'device-info.json'
+
 function getInfoObject()
 {
 	var infoRes = {};

@@ -1,3 +1,7 @@
+// This file writes HTML code for API error messages.
+
+
+// Main function.
 function writeErrorHtmlText(errMsg, httpStatus)
 {
 	var prepStatus = prepareStatusInput(httpStatus);
@@ -18,6 +22,7 @@ function writeErrorHtmlText(errMsg, httpStatus)
 }
 
 
+// Read status code number.
 function prepareStatusInput(statNum)
 {
 	var correctType = Number.isInteger(statNum);
@@ -32,6 +37,7 @@ function prepareStatusInput(statNum)
 }
 
 
+// Write message element.
 function addErrorMessage(msg)
 {
 	var messagePart = "\t\t<h1>" + msg + "</h1>\n";
@@ -39,6 +45,7 @@ function addErrorMessage(msg)
 }
 
 
+// Write status element.
 function addStatus(sNum)
 {
 	var statusPart = "\t\t<h2>" + sNum + "</h2>\n";

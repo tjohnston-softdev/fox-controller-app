@@ -1,3 +1,5 @@
+// Stores URL paths for Device API.
+
 function defineURLs()
 {
 	var defineRes = {};

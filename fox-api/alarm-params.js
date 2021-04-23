@@ -1,5 +1,9 @@
+// Functions to read request parameters for Alarm API.
+
 const maxRows = 1000;
 
+
+// Reads target Node ID.
 function readNodeIdPart(parameterString)
 {
 	var givenType = typeof parameterString;
@@ -7,14 +11,17 @@ function readNodeIdPart(parameterString)
 	
 	if (parameterString === "all")
 	{
+		// Get all nodes.
 		readRes = null;
 	}
 	else if (givenType === "string" && parameterString.length > 0)
 	{
+		// Use target nodes.
 		readRes = parameterString.split(",");
 	}
 	else
 	{
+		// Default.
 		readRes = null;
 	}
 	
@@ -22,6 +29,7 @@ function readNodeIdPart(parameterString)
 }
 
 
+// Reads number parameter for timestamp.
 function readNumberPart(parameterString, defaultValue)
 {
 	var castObject = castNumberString(parameterString);
@@ -36,6 +44,7 @@ function readNumberPart(parameterString, defaultValue)
 }
 
 
+// Reads query row limit.
 function readLimitPart(parameterString, defaultValue)
 {
 	var castObject = castNumberString(parameterString);
@@ -43,14 +52,17 @@ function readLimitPart(parameterString, defaultValue)
 	
 	if (castObject.successful === true && castObject.value > 0 && castObject.value <= maxRows)
 	{
+		// Use row limit.
 		readRes = castObject.value;
 	}
 	else if (castObject.successful === true && castObject.value > maxRows)
 	{
+		// Maximum.
 		readRes = maxRows;
 	}
 	else
 	{
+		// Default
 		readRes = defaultValue;
 	}
 	
@@ -58,12 +70,14 @@ function readLimitPart(parameterString, defaultValue)
 }
 
 
+// Swaps timestamp range limits if they are out of order.
 function swapTimestampLimitValues(inputObj)
 {
 	var swapTemp = null;
 	
 	if (inputObj.timeLower > inputObj.timeUpper || inputObj.timeUpper < inputObj.timeLower)
 	{
+		// Swap required.
 		swapTemp = inputObj.timeLower;
 		inputObj.timeLower = inputObj.timeUpper;
 		inputObj.timeUpper = swapTemp;
@@ -71,6 +85,7 @@ function swapTimestampLimitValues(inputObj)
 }
 
 
+// Converts parameter string to whole number.
 function castNumberString(nString)
 {
 	var givenType = typeof nString;

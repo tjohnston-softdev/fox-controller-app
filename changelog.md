@@ -1,16 +1,17 @@
 # Changelog
 
-**./fox-custom/model-template.js - addIoConfigObject**
-* 'newConfig' properties are defined individually and not inline.
-* 'length' result property is now correctly set to 'lengthNum'
+**Commented Files**
+* ./fox-api/alarm-database.js
+* ./fox-api/alarm-params.js
+* ./fox-api/database-array.js
+* *etc*
 
 ---
 
-**./fox-devices/remote_io/remote-io.factories.js**
-* 'disableRemoteIo' only returns true without any variable.
+**./fox-api/log-size.js**
+* Clarified the significance of the creation timestamp while commenting.
 
 ---
 
-**./fox-devices/_classes/device.class.js - getRioProperties**
-* Removed `getPropRes[rioSettings.ioTypes.control].push` call.
-	* Arrays should only be modified within IF structure.
+**./fox-api/system-info.js - getMemoryObject**
+* Variables are declared and assigned on separate lines.

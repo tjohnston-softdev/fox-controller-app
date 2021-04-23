@@ -1,7 +1,10 @@
+// Prepares database object array for Admin Health API.
+
 const folderItem = require("../fox-custom/folder-item");
 const timestampRanges = require("../fox-custom/timestamp-ranges");
 
 
+// Main function.
 function prepareDatabaseArray(dbFolderContents)
 {
 	var arrayRes = [];
@@ -12,18 +15,21 @@ function prepareDatabaseArray(dbFolderContents)
 }
 
 
+// Reads Remote IO information. from database folder contents.
 function addRemoteIoDatabase(dbConts, dbArr)
 {
 	var entryIndex = 0;
 	var currentEntry = {};
 	var entryFound = false;
 	
+	// Loop content entries until end reached or target found.
 	while (entryIndex >= 0 && entryIndex < dbConts.length && entryFound !== true)
 	{
 		currentEntry = dbConts[entryIndex];
 		
 		if (currentEntry.name === "remote-io.db")
 		{
+			// Remote IO found.
 			dbArr.push(currentEntry);
 			entryFound = true;
 		}
@@ -33,6 +39,7 @@ function addRemoteIoDatabase(dbConts, dbArr)
 }
 
 
+// Emulate Alarm database information.
 function setAlarmDatabase(dbArr)
 {
 	var alarmCreate = timestampRanges.alarm.min;

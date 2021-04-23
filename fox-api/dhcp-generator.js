@@ -1,5 +1,8 @@
+// Generates DHCP information for '/api/admin/dhcp-clients' endpoint.
+
 const timestamps = require("../fox-custom/timestamp-ranges");
 const randomValues = require("../fox-custom/random-values");
+
 
 function generateClientObjects(genCount)
 {
@@ -7,6 +10,7 @@ function generateClientObjects(genCount)
 	var currentMAC = "";
 	var dhcpResult = [];
 	
+	// Loop generates given number of objects.
 	while (dhcpResult.length < genCount)
 	{
 		currentClient = {};
