@@ -1,11 +1,5 @@
 # Changelog
 
-**Commented Files**
-* ./routes/
-	* admin.js
-	* alarm.js
-	* devices.js
-	* index.js
-	* nodes.js
-	* storage.js
-* ./server.js
+**./routes/index.js**
+* Set title to "FOX Controller Emulator"
+	* Matches the raw HTML file.
