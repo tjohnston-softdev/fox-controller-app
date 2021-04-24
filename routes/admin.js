@@ -1,3 +1,5 @@
+// '/api/admin' router.
+
 var express = require('express');
 var httpErrors = require("http-errors");
 var dhcpGenerator = require("../fox-api/dhcp-generator");
@@ -5,12 +7,14 @@ var serviceMain = require("../service.main");
 var router = express.Router();
 
 
+// Root
 router.get('/', function(req, res, next)
 {
 	res.send("Admin root");
 });
 
 
+// DHCP Clients.
 router.get('/dhcp-clients', function(req, res, next)
 {
 	var clientArray = dhcpGenerator.generateClients(10);
@@ -18,6 +22,7 @@ router.get('/dhcp-clients', function(req, res, next)
 });
 
 
+// Defaults.
 router.get('/defaults', function(req, res, next)
 {
 	var msgObject = {message: "adminApi"};
@@ -25,6 +30,7 @@ router.get('/defaults', function(req, res, next)
 });
 
 
+// Logs.
 router.get('/logs', function(req, res, next)
 {
 	var logObject = {};
@@ -36,6 +42,7 @@ router.get('/logs', function(req, res, next)
 });
 
 
+// FOX Controller Health
 router.get('/health', function(req, res, next)
 {
 	serviceMain.controller.getHealth(function (contHealthObj)
@@ -45,6 +52,7 @@ router.get('/health', function(req, res, next)
 });
 
 
+// Restart Controller.
 router.post('/restart/:unit', function(req, res, next)
 {
 	var resultObject = {success: true};
@@ -52,22 +60,26 @@ router.post('/restart/:unit', function(req, res, next)
 	
 	if (req.params.unit === "fox")
 	{
+		// Reboot device.
 		serviceMain.controller.rebootController();
 		res.send(resultObject);
 	}
 	else if (req.params.unit === "process")
 	{
+		// Restart process.
 		serviceMain.controller.restartProcess();
 		res.send(resultObject);
 	}
 	else
 	{
+		// Error.
 		errorObject = httpErrors(400);
 		next(errorObject, "Wrong request!");
 	}
 });
 
 
+// Factory reset.
 router.post('/factory-reset', function(req, res, next)
 {
 	var resultObject = {success: true};

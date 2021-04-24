@@ -1,3 +1,5 @@
+// '/api/devices' router.
+
 var express = require('express');
 var bodyParser = require("body-parser");
 var httpErrors = require("http-errors");
@@ -10,12 +12,14 @@ var router = express.Router();
 router.use(bodyParser.urlencoded({extended: false}));
 
 
+// Root
 router.get('/', function(req, res, next)
 {
 	res.send("Devices root");
 });
 
 
+// Get device status.
 router.get(deviceApiUrls.deviceStatus, function(req, res, next)
 {
 	var prepDeviceType = deviceParams.readPage(req.params.deviceType);
@@ -25,17 +29,20 @@ router.get(deviceApiUrls.deviceStatus, function(req, res, next)
 	
 	if (prepDeviceType !== null && prepDeviceID !== null)
 	{
+		// Device parameters valid - Get status.
 		retrievedStatus = rioIndex.getRioDeviceStatus(prepDeviceID);
 		res.send(retrievedStatus);
 	}
 	else
 	{
+		// Device parameters error.
 		errorObject = httpErrors(404);
 		return next(errorObject);
 	}
 });
 
 
+// Get defaults.
 router.get(deviceApiUrls.defaults, function(req, res, next)
 {
 	var defaultRes = {};
@@ -48,6 +55,8 @@ router.get(deviceApiUrls.defaults, function(req, res, next)
 });
 
 
+
+// Get Remote IO devices by type.
 router.get(deviceApiUrls.deviceType, function(req, res, next)
 {
 	rioIndex.listRemoteIoDevices(function (listQueryErr, listQueryRes)
@@ -63,6 +72,8 @@ router.get(deviceApiUrls.deviceType, function(req, res, next)
 	});
 });
 
+
+// Create new Remote IO device.
 router.post(deviceApiUrls.deviceType, function(req, res, next)
 {
 	var addResult = {};
@@ -72,11 +83,13 @@ router.post(deviceApiUrls.deviceType, function(req, res, next)
 	{
 		if (addNewErr !== null)
 		{
+			// Error
 			errorObject = httpErrors(500, addNewErr.message);
 			return next(errorObject);
 		}
 		else
 		{
+			// Successful.
 			addResult = {success: true, id: addNewID};
 			res.send(addResult);
 		}
@@ -84,6 +97,7 @@ router.post(deviceApiUrls.deviceType, function(req, res, next)
 });
 
 
+// Get existing Remote IO device.
 router.get(deviceApiUrls.deviceQuery, function(req, res, next)
 {
 	var prepDeviceID = deviceParams.readPage(req.params.deviceId);
@@ -93,21 +107,26 @@ router.get(deviceApiUrls.deviceQuery, function(req, res, next)
 	{
 		if (retrievedData.outcome > 0)
 		{
+			// Successful.
 			res.send(retrievedData.deviceInfo);
 		}
 		else if (retrievedData.outcome === 0)
 		{
+			// Query error.
 			errorObject = httpErrors(retrievedData.messageText);
 			return next(errorObject);
 		}
 		else
 		{
+			// Device ID not entered.
 			errorObject = httpErrors(404);
 			return next(errorObject);
 		}
 	});
 });
 
+
+// Update existing Remote IO device.
 router.put(deviceApiUrls.deviceQuery, function(req, res, next)
 {
 	var updateResultObject = {};
@@ -117,11 +136,13 @@ router.put(deviceApiUrls.deviceQuery, function(req, res, next)
 	{
 		if (updateExistingErr !== null)
 		{
+			// Error
 			errorObject = httpErrors(updateExistingErr);
 			return next(errorObject);
 		}
 		else
 		{
+			// Successful
 			updateResultObject["success"] = true;
 			updateResultObject["id"] = updatedID;
 			res.send(updateResultObject);
@@ -130,6 +151,7 @@ router.put(deviceApiUrls.deviceQuery, function(req, res, next)
 });
 
 
+// Delete existing Remote IO device.
 router.delete(deviceApiUrls.deviceQuery, function(req, res, next)
 {
 	var deleteProp = req.headers["delete-permanently"];
@@ -141,12 +163,14 @@ router.delete(deviceApiUrls.deviceQuery, function(req, res, next)
 	{
 		if (deleteExistingErr !== undefined && deleteExistingErr !== null)
 		{
+			// Error
 			deleteResultObject.success = true;
 			deleteResultObject.body = deleteExistingErr.message;
 			res.send(deleteResultObject);
 		}
 		else
 		{
+			// Successful
 			deleteResultObject.success = true;
 			res.send(deleteResultObject);
 		}

@@ -1,3 +1,5 @@
+// '/api/storage' router.
+
 var path = require("path");
 var express = require('express');
 var bodyParser = require("body-parser");
@@ -11,31 +13,37 @@ var router = express.Router();
 router.use(bodyParser.urlencoded({extended: false}));
 
 
+// Root
 router.get('/', function(req, res, next)
 {
 	res.send("Storage root");
 });
 
 
+// List user storage.
 router.get('/user-files/list', function(req, res, next)
 {
 	var errorObject = null;
 	
+	// Retrieve storage folder contents.
 	folderInfo.getContents(contPaths.userStoragePath, function (storageContentsErr, storageContentsRes)
 	{
 		if (storageContentsErr !== null)
 		{
+			// Error
 			errorObject = httpErrors(storageContentsErr);
 			return next(errorObject);
 		}
 		else
 		{
+			// Successful
 			res.send(storageContentsRes);
 		}
 	});
 });
 
 
+// Download user storage file.
 router.get('/user-files/download/:fileName', function(req, res, next)
 {
 	var preparedFileName = downloadPrep.readFileName(req.params.fileName);
@@ -43,15 +51,18 @@ router.get('/user-files/download/:fileName', function(req, res, next)
 	var complete = false;
 	var errorObject = null;
 	
+	// Check file exists.
 	downloadPrep.checkDownloadExists(downloadPath, function (existErr, existRes)
 	{
 		if (existErr !== null)
 		{
+			// Error
 			errorObject = httpErrors(existErr);
 			return next(errorObject);
 		}
 		else
 		{
+			// Download file.
 			res.download(downloadPath, preparedFileName, function (sendErr)
 			{
 				complete = true;
@@ -61,6 +72,7 @@ router.get('/user-files/download/:fileName', function(req, res, next)
 });
 
 
+// Retrieve disk space.
 router.get('/global/status', function(req, res, next)
 {
 	serviceMain.controller.getDiskSpace(function (retrievedDiskSpace)
