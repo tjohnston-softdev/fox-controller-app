@@ -1,3 +1,9 @@
+/*
+	Sonoff model definitions.
+	Original FOX Controller file.
+*/
+
+
 const settings = require("./remote_io.settings");
 const modelTemplate = require("../../fox-custom/model-template");
 const modelsArray = [];
@@ -7,6 +13,7 @@ defineSecondObject();
 modelTemplate.addManufacturer("Sonoff", modelsArray);
 
 
+// Sonoff TH16
 function defineFirstObject()
 {
 	var modelObject = modelTemplate.createModel("Sonoff TH16", "http", 3, 200);
@@ -18,6 +25,7 @@ function defineFirstObject()
 }
 
 
+// Sonoff Basic
 function defineSecondObject()
 {
 	var modelObject = modelTemplate.createModel("Sonoff Basic", "http", 1, 200);

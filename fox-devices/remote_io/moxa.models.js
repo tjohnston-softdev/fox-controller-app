@@ -1,3 +1,9 @@
+/*
+	Moxa model definitions.
+	Original FOX Controller file.
+*/
+
+
 const settings = require("./remote_io.settings");
 const modelTemplate = require("../../fox-custom/model-template");
 const modelsArray = [];
@@ -7,6 +13,7 @@ modelTemplate.addManufacturer("Moxa", modelsArray);
 
 
 
+// ioLogik E1242
 function defineModelObject()
 {
 	var modelObject = modelTemplate.createModel("ioLogik E1242", "modbus", 2, 100);

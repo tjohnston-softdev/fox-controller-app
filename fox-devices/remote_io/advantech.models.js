@@ -1,3 +1,8 @@
+/*
+	Adventech model definitions.
+	Original FOX Controller file.
+*/
+
 const settings = require("./remote_io.settings");
 const modelTemplate = require("../../fox-custom/model-template");
 const modelsArray = [];
@@ -7,7 +12,7 @@ defineSecondObject();
 modelTemplate.addManufacturer("Advantech", modelsArray);
 
 
-
+// WISE-4060
 function defineFirstObject()
 {
 	var modelObject = modelTemplate.createModel("WISE-4060", "modbus", 3, 100);
@@ -19,6 +24,7 @@ function defineFirstObject()
 }
 
 
+// WISE-4012
 function defineSecondObject()
 {
 	var modelObject = modelTemplate.createModel("WISE-4012", "modbus", 4, 100);

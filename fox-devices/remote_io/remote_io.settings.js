@@ -1,3 +1,10 @@
+/*
+	Remote IO Settings
+	Original FOX Controller file.
+*/
+
+
+// Prefixes
 const ioPrefixesObj =
 {
 	DI: "DI",
@@ -9,11 +16,16 @@ const ioPrefixesObj =
 };
 
 
+// Signal types by prefix.
 const binarySignalsArr = [ioPrefixesObj.DI, ioPrefixesObj.DO, ioPrefixesObj.RO];
 const decimalSignalsArr = [ioPrefixesObj.AI, ioPrefixesObj.RTD, ioPrefixesObj.RO];
 
+
+// IO types
 const ioTypesObj = {status: "STATUS", control: "CONTROL"};
 
+
+// Names
 const ioNamesObj =
 {
 	[ioPrefixesObj.DI]: "Digital Input",
@@ -24,10 +36,17 @@ const ioNamesObj =
 	[ioPrefixesObj.RO]: "Relay Output"
 };
 
+
+// Signal types by flag
 const signalTypesObj = {binary: 0, decimal: 1};
+
+
+// Binary signal status
 const binSignalObj = {OFF: "OFF", ON: "ON"};
 
 
+
+// Get signal type by prefix.
 function getSignalTypeValue(prefixStr)
 {
 	var binaryFlag = binarySignalsArr.indexOf(prefixStr);
@@ -46,6 +65,7 @@ function getSignalTypeValue(prefixStr)
 }
 
 
+// Get prefix from IO string
 function parseIoPrefixString(ioSetId)
 {
 	var splitArr = ioSetId.split("-");
@@ -61,6 +81,7 @@ function parseIoPrefixString(ioSetId)
 }
 
 
+// Get index number from IO string
 function parseIoIndexValue(ioSetId)
 {
 	var splitArr = ioSetId.split("-");

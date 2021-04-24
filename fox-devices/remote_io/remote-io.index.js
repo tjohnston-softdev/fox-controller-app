@@ -1,3 +1,10 @@
+/*
+	Remote IO Index
+	Used to interact with Remote IO database.
+	Original FOX Controller file.
+*/
+
+
 const deviceModelClass = require("../_classes/device-model.class");
 const deviceSettings = require("../device.settings");
 const rioFactories = require('./remote-io.factories');
@@ -9,15 +16,19 @@ const rioDeleteExisting = require("../../fox-rio-modify/rm-delete-existing");
 const rioProgram = require("../../fox-custom/rio-program");
 const remoteIoDatabase = databaseLibrary("remote-io.db");
 
+// Global variables.
 var initializationCallbacks = [];
 var initializationComplete = false;
 var runningIoDevices = [];
 
 
+// Initialize Remote IO.
 function initializeRemoteIoFactory()
 {
+	// Retrieve existing devices.
 	remoteIoDatabase.listDevices(function (listErr, listDevices)
 	{
+		// Initialize device objects.
 		rioIntl.runInitializationLoop(listDevices, runningIoDevices);
 		initializationComplete = true;
 		rioIntl.runCallbackLoop(initializationCallbacks);
@@ -25,6 +36,7 @@ function initializeRemoteIoFactory()
 }
 
 
+// When initialization complete.
 function whenInitializationComplete(intlCompCallback)
 {
 	if (initializationComplete === true)
@@ -38,7 +50,7 @@ function whenInitializationComplete(intlCompCallback)
 }
 
 
-
+// List Remote IO Devices.
 function crudListRemoteIoDevices(crudCallback)
 {
 	remoteIoDatabase.listDevices(function (listErr, listDevices)
@@ -55,6 +67,7 @@ function crudListRemoteIoDevices(crudCallback)
 }
 
 
+// Get Device.
 function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
 {
 	remoteIoDatabase.readDeviceEntity(deviceTargetID, function (getDeviceErr, getDeviceRes)
@@ -71,24 +84,28 @@ function crudGetRemoteIoDevice(deviceTargetID, crudCallback)
 }
 
 
+// Add Device.
 function crudAddRemoteIoDevice(inpDeviceObject, crudCallback)
 {
 	rioAddNew.addEntry(inpDeviceObject, remoteIoDatabase, runningIoDevices, crudCallback);
 }
 
 
+// Update device.
 function crudUpdateRemoteIoDevice(updatedDeviceObject, crudCallback)
 {
 	rioUpdateExisting.updateEntry(updatedDeviceObject, remoteIoDatabase, runningIoDevices, crudCallback);
 }
 
 
+// Delete device.
 function crudDeleteRemoteIoDevice(deviceTargetID, deletePermanent, crudCallback)
 {
 	rioDeleteExisting.deleteEntry(deviceTargetID, deletePermanent, remoteIoDatabase, runningIoDevices, crudCallback);
 }
 
 
+// Get Remote IO status from device ID.
 function getRemoteIoStatus(deviceTargetID)
 {
 	var statusRes = {};
@@ -101,6 +118,7 @@ function getRemoteIoStatus(deviceTargetID)
 }
 
 
+// Get devices by manufacturer.
 function programListRemoteIoDevices(targetManufacturer, listCallback)
 {
 	var targetDevices = [];
@@ -120,6 +138,7 @@ function programListRemoteIoDevices(targetManufacturer, listCallback)
 }
 
 
+// Check device running.
 function programCheckNodeExists(deviceTargetID)
 {
 	var existRes = rioProgram.checkDeviceRunning(deviceTargetID, runningIoDevices);
@@ -127,6 +146,7 @@ function programCheckNodeExists(deviceTargetID)
 }
 
 
+// Register Remote IO device.
 function programRegisterNode(ioType, nodeConfig, registerCallback)
 {
 	var targetExists = rioProgram.checkDeviceRunning(nodeConfig.deviceId, runningIoDevices);
@@ -135,23 +155,27 @@ function programRegisterNode(ioType, nodeConfig, registerCallback)
 	
 	if (targetExists === true)
 	{
+		// Device is running - Return register function.
 		targetObject = runningIoDevices[nodeConfig.deviceId];
 		return targetObject.registerNodeCallback(ioType, nodeConfig, registerCallback);
 	}
 	else
 	{
+		// Device is not running - Return error.
 		flaggedMessage = rioProgram.getUnknownModuleError();
 		return registerCallback(new Error(flaggedMessage), undefined);
 	}
 }
 
 
+// Set Device Output
 function programSetDeviceOutput(deviceTargetID, ioPrefix, ioIndex, outputValue)
 {
 	return undefined;
 }
 
 
+// Get Remote IO properties from device.
 function programGetIoProperties(deviceTargetID)
 {
 	var targetObject = runningIoDevices[deviceTargetID];
@@ -161,6 +185,7 @@ function programGetIoProperties(deviceTargetID)
 
 
 
+// Close Remote IO database.
 function closeRemoteIoDatabase(closeRioCallback)
 {
 	remoteIoDatabase.closeDatabase(closeRioCallback);

@@ -1,3 +1,9 @@
+/*
+	Save data folder paths.
+	Original FOX Controller file.
+*/
+
+
 const productionEnvironment = (process.env.NODE_ENV === 'production');
 
 
