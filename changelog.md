@@ -1,20 +1,5 @@
 # Changelog
 
 **Test Status**
-* Test results unaffected by IP validation change.
 
----
-
-**./package.json**
-* Uninstalled 'validator'
-* Installed 'ip-regex'
-
----
-
-**./fox-custom/validation-tasks.js**
-* Removed 'validator' module requirement.
-* Required 'ip-regex' module.
-* Declared 'ipOpts' global variable.
-	* Contains IP address validation settings
-* checkIpAddressProperty
-	* Replaced `validator.isIP` with `ipRegex(ipOpts).test`
+The cached Moxa device test fails for front-end API requests. This is because that the Control array is empty when it shouldn't be. However, with close inspection, it appears to be a fault with the tests and not the Controller emulation. The same tests failed for the original controller as well.
