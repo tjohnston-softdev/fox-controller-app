@@ -1,3 +1,5 @@
 # Changelog
 
-Opened 'revision' branch.
+**./readme.md**
+* Size comparison table.
+	* Renamed 'Project' column to 'Build'

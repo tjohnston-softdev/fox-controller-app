@@ -20,7 +20,7 @@ The reason I wrote a separate emulator is because the prototype build I used was
 
 ## Size Comparison
 
-| Project   | Size          | Libraries | Front-End |
+| Build     | Size          | Libraries | Front-End |
 |-----------|---------------|-----------|-----------|
 | Prototype | At least 63MB | Too Many  | Angular   |
 | Emulator  | Approx. 9MB   | Minimal   | Raw HTML  |
