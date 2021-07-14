@@ -32,6 +32,6 @@ This project is licensed under [MIT](https://opensource.org/licenses/MIT). It is
 
 This project is the result of reverse-engineering a prototype build of the FOX Controller dated approximately 29 November 2018. All of the code written here is original unless strictly necessary to comply with unit tests. A local copy of the build was kept and used with permission from Optim Controls as a then-employee.
 
-I only claim copyright for the unit testing script and the emulator. I do not take any ownership of the FOX Controller or Optim Controls as a company. The usage and sharing of this repository does not imply endorsement from Optim Controls and how you use this software is your responsibility.
+I only claim copyright for the unit testing script and the emulator. I do not take any ownership of the FOX Controller product or Optim Controls as a company. The usage and sharing of this repository does not imply endorsement from Optim Controls and how you use this software is your responsibility.
 
 
