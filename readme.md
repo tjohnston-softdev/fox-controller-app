@@ -30,8 +30,6 @@ The reason I wrote a separate emulator is because the original was bloated with 
 ## Disclaimer
 This project is licensed under [MIT](https://opensource.org/licenses/MIT). It is only intended to be used with the [test script](https://github.com/tjohnston-softdev/fox-controller-app-tests) I wrote for the FOX Controller but you are free to use this as a basis for your own projects.
 
-This project is the result of reverse-engineering a prototype build of the FOX Controller dated approximately 29 November 2018. All of the code written here is original unless strictly necessary to comply with unit tests. A local copy of the build was kept and used with permission from Optim Controls as a then-employee.
+This project is the result of reverse-engineering a prototype build of the FOX Controller dated approximately 29 November 2018. All of the code written here is original unless strictly necessary to comply with unit tests. A local copy of the build was kept and used with permission from ControlX Engineering (Known as 'Optim Controls' at the time) as a then-employee.
 
-I only claim copyright for the unit testing script and the emulator. I do not take any ownership of the FOX Controller product or Optim Controls as a company. The usage and sharing of this repository does not imply endorsement from Optim Controls and how you use this software is your responsibility.
-
-
+I only claim copyright for the unit testing script and the emulator. I do not take any ownership of the FOX Controller product or ControlX Engineering as a company. The usage and sharing of this repository does not imply endorsement from ControlX Enginnering and how you use this software is your responsibility.
