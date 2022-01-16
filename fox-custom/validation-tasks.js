@@ -7,14 +7,10 @@ const ipOpts = {exact: true, includeBoundaries: true};
 function checkBaseObjectType(inputObj, inputDesc)
 {
 	var givenType = typeof inputObj;
-	var correctType = false;
+	var correctType = (inputObj !== undefined && inputObj !== null && givenType === "object");
 	var flaggedMessage = "";
 	
-	if (inputObj !== undefined && inputObj !== null && givenType === "object")
-	{
-		correctType = true;
-	}
-	else
+	if (correctType !== true)
 	{
 		flaggedMessage = inputDesc + " must be an object";
 		throw new Error(flaggedMessage);
@@ -188,16 +184,9 @@ function writePropertyTypeError(vProp, vType, vEntry, vClass, vAction)
 {
 	var writeRes = "";
 	
-	writeRes += "Invalid type! ";
-	writeRes += vProp;
-	writeRes += " must be ";
+	writeRes += ["Invalid type! ", vProp, " must be "].join("");
 	writeRes += quoteText(vType);
-	writeRes += " when got value ";
-	writeRes += vEntry;
-	writeRes += " in ";
-	writeRes += vClass;
-	writeRes += " during ";
-	writeRes += vAction;
+	writeRes += [" when got value ", vEntry, " in ", vClass, " during ", vAction].join("");
 	
 	return writeRes;
 }
@@ -206,13 +195,7 @@ function writePropertyTypeError(vProp, vType, vEntry, vClass, vAction)
 // Writes unsupported value error text.
 function writeUnsupportedValueError(vProp, vUnknown)
 {
-	var writeRes = "";
-	
-	writeRes += ".";
-	writeRes += vProp;
-	writeRes += " = ";
-	writeRes += vUnknown;
-	writeRes += " is not supported!";
+	var writeRes = [".", vProp, " = ", vUnknown, " is not supported!"].join("");
 	return writeRes;
 }
 
@@ -221,7 +204,7 @@ function writeUnsupportedValueError(vProp, vUnknown)
 // Adds quote to error.
 function quoteText(txt)
 {
-	var quoted = "'" + txt + "'";
+	var quoted = ["'", txt, "'"].join("");
 	return quoted;
 }
 

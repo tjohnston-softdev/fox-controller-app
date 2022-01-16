@@ -51,13 +51,7 @@ function handleWindows(letterNum, winObj)
 // Writes name for UNIX volumes.
 function writeUnixName(driveNum)
 {
-	var writeRes = "";
-	
-	writeRes += "/"
-	writeRes += platform;
-	writeRes += "/drive";
-	writeRes += driveNum;
-	
+	var writeRes = ["/", platform, "/drive", driveNum].join("");
 	return writeRes;
 }
 

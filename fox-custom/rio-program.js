@@ -6,12 +6,7 @@ function checkRioDeviceRunning(inpDeviceID, runDeviceList)
 {
 	var deviceObject = runDeviceList[inpDeviceID];
 	var elementType = typeof deviceObject;
-	var checkRes = false;
-	
-	if (deviceObject !== undefined && deviceObject !== null && elementType === "object")
-	{
-		checkRes = true;
-	}
+	var checkRes = (deviceObject !== undefined && deviceObject !== null && elementType === "object");
 	
 	return checkRes;
 }
@@ -87,7 +82,7 @@ function saveFilteredDevice(deviceObj)
 	var saveRes = {};
 	
 	saveRes["value"] = deviceObj.id;
-	saveRes["text"] = deviceObj.name + " - " + deviceObj.ipAddress;
+	saveRes["text"] = [deviceObj.name, " - ", deviceObj.ipAddress].join("");
 	saveRes["name"] = deviceObj.name;
 	
 	return saveRes;

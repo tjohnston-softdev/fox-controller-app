@@ -1,19 +1,24 @@
 # Changelog
 
-**./fox-api/alarm-database.js - checkTimeMatch**
-* Simplified function code. Check is performed on single line.
+**./fox-custom/folder-item.js - checkNameType**
+* 'checkRes' is assigned using an evaluation instead of an IF structure.
 
 ---
 
-**./fox-api/database-array.js**
-* Reduced whitespace between 'setAlarmDatabase' and `module.exports`
+**./fox-custom/fs-drive.js - writeUnixName**
+* Simplified function code. String is written on one line.
 
 ---
 
-**./fox-api/download-prep.js - writeMissingFileError**
-* Simplified function code. Error message is written using single line.
+**./fox-custom/rio-program.js**
+* 'checkRes' is now assigned using an evaluation instead of an IF structure. (checkRioDeviceRunning)
+* Re-wrote 'text' result property assignment for readability (saveFilteredDevice)
 
 ---
 
-**./fox-api/folder-info.js**
-* Reduced whitespace between 'loopFolderContents' and `module.exports`
+**./fox-custom/validation-tasks.js**
+* Simplified result checking in 'checkBaseObjectType'
+* Compressed string-writing code in functions:
+	* writePropertyTypeError
+	* writeUnsupportedValueError
+* Re-wrote 'quoteText' for readability.

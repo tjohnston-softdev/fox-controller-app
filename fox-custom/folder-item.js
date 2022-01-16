@@ -75,13 +75,7 @@ function defineItemObject(itemName, itemSize, itemDir, itemModifiedTs, itemCreat
 function checkNameType(nValue)
 {
 	var givenType = typeof nValue;
-	var checkRes = false;
-	
-	if (givenType === "string" && nValue.length > 0)
-	{
-		checkRes = true;
-	}
-	
+	var checkRes = (givenType === "string" && nValue.length > 0);
 	return checkRes;
 }
 
