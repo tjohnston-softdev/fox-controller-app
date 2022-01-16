@@ -1,3 +1,7 @@
 # Changelog
 
-FOX Controller boots successfully (2022-01-16)
+**./databases/device.database.js**
+* Reduced whitespace in functions:
+	* callUpdateDevice
+	* loadDatabase
+	* addRetrievedEntry

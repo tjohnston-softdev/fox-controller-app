@@ -94,7 +94,6 @@ function loadDatabase(dbName)
 		var preparedID = databaseHelp.generateID(updateTargetID, dbHash);
 		var jsonSyntaxObject = {definition: ""};
 		
-		
 		// Validate and prepare update input.
 		databaseHelp.checkUpdateInput(updateInputObject, preparedID, jsonSyntaxObject, function (inpCheckErr, inpCheckRes)
 		{
@@ -111,7 +110,6 @@ function loadDatabase(dbName)
 		});
 		
 	}
-	
 	
 	// Delete existing device.
 	function callDeleteDevice(delTargetID, delPerm, deleteCallback)
@@ -194,7 +192,6 @@ function loadDatabase(dbName)
 		});
 	}
 	
-	
 	// Set database object properties.
 	loadRes["listDevices"] = callListDevices;
 	loadRes["listAllDevices"] = callListAllDevices;
@@ -208,8 +205,6 @@ function loadDatabase(dbName)
 }
 
 
-
-
 // Secondary - Read database entry and save to list.
 function addRetrievedEntry(dataObj, delStat, entryArr)
 {
@@ -219,7 +214,6 @@ function addRetrievedEntry(dataObj, delStat, entryArr)
 	{
 		// Parse string data into JSON.
 		parsedEntry = JSON.parse(dataObj.value);
-		
 		
 		if (delStat === true || parsedEntry.isDeleted !== true)
 		{
@@ -233,7 +227,6 @@ function addRetrievedEntry(dataObj, delStat, entryArr)
 		parsedEntry = null;
 	}
 }
-
 
 
 module.exports = loadDatabase;
