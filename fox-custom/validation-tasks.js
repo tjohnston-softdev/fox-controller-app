@@ -186,7 +186,7 @@ function writePropertyTypeError(vProp, vType, vEntry, vClass, vAction)
 	
 	writeRes += ["Invalid type! ", vProp, " must be "].join("");
 	writeRes += quoteText(vType);
-	writeRes += [" when got value ", vEntry, " in ", vClass, " during ", vAction].join("");
+	writeRes += [" when got value ", String(vEntry), " in ", vClass, " during ", vAction].join("");
 	
 	return writeRes;
 }
@@ -195,7 +195,7 @@ function writePropertyTypeError(vProp, vType, vEntry, vClass, vAction)
 // Writes unsupported value error text.
 function writeUnsupportedValueError(vProp, vUnknown)
 {
-	var writeRes = [".", vProp, " = ", vUnknown, " is not supported!"].join("");
+	var writeRes = [".", vProp, " = ", String(vUnknown), " is not supported!"].join("");
 	return writeRes;
 }
 

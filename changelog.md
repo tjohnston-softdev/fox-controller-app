@@ -1,3 +1,7 @@
 # Changelog
 
-2022 file revision complete.
+**./fox-custom/validation-tasks.js**
+* Fixed error messages to correctly display `undefined` values.
+* Affected functions:
+	* writePropertyTypeError
+	* writeUnsupportedValueError
