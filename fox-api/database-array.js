@@ -50,8 +50,6 @@ function setAlarmDatabase(dbArr)
 }
 
 
-
-
 module.exports =
 {
 	prepareArray: prepareDatabaseArray

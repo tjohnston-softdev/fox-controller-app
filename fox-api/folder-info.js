@@ -72,8 +72,6 @@ function loopFolderContents(folderPath, contentsArray, entryArray, contentLoopCa
 }
 
 
-
-
 module.exports =
 {
 	getContents: getFolderContents

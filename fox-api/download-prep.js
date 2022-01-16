@@ -55,12 +55,7 @@ function checkDownloadFileExists(dlPath, existCallback)
 // Writes missing file error text.
 function writeMissingFileError(pth)
 {
-	var writeRes = "";
-	
-	writeRes += "'";
-	writeRes += pth;
-	writeRes += "' does not exist.";
-	
+	var writeRes = ["'", pth, "' does not exist."].join("");
 	return writeRes;
 }
 

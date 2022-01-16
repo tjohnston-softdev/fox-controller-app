@@ -148,13 +148,7 @@ function getAvailabilityObjects()
 // Checks whether alarm timestamp falls within the target range.
 function checkTimeMatch(tsVal, inpParas)
 {
-	var checkRes = false;
-	
-	if (tsVal >= inpParas.timeLower && tsVal <= inpParas.timeUpper)
-	{
-		checkRes = true;
-	}
-	
+	var checkRes = (tsVal >= inpParas.timeLower && tsVal <= inpParas.timeUpper);
 	return checkRes;
 }
 
