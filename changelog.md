@@ -1,3 +1,3 @@
 # Changelog
 
-Opened '2022' branch.
+Copyright 2022
