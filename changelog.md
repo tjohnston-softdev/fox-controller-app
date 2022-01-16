@@ -1,3 +1,3 @@
 # Changelog
 
-Updated 3rd-party packages (2022-01-16)
+'2022' branch is open for sure.
