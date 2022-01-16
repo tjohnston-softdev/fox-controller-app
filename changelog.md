@@ -1,3 +1,3 @@
 # Changelog
 
-Updated branding in disclaimer
+Opened '2022' branch.
