@@ -1,3 +1,3 @@
 # Changelog
 
-Copyright 2022
+Updated 3rd-party packages (2022-01-16)
