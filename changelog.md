@@ -1,7 +1,9 @@
 # Changelog
 
-**./validator/**
-* New folder
-	* Contains local files from 'validator' library.
-	* Used to validate IP addresses.
-	* More reliable and slightly smaller alternative to 'ip-regex'
+**./fox-custom/validation-tasks.js**
+* Removed 'ip-regex' requirement.
+* Required '../validator/isIP'
+* IP validation is now handled using the 'validator' library.
+	* Before: `ipRegex(ipOpts).test(propValue);`
+	* After: `isIP(propValue);`
+* Removed 'ipOpts' global object.

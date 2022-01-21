@@ -1,7 +1,6 @@
 // Functions for input validation.
 
-const ipRegex = require("ip-regex");
-const ipOpts = {exact: true, includeBoundaries: true};
+const isIP = require("../validator/isIP");
 
 // Object type.
 function checkBaseObjectType(inputObj, inputDesc)
@@ -160,7 +159,7 @@ function checkIpAddressProperty(propName, propValue)
 	if (givenType === "string")
 	{
 		// Check string format.
-		correctFormat = ipRegex(ipOpts).test(propValue);
+		correctFormat = isIP(propValue);
 	}
 	
 	if (correctFormat === true)
