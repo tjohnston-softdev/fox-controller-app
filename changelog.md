@@ -1,3 +1,7 @@
 # Changelog
 
-All unit tests work (2022-01-16 14:29)
+**./validator/**
+* New folder
+	* Contains local files from 'validator' library.
+	* Used to validate IP addresses.
+	* More reliable and slightly smaller alternative to 'ip-regex'
