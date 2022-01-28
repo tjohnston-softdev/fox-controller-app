@@ -1,4 +1,3 @@
 # Changelog
 
-**./package.json**
-* Uninstalled 'ip-regex'
+Checked for package updates (2022-01-28)
