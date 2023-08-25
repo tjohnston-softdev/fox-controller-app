@@ -1,4 +1,5 @@
 # FOX Controller Emulator
+
 This is a Node JS program I wrote which is used to simulate a prototype build of the FOX Controller, which I helped develop throughout 2018 and wrote a [unit testing script](https://github.com/tjohnston-softdev/fox-controller-app-tests) for.
 
 
@@ -28,6 +29,7 @@ The reason I wrote a separate emulator is because the original was bloated with 
 ---
 
 ## Disclaimer
+
 This project is licensed under [MIT](https://opensource.org/licenses/MIT). It is only intended to be used with the [test script](https://github.com/tjohnston-softdev/fox-controller-app-tests) I wrote for the FOX Controller but you are free to use this as a basis for your own projects.
 
 This project is the result of reverse-engineering a prototype build of the FOX Controller dated approximately 29 November 2018. All of the code written here is original unless strictly necessary to comply with unit tests. A local copy of the build was kept and used with permission from ControlX Engineering (Known as 'Optim Controls' at the time) as a then-employee.
